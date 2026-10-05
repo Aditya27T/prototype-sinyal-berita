@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const API = "/api";
 
 const VIEWS = [
   { key: "relevant", label: "Relevan" },
-  { key: "noise", label: "Noise" },
-  { key: "pending", label: "Belum dianalisis" },
+  { key: "noise", label: "Tidak relevan" },
+  { key: "pending", label: "Menunggu AI" },
   { key: "all", label: "Semua" },
 ];
 
@@ -39,6 +39,7 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState(null);
   const [issue, setIssue] = useState(null);
+  const autoSwitched = useRef(false);
 
   async function load() {
     setLoading(true);
@@ -65,17 +66,28 @@ export default function App() {
   }, [posts]);
 
   const relevantPosts = useMemo(() => posts.filter((p) => statusOf(p) === "relevant"), [posts]);
-  const locations = useMemo(() => tally(relevantPosts, "location"), [relevantPosts]);
-  const issues = useMemo(() => tally(relevantPosts, "issue_hint"), [relevantPosts]);
+  const analyzedPosts = useMemo(() => posts.filter((p) => statusOf(p) !== "pending"), [posts]);
+  const locations = useMemo(() => tally(analyzedPosts, "location"), [analyzedPosts]);
+  const issues = useMemo(() => tally(analyzedPosts, "issue_hint"), [analyzedPosts]);
+
+  // Jangan daratkan user di tab kosong: kalau tidak ada yang relevan,
+  // tampilkan Semua agar halaman pertama langsung berisi.
+  useEffect(() => {
+    if (!loading && !autoSwitched.current && posts.length > 0) {
+      autoSwitched.current = true;
+      if (relevantPosts.length === 0) setView("all");
+    }
+  }, [loading, posts, relevantPosts.length]);
 
   const visible = useMemo(() => {
     const q = search.trim().toLowerCase();
+    const ts = (p) => new Date(p.published_at ?? p.collected_at ?? 0).getTime() || 0;
     return posts
       .filter((p) => view === "all" || statusOf(p) === view)
       .filter((p) => !location || p.location === location)
       .filter((p) => !issue || p.issue_hint === issue)
       .filter((p) => !q || `${p.text} ${p.author ?? ""}`.toLowerCase().includes(q))
-      .sort((a, b) => (b.relevance_score ?? -1) - (a.relevance_score ?? -1));
+      .sort((a, b) => ts(b) - ts(a) || (b.relevance_score ?? -1) - (a.relevance_score ?? -1));
   }, [posts, view, search, location, issue]);
 
   const analyzed = stats.relevant + stats.noise;
@@ -108,7 +120,7 @@ export default function App() {
           hint={analyzed ? `${Math.round((stats.relevant / analyzed) * 100)}% dari yang dianalisis` : "—"}
           tone="good"
         />
-        <Stat label="Noise" value={stats.noise} hint="iklan, promosi, di luar isu publik" />
+        <Stat label="Tidak relevan" value={stats.noise} hint="iklan, promosi, di luar isu publik" />
       </section>
 
       {error && <div className="alert">{error}</div>}
@@ -150,9 +162,24 @@ export default function App() {
 
           {!loading && !error && visible.length === 0 && (
             <div className="empty">
-              {posts.length === 0
-                ? "Belum ada data. Jalankan pipeline dulu: uv run python -m pipeline.run"
-                : "Tidak ada posting yang cocok dengan filter ini."}
+              {posts.length === 0 ? (
+                "Belum ada data. Jalankan pipeline dulu: uv run python -m pipeline.run"
+              ) : view === "relevant" ? (
+                <>
+                  <p>
+                    <strong>Belum ada posting relevan.</strong>
+                    <br />
+                    {stats.pending > 0
+                      ? `${stats.pending} posting masih menunggu dinilai AI.`
+                      : "AI sudah menilai semua posting, tapi belum ada yang lolos sebagai isu publik — label AI masih tahap awal."}
+                  </p>
+                  <button className="btn" onClick={() => setView("all")}>
+                    Lihat semua {stats.total} posting
+                  </button>
+                </>
+              ) : (
+                "Tidak ada posting yang cocok dengan filter ini."
+              )}
             </div>
           )}
 
@@ -166,7 +193,7 @@ export default function App() {
         <aside>
           <Breakdown title="Lokasi" rows={locations} selected={location} onSelect={setLocation} />
           <Breakdown title="Isu" rows={issues} selected={issue} onSelect={setIssue} />
-          <p className="aside-note">Dihitung dari posting relevan. Klik untuk memfilter.</p>
+          <p className="aside-note">Dihitung dari posting yang sudah dianalisis. Klik untuk memfilter.</p>
         </aside>
       </div>
     </div>
@@ -222,7 +249,7 @@ function PostCard({ post, onLocation, onIssue }) {
     <li className={`post ${status}`}>
       <div className="post-head">
         <span className={`status ${status}`}>
-          {status === "relevant" ? "Relevan" : status === "noise" ? "Noise" : "Menunggu AI"}
+          {status === "relevant" ? "Relevan" : status === "noise" ? "Tidak relevan" : "Menunggu AI"}
         </span>
         {post.location && (
           <button className="tag" onClick={() => onLocation(post.location)}>{post.location}</button>
