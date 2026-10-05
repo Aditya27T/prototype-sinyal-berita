@@ -4,11 +4,16 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
 from pathlib import Path
 
+import httpx
 import yaml
+from dotenv import load_dotenv
 
 from core.schemas import AnalysisResult, Post
+
+load_dotenv()
 
 PROMPT_FILE = Path(__file__).resolve().parent / "prompts" / "relevance.txt"
 LOCATIONS_FILE = (
@@ -20,6 +25,31 @@ COMMERCIAL_RE = re.compile(
     re.IGNORECASE,
 )
 MODEL_VERSION = os.getenv("AI_MODEL_VERSION", "heuristic-0.1")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+GEMINI_TIMEOUT = float(os.getenv("GEMINI_TIMEOUT", "30"))
+
+_ANALYSIS_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "is_relevant": {"type": "boolean"},
+        "relevance_score": {"type": "number"},
+        "location": {"type": "string", "nullable": True},
+        "location_confidence": {"type": "number"},
+        "issue_hint": {"type": "string", "nullable": True},
+        "reason": {"type": "string", "nullable": True},
+    },
+    "required": ["is_relevant", "relevance_score", "location_confidence"],
+}
+
+
+def provider() -> str:
+    """Provider aktif: explicit AI_PROVIDER, atau gemini bila ada key, else heuristic."""
+    forced = os.getenv("AI_PROVIDER", "").strip().lower()
+    if forced:
+        return forced
+    if os.getenv("GEMINI_API_KEY", "").strip():
+        return "gemini"
+    return "heuristic"
 
 
 def _locations() -> list[str]:
@@ -31,8 +61,13 @@ def _locations() -> list[str]:
         return ["Sawojajar", "Dinoyo", "Suhat", "Batu", "Kepanjen"]
 
 
+def _prompt_for(text: str) -> str:
+    template = PROMPT_FILE.read_text(encoding="utf-8") if PROMPT_FILE.exists() else "{text}"
+    return template.replace("{text}", text).replace("{locations}", ", ".join(_locations()))
+
+
 def _heuristic(post: Post) -> AnalysisResult:
-    """Fallback tanpa LLM agar pipeline Person 3 tetap demo. Person 2 ganti dengan LLM."""
+    """Fallback tanpa LLM agar pipeline tetap demo bila API gagal / tanpa key."""
     text = post.text or ""
     low = text.lower()
     locs = _locations()
@@ -60,32 +95,53 @@ def _heuristic(post: Post) -> AnalysisResult:
     )
 
 
-def analyze(post: Post) -> AnalysisResult:
-    """TODO(Person 2): panggil LLM sesuai ai/prompts/relevance.txt, validasi JSON.
-
-    Untuk sekarang pakai heuristic + hook OpenAI bila OPENAI_API_KEY ada
-    (implementasi penuh milik Person 2).
-    """
-    api_key = os.getenv("OPENAI_API_KEY", "")
+def _analyze_gemini(post: Post) -> AnalysisResult:
+    """Panggil Gemini (JSON mode + responseSchema). Raise bila gagal → fallback heuristic."""
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key:
-        return _heuristic(post)
-    # Stub integrasi LLM — Person 2 lengkapi (timeout, JSON validation).
-    # Sengaja tetap heuristic agar tak merusak demo bila API gagal.
-    try:
-        from openai import OpenAI  # type: ignore
+        raise RuntimeError("GEMINI_API_KEY kosong")
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+    payload = {
+        "contents": [{"parts": [{"text": _prompt_for(post.text)}]}],
+        "generationConfig": {
+            "temperature": 0.0,
+            "maxOutputTokens": 1024,
+            "responseMimeType": "application/json",
+            "responseSchema": _ANALYSIS_SCHEMA,
+            "thinkingConfig": {"thinkingBudget": 0},
+        },
+    }
+    last_err: Exception | None = None
+    for attempt in (1, 2, 3):
+        try:
+            with httpx.Client(timeout=GEMINI_TIMEOUT) as client:
+                resp = client.post(url, headers={"x-goog-api-key": api_key}, json=payload)
+                resp.raise_for_status()
+                body = resp.json()
+            text = body["candidates"][0]["content"]["parts"][0]["text"]
+            return AnalysisResult(**json.loads(text))
+        except Exception as e:
+            last_err = e
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            if status in (429, 503) and attempt < 3:
+                time.sleep(5 * attempt)  # free-tier throttle: 5s, 10s
+                continue
+            break
+    raise RuntimeError(f"gemini gagal: {last_err}")
 
-        prompt = PROMPT_FILE.read_text() if PROMPT_FILE.exists() else "{text}"
-        client = OpenAI(api_key=api_key)
-        model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-        resp = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt.replace("{text}", post.text)}],
-            response_format={"type": "json_object"},
-            timeout=20,
-        )
-        data = json.loads(resp.choices[0].message.content or "{}")
-        return AnalysisResult(**data)
-    except Exception as e:
-        r = _heuristic(post)
-        r.reason = f"{r.reason} (llm-fallback: {e})"
-        return r
+
+def analyze(post: Post) -> AnalysisResult:
+    """Kontrak Person 2. Provider LLM bila key ada; fallback heuristic bila gagal."""
+    if provider() == "gemini":
+        try:
+            result = _analyze_gemini(post)
+            return result
+        except Exception as e:
+            r = _heuristic(post)
+            r.reason = f"{r.reason} (llm-fallback: {e})"
+            return r
+    return _heuristic(post)
+
+
+def model_version() -> str:
+    return f"gemini:{GEMINI_MODEL}" if provider() == "gemini" else MODEL_VERSION
