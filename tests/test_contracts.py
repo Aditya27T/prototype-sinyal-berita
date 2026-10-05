@@ -29,8 +29,10 @@ def test_dedup_key_priority():
     assert dedup_key(p3) == dedup_key(p4)
 
 
-def test_prd_four_cases_heuristic():
+def test_prd_four_cases_heuristic(monkeypatch):
     from ai.relevance import analyze
+
+    monkeypatch.setenv("AI_PROVIDER", "heuristic")  # suite tetap offline
 
     cases = [
         ("Sawojajar banjir maneh sam, banyune wes nutup dalan", True),

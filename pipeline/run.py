@@ -7,7 +7,6 @@ Hanya memanggil 4 signature kontrak — isi modul P1/P2 bebas diganti.
 from __future__ import annotations
 
 import argparse
-import os
 from pathlib import Path
 
 import yaml
@@ -17,13 +16,13 @@ from sqlalchemy.orm import Session
 
 load_dotenv()
 
-from ai.relevance import analyze  # noqa: E402
-from collectors.source_one import collect  # noqa: E402
-from core.schemas import Post  # noqa: E402
-from database.connection import get_session_factory, init_db  # noqa: E402
-from database.models import PostAnalysis, PostRow, Source  # noqa: E402
-from processing.deduplicate import dedup_key  # noqa: E402
-from processing.normalize import clean  # noqa: E402
+from ai.relevance import analyze, model_version
+from collectors.source_one import collect
+from core.schemas import Post
+from database.connection import get_session_factory, init_db
+from database.models import PostAnalysis, PostRow, Source
+from processing.deduplicate import dedup_key
+from processing.normalize import clean
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_SOURCES = ROOT / "config" / "sources.yaml"
@@ -183,7 +182,7 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
                         location_confidence=result.location_confidence,
                         issue_hint=result.issue_hint,
                         reason=result.reason,
-                        model_version=os.getenv("AI_MODEL_VERSION", "heuristic-0.1"),
+                        model_version=model_version(),
                     )
                 )
                 try:
