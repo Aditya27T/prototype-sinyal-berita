@@ -1,6 +1,9 @@
 # Milik Person 1 — satu platform aktif dulu (PLAN: jangan tambah sebelum stabil).
 # Instagram via SocialCrawl API (key di .env: SOCIALCRAWL_API_KEY).
-# source_type: account = ambil posting terbaru hari ini dari akun publik.
+# source_type:
+#   account = posting terbaru hari ini dari akun publik (1 credit/akun/run)
+#   hashtag = feed #tag terbaru IG, type=recent (5 credit/halaman, maks 2 halaman)
+#   search  = keyword search Threads, dibatasi hari ini (~1 credit/20 posts)
 sources:
   - platform: instagram
     source_type: account
@@ -13,4 +16,12 @@ sources:
   - platform: instagram
     source_type: account
     source_value: jawaposradarmalang
+    active: true
+  - platform: instagram
+    source_type: hashtag
+    source_value: malang
+    active: true
+  - platform: threads
+    source_type: search
+    source_value: malang
     active: true
