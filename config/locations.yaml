@@ -1,13 +1,51 @@
-# Milik Person 1 — seed lokasi. Logic TIDAK boleh hardcode lokasi.
+# Milik Person 1 — seed lokasi Malang Raya. Logic TIDAK boleh hardcode lokasi.
 # Person 2 & 3 baca dari sini bila perlu.
 locations:
+  # Area populer / sebutan warga
   - Sawojajar
   - Dinoyo
   - Suhat
-  - Batu
-  - Kepanjen
+  # Kota Malang (5 kecamatan)
   - Blimbing
+  - Kedungkandang
   - Klojen
   - Lowokwaru
+  - Sukun
+  # Kota Batu (3 kecamatan)
+  - Batu
+  - Bumiaji
+  - Junrejo
+  # Kabupaten Malang (33 kecamatan)
+  - Ampelgading
+  - Bantur
+  - Bululawang
+  - Dampit
+  - Dau
+  - Donomulyo
+  - Gedangan
+  - Gondanglegi
+  - Jabung
+  - Kalipare
+  - Karangploso
+  - Kasembon
+  - Kepanjen
+  - Kromengan
+  - Lawang
+  - Ngajum
+  - Ngantang
+  - Pagak
+  - Pagelaran
   - Pakis
+  - Pakisaji
+  - Poncokusumo
+  - Pujon
+  - Singosari
+  - Sumbermanjing Wetan
+  - Sumberpucung
+  - Tajinan
+  - Tirtoyudo
   - Tumpang
+  - Turen
+  - Wagir
+  - Wajak
+  - Wonosari

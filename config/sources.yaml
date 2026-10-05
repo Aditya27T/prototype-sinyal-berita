@@ -1,7 +1,16 @@
-# Milik Person 1 — satu source aktif dulu (PLAN: jangan tambah sebelum stabil).
-# source_type bebas: api | http | rss | fixture
+# Milik Person 1 — satu platform aktif dulu (PLAN: jangan tambah sebelum stabil).
+# Instagram via SocialCrawl API (key di .env: SOCIALCRAWL_API_KEY).
+# source_type: account = ambil posting terbaru hari ini dari akun publik.
 sources:
-  - platform: threads
-    source_type: fixture
-    source_value: fixtures/sample_posts.json
+  - platform: instagram
+    source_type: account
+    source_value: malangraya_info
+    active: true
+  - platform: instagram
+    source_type: account
+    source_value: infomalangan
+    active: true
+  - platform: instagram
+    source_type: account
+    source_value: jawaposradarmalang
     active: true
