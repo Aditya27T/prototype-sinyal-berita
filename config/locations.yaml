@@ -1,0 +1,13 @@
+# Milik Person 1 — seed lokasi. Logic TIDAK boleh hardcode lokasi.
+# Person 2 & 3 baca dari sini bila perlu.
+locations:
+  - Sawojajar
+  - Dinoyo
+  - Suhat
+  - Batu
+  - Kepanjen
+  - Blimbing
+  - Klojen
+  - Lowokwaru
+  - Pakis
+  - Tumpang

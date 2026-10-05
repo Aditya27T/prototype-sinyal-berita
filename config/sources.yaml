@@ -1,0 +1,7 @@
+# Milik Person 1 — satu source aktif dulu (PLAN: jangan tambah sebelum stabil).
+# source_type bebas: api | http | rss | fixture
+sources:
+  - platform: threads
+    source_type: fixture
+    source_value: fixtures/sample_posts.json
+    active: true
