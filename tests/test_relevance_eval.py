@@ -51,7 +51,8 @@ def _candidates():
     return picked
 
 
-def test_llm_precision_on_real_posts():
+def test_llm_precision_on_real_posts(monkeypatch):
+    monkeypatch.delenv("AI_PROVIDER", raising=False)  # lepas paksa-heuristic conftest
     if provider() != "gemini":
         pytest.skip("tanpa GEMINI_API_KEY — eval LLM dilewati")
     cands = _candidates()
