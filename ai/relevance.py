@@ -27,6 +27,9 @@ COMMERCIAL_RE = re.compile(
 MODEL_VERSION = os.getenv("AI_MODEL_VERSION", "heuristic-0.1")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
 GEMINI_TIMEOUT = float(os.getenv("GEMINI_TIMEOUT", "30"))
+OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "qwen/qwen3.8-27b:free")
+OPENROUTER_TIMEOUT = float(os.getenv("OPENROUTER_TIMEOUT", "60"))
+OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 _ANALYSIS_SCHEMA = {
     "type": "object",
@@ -43,10 +46,12 @@ _ANALYSIS_SCHEMA = {
 
 
 def provider() -> str:
-    """Provider aktif: explicit AI_PROVIDER, atau gemini bila ada key, else heuristic."""
+    """Provider aktif: explicit AI_PROVIDER, atau openrouter/gemini bila ada key, else heuristic."""
     forced = os.getenv("AI_PROVIDER", "").strip().lower()
     if forced:
         return forced
+    if os.getenv("OPENROUTER_API_KEY", "").strip():
+        return "openrouter"
     if os.getenv("GEMINI_API_KEY", "").strip():
         return "gemini"
     return "heuristic"
@@ -130,12 +135,66 @@ def _analyze_gemini(post: Post) -> AnalysisResult:
     raise RuntimeError(f"gemini gagal: {last_err}")
 
 
+def _extract_json(text: str) -> dict:
+    """Ambil objek JSON dari output LLM (toleran pagar ```json dan teks sekitar)."""
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    m = re.search(r"\{.*\}", text, re.DOTALL)
+    if not m:
+        raise ValueError("tidak ada objek JSON pada output LLM")
+    return json.loads(m.group(0))
+
+
+def _analyze_openrouter(post: Post) -> AnalysisResult:
+    """Panggil OpenRouter (OpenAI-compatible chat completions, JSON mode)."""
+    api_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("OPENROUTER_API_KEY kosong")
+    payload = {
+        "model": OPENROUTER_MODEL,
+        "messages": [{"role": "user", "content": _prompt_for(post.text)}],
+        "temperature": 0.0,
+        "max_tokens": 512,
+        "response_format": {"type": "json_object"},
+    }
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "HTTP-Referer": "https://github.com/Aditya27T/prototype-sinyal-berita",
+        "X-Title": "Telinga Digital",
+    }
+    last_err: Exception | None = None
+    for attempt in (1, 2, 3):
+        try:
+            with httpx.Client(timeout=OPENROUTER_TIMEOUT) as client:
+                resp = client.post(OPENROUTER_URL, headers=headers, json=payload)
+                resp.raise_for_status()
+                body = resp.json()
+            content = body["choices"][0]["message"]["content"] or "{}"
+            return AnalysisResult(**_extract_json(content))
+        except Exception as e:
+            last_err = e
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            if status in (429, 500, 502, 503) and attempt < 3:
+                time.sleep(5 * attempt)
+                continue
+            break
+    raise RuntimeError(f"openrouter gagal: {last_err}")
+
+
 def analyze(post: Post) -> AnalysisResult:
     """Kontrak Person 2. Provider LLM bila key ada; fallback heuristic bila gagal."""
-    if provider() == "gemini":
+    prov = provider()
+    if prov in ("gemini", "openrouter"):
         try:
-            result = _analyze_gemini(post)
-            return result
+            if prov == "gemini":
+                return _analyze_gemini(post)
+            return _analyze_openrouter(post)
         except Exception as e:
             r = _heuristic(post)
             r.reason = f"{r.reason} (llm-fallback: {e})"
@@ -144,4 +203,9 @@ def analyze(post: Post) -> AnalysisResult:
 
 
 def model_version() -> str:
-    return f"gemini:{GEMINI_MODEL}" if provider() == "gemini" else MODEL_VERSION
+    prov = provider()
+    if prov == "gemini":
+        return f"gemini:{GEMINI_MODEL}"
+    if prov == "openrouter":
+        return f"openrouter:{OPENROUTER_MODEL}"
+    return MODEL_VERSION
