@@ -1,5 +1,7 @@
 # Review UI — milik Person 3 (Bun + React, htmx menyusul)
 
+> Cara tercepat: dari root repo cukup `make web` (setup + data + API + web sekaligus).
+
 ## Jalan cepat
 
 ```bash

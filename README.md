@@ -33,6 +33,14 @@ Perubahan di `core/` harus disepakati bertiga. Jangan ubah signature fungsi di t
 - [x] `fixtures/sample_posts.json` — 12 contoh (termasuk 4 dari PRD)
 - [x] `docker-compose.yml` — Postgres 16
 
+## Cara tercepat
+
+```bash
+make web      # setup + data contoh + API + web, browser terbuka otomatis
+```
+
+Butuh `make`, `uv`, dan `bun`. Langkah manual di bawah tetap bisa dipakai sebagai rujukan.
+
 ## Cara jalan (demo end-to-end, 5 menit)
 
 ### 0. Prasyarat

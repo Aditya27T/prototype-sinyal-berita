@@ -107,6 +107,8 @@ def list_all(limit: int = Query(50, ge=1, le=200)) -> list[dict]:
                     "url": r.url,
                     "text": r.text,
                     "author": r.author,
+                    "published_at": r.published_at,
+                    "collected_at": r.collected_at,
                     "is_relevant": a.is_relevant if a else None,
                     "relevance_score": a.relevance_score if a else None,
                     "location": a.location if a else None,
