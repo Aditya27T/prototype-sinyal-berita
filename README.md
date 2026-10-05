@@ -3,6 +3,26 @@
 Pipeline: Source publik → Collector → Raw Posts → Cleaning + Dedup → Clean Posts → AI Relevance → DB → Review UI.
 Detail pembagian kerja: `docs/PLAN.md`.
 
+## Mulai untuk tim (clone)
+
+```bash
+git clone https://github.com/Aditya27T/prototype-sinyal-berita.git
+cd prototype-sinyal-berita
+cp .env.example .env
+uv sync --extra dev
+```
+
+Kerja di branch masing-masing biar tidak tabrakan, contoh:
+
+```bash
+git checkout -b person-1/collector   # Person 1 — Crawler/Data
+git checkout -b person-2/relevance   # Person 2 — AI/Relevance
+git checkout -b person-3/backend     # Person 3 — Backend/Integration
+```
+
+Aturan folder: kerjakan hanya di folder sendiri (`docs/PLAN.md` §2).
+Perubahan di `core/` harus disepakati bertiga. Jangan ubah signature fungsi di tabel Kontrak.
+
 ## Status Person 3 (Backend/Integration) — init selesai
 
 - [x] `core/schemas.py` — kontrak `Post` + `AnalysisResult`
