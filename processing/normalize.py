@@ -6,13 +6,24 @@ import re
 from core.schemas import Post
 
 _WS = re.compile(r"\s+")
+# baris yang isinya hanya hashtag (blok tag di akhir caption Instagram)
+_HASHTAG_LINE = re.compile(r"^\s*(?:[#.][\w.]*\s*)+$")
+
+
+def _strip_hashtag_block(text: str) -> str:
+    lines = text.splitlines()
+    while lines and (not lines[-1].strip() or _HASHTAG_LINE.match(lines[-1])):
+        lines.pop()
+    return "\n".join(lines)
 
 
 def clean(post: Post) -> Post | None:
-    """Rapikan whitespace, buang posting kosong. Return None = dibuang."""
-    text = _WS.sub(" ", (post.text or "")).strip()
+    """Buang blok hashtag di akhir, rapikan whitespace, buang posting kosong. None = dibuang.
+
+    Iklan/endorse TIDAK dibuang di sini — itu tugas AI relevance (Person 2).
+    """
+    text = _WS.sub(" ", _strip_hashtag_block(post.text or "")).strip()
     if not text:
         return None
-    # TODO(Person 1): tambah aturan (buang URL pendek? normalisasi case? dsb.)
     post.text = text
     return post
