@@ -7,6 +7,8 @@ Hanya memanggil 4 signature kontrak — isi modul P1/P2 bebas diganti.
 from __future__ import annotations
 
 import argparse
+import os
+import time
 from pathlib import Path
 
 import yaml
@@ -173,6 +175,9 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
                 except Exception as e:
                     print(f"[pipeline] analyze gagal post={cleaned.id}: {e}")
                     continue
+                pace = float(os.getenv("AI_PACE_SECONDS", "5"))
+                if pace > 0:
+                    time.sleep(pace)  # hormati rate-limit LLM free-tier
                 session.add(
                     PostAnalysis(
                         post_id=row.id,
