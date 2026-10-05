@@ -53,8 +53,8 @@ def _candidates():
 
 def test_llm_precision_on_real_posts(monkeypatch):
     monkeypatch.delenv("AI_PROVIDER", raising=False)  # lepas paksa-heuristic conftest
-    if provider() != "gemini":
-        pytest.skip("tanpa GEMINI_API_KEY — eval LLM dilewati")
+    if provider() not in ("gemini", "openrouter"):
+        pytest.skip("tanpa LLM key — eval LLM dilewati")
     cands = _candidates()
     labels = {l["idx"]: l for l in json.loads(LABELS.read_text(encoding="utf-8"))}
     assert len(cands) == len(labels) == 30
