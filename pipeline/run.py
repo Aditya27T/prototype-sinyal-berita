@@ -40,6 +40,31 @@ def load_queries() -> list[str]:
         return ["Sawojajar"]
 
 
+def load_sources() -> list[dict]:
+    """Semua source aktif dari config."""
+    try:
+        cfg = yaml.safe_load(CONFIG_SOURCES.read_text()) or {}
+        sources = [s for s in cfg.get("sources", []) if s.get("active") and s.get("source_value")]
+        if sources:
+            return sources
+    except Exception:
+        pass
+    return [{"platform": "threads", "source_type": "fixture", "source_value": "fixtures/sample_posts.json"}]
+
+
+def match_source(post: Post, sources: dict[str, Source]) -> Source:
+    """Petakan post ke source config via (platform, source_query). Fallback: source pertama."""
+    sq = (post.source_query or "").strip().lstrip("#@").lower()
+    cands = [(key.partition(":")[0], key.partition(":")[2], src) for key, src in sources.items()]
+    for platform, value, src in cands:
+        if platform == post.platform and value == sq:
+            return src
+    for platform, value, src in cands:
+        if platform == post.platform and (value in sq or sq in value):
+            return src
+    return next(iter(sources.values()))
+
+
 def ensure_source(session: Session, platform: str, source_type: str, source_value: str) -> Source:
     src = session.execute(
         select(Source).where(
@@ -82,16 +107,15 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
     SessionLocal = get_session_factory()
     stats = {"collected": 0, "clean_kept": 0, "inserted": 0, "skipped_dup": 0, "analyzed": 0}
 
-    # baca satu source aktif dari config (PLAN: satu source dulu)
-    try:
-        cfg = yaml.safe_load(CONFIG_SOURCES.read_text()) or {}
-        sources = [s for s in cfg.get("sources", []) if s.get("active")]
-        active = sources[0] if sources else {"platform": "threads", "source_type": "fixture", "source_value": "fixtures/sample_posts.json"}
-    except Exception:
-        active = {"platform": "threads", "source_type": "fixture", "source_value": "fixtures/sample_posts.json"}
+    # daftarkan SEMUA source aktif; tiap post dipetakan ke source-nya via match_source
+    active_sources = load_sources()
 
     with SessionLocal() as session:
-        src = ensure_source(session, active["platform"], active["source_type"], active["source_value"])
+        src_map: dict[tuple[str, str], Source] = {}
+        for s in active_sources:
+            src = ensure_source(session, s["platform"], s["source_type"], s["source_value"])
+            src_map[(s["platform"], str(s["source_value"]).strip().lstrip("#@").lower())] = src
+        match_map: dict[str, Source] = {f"{plat}:{val}": src for (plat, val), src in src_map.items()}
         seen_keys: set[str] = set()
         for query in load_queries():
             try:
@@ -122,9 +146,10 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
                         continue
                     row = existing
                 else:
+                    row_source = match_source(cleaned, match_map)
                     row = PostRow(
                         id=str(cleaned.id),
-                        source_id=src.id,
+                        source_id=row_source.id,
                         platform=cleaned.platform,
                         platform_post_id=cleaned.platform_post_id,
                         url=cleaned.url,
