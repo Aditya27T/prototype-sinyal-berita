@@ -161,4 +161,4 @@ def test_config_sources_have_no_threads_search():
     accounts = [s for s in sources if s["platform"] == "threads" and s["source_type"] == "account"]
     tags = [s for s in sources if s["platform"] == "threads" and s["source_type"] == "tag"]
     assert len(accounts) == 5 and all(s["replies"] for s in accounts)
-    assert {s["source_value"] for s in tags} == {"malang", "beritamalang", "malangraya", "infomalang"}
+    assert {s["source_value"] for s in tags} == {"malang", "karangploso malang"}

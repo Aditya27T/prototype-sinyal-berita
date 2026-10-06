@@ -54,19 +54,14 @@ sources:
     active: true
 
   # Threads: posting ber-topic_tag (saringan ext.topic_tag di sisi klien)
+  # Hanya tag yang benar-benar dipakai warga: "malang" (3–5 posting/hari) dan
+  # "karangploso malang" (kecamatan). Tag lain (beritamalang/malangraya/
+  # infomalang) selalu 0 hasil dalam 2 hari probe, jadi dibuang demi credit.
   - platform: threads
     source_type: tag
     source_value: malang
     active: true
   - platform: threads
     source_type: tag
-    source_value: beritamalang
-    active: true
-  - platform: threads
-    source_type: tag
-    source_value: malangraya
-    active: true
-  - platform: threads
-    source_type: tag
-    source_value: infomalang
+    source_value: karangploso malang
     active: true
