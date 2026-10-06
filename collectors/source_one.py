@@ -46,6 +46,8 @@ HASHTAG_MAX_PAGES = 2  # search/hashtag = 5 credit per halaman
 THREADS_TAG_LIMIT = 20  # 1 window per tag = 1–2 credit
 # posting induk per akun yang balasannya diambil (1 credit per induk ≈ 20 balasan)
 THREADS_REPLIES_PER_ACCOUNT = int(os.getenv("THREADS_REPLIES_PER_ACCOUNT", "2"))
+# batas keras: posting yang dicek balasannya per akun (posting tanpa balasan ≈ 0 credit)
+THREADS_REPLIES_MAX_POSTS = int(os.getenv("THREADS_REPLIES_MAX_POSTS", "4"))
 THREADS_REPLY_LIMIT = 25  # jangan >25: tanpa login Threads hanya mengekspos sebagian
 THREADS_REPLY_MIN_CHARS = 15  # balasan "👍" / "@user" tidak informatif
 
@@ -368,6 +370,9 @@ def _to_post(
     if not post_id and url:
         post_id = url.rstrip("/").rsplit("/", 1)[-1]
     meta: dict[str, Any] = {"kind": kind}
+    tag = _topic_tag(item)
+    if tag:
+        meta["topic_tag"] = tag
     if parent is not None:
         meta["parent_post_id"] = parent.platform_post_id
         meta["parent_url"] = parent.url
@@ -432,22 +437,28 @@ def _threads_account_posts(handle: str, replies: bool) -> list[Post]:
 
     replies_key = f"threads:replies:{handle}"
     replies_by_parent: dict[str, list[dict]] = {}
-    for root in roots[:THREADS_REPLIES_PER_ACCOUNT]:
-        if not root.url:
-            continue
+    checked = 0
+    for root in roots:
+        if len(replies_by_parent) >= THREADS_REPLIES_PER_ACCOUNT:
+            break  # sudah dapat balasan dari cukup posting
+        if checked >= THREADS_REPLIES_MAX_POSTS or not root.url:
+            continue  # manyalan posting kosong: jangan habiskan credit tanpa hasil
+        checked += 1
+        snap_key = f"{replies_key}:{root.platform_post_id}"
         raw = _fetch_threads_replies(root.url)
+        _save_snapshot(snap_key, raw or [])  # tetap disimpan walau kosong: run lalu hemat credit
         if raw:
-            _save_snapshot(f"{replies_key}:{root.platform_post_id}", raw)
             replies_by_parent[root.platform_post_id or root.url] = raw
         else:
-            snap_key = f"{replies_key}:{root.platform_post_id}"
             saved = _load_snapshot().get(snap_key, [])
             if saved:
                 print(f"[collector] {snap_key}: {len(saved)} balasan dari snapshot")
                 replies_by_parent[root.platform_post_id or root.url] = saved
     out = list(roots)
     n_reply = 0
-    for root in roots[:THREADS_REPLIES_PER_ACCOUNT]:
+    for root in roots:
+        if len(replies_by_parent) >= THREADS_REPLIES_PER_ACCOUNT:
+            break
         raw_items = replies_by_parent.get(root.platform_post_id or root.url, [])
         for r in (_reply_to_post(r, root, handle) for r in raw_items):
             if r and _fresh_enough(r, "threads"):

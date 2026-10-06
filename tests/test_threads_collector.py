@@ -128,6 +128,24 @@ def test_account_without_replies_flag(monkeypatch):
     assert [p.raw_data["kind"] for p in posts] == ["root"]
 
 
+def test_skips_roots_without_replies_until_limit(monkeypatch):
+    _reset(monkeypatch)
+    monkeypatch.setattr(so, "THREADS_REPLIES_MAX_POSTS", 3)
+    items = [
+        _root_item(pid="1", url="https://www.threads.com/@a/post/P1", text="Posting tanpa balasan"),
+        _root_item(pid="2", url="https://www.threads.com/@a/post/P2", text="Posting tanpa balasan 2"),
+        _root_item(pid="3", url="https://www.threads.com/@a/post/P3", text="Posting ada balasan"),
+    ]
+    monkeypatch.setattr(so, "_fetch_threads_user_posts", lambda handle: items)
+    monkeypatch.setattr(so, "_fetch_threads_replies", lambda url: [_reply_item()] if url.endswith("P3") else [])
+    posts = so._source_posts(
+        {"platform": "threads", "source_type": "account", "source_value": "a", "replies": True}
+    )
+    replies = [p for p in posts if p.raw_data["kind"] == "reply"]
+    assert len(replies) == 1
+    assert replies[0].raw_data["parent_post_id"] == "3"
+
+
 def test_search_source_type_removed(monkeypatch):
     _reset(monkeypatch)
     monkeypatch.setattr(so, "_fetch_threads_user_posts", lambda handle: [_root_item()])
