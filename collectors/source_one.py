@@ -120,6 +120,10 @@ def _post_dt(item: dict) -> datetime | None:
         dt = _parse_dt(item.get(k))
         if dt is not None:
             return dt
+    # balasan Threads tidak punya tanggal: pakai ext.published_at_epoch bila ada
+    ext = item.get("ext") if isinstance(item, dict) else None
+    if isinstance(ext, dict) and ext.get("published_at_epoch"):
+        return _parse_dt(ext["published_at_epoch"])
     return None
 
 
@@ -128,8 +132,13 @@ def _is_today_wib(dt: datetime | None) -> bool:
 
 
 def _unwrap(item: dict) -> dict:
-    """SocialCrawl membungkus tiap item: {"post": {...}, "computed": {...}}."""
-    return item.get("post", item) if isinstance(item, dict) else {}
+    """SocialCrawl membungkus tiap item: {"post": {...}, "computed": {...}}.
+
+    threads/post/comments memakai pembungkus "comment" dengan field `text` langsung.
+    """
+    if not isinstance(item, dict):
+        return {}
+    return item.get("post") or item.get("comment") or item
 
 
 def _caption(item: dict) -> str:
