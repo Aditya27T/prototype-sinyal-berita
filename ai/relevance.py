@@ -27,7 +27,7 @@ COMMERCIAL_RE = re.compile(
 MODEL_VERSION = os.getenv("AI_MODEL_VERSION", "heuristic-0.1")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
 GEMINI_TIMEOUT = float(os.getenv("GEMINI_TIMEOUT", "30"))
-OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "qwen/qwen3.8-27b:free")
+OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "nvidia/nemotron-3-super-120b-a12b:free")
 OPENROUTER_TIMEOUT = float(os.getenv("OPENROUTER_TIMEOUT", "60"))
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 

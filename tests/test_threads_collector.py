@@ -79,8 +79,6 @@ def test_tag_filter_keeps_only_matching_topic_tag(monkeypatch):
         def json(self):
             return {"data": {"items": items}}
 
-    import httpx
-
     class _Client:
         def __init__(self, *a, **kw):
             pass

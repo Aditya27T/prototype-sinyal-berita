@@ -142,6 +142,13 @@ def post_exists(session: Session, post: Post) -> PostRow | None:
     ).scalar_one_or_none()
 
 
+def _model_version_for(result) -> str:
+    """Label jujur: jangan tulis nama model LLM bila analyze() jatuh ke heuristic."""
+    if "llm-fallback" in (result.reason or ""):
+        return "heuristic-fallback"
+    return model_version()
+
+
 def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
     init_db()
     SessionLocal = get_session_factory()
@@ -227,7 +234,7 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
                         location_confidence=result.location_confidence,
                         issue_hint=result.issue_hint,
                         reason=result.reason,
-                        model_version=model_version(),
+                        model_version=_model_version_for(result),
                     )
                 )
                 try:
