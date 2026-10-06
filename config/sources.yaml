@@ -1,9 +1,13 @@
-# Milik Person 1 — satu platform aktif dulu (PLAN: jangan tambah sebelum stabil).
-# Instagram via SocialCrawl API (key di .env: SOCIALCRAWL_API_KEY).
+# Sumber aktif — dibaca collector (jangan hardcode di logic).
+# Instagram & Threads via SocialCrawl API (key di .env: SOCIALCRAWL_API_KEY).
 # source_type:
-#   account = posting terbaru hari ini dari akun publik (1 credit/akun/run)
-#   hashtag = feed #tag terbaru IG, type=recent (5 credit/halaman, maks 2 halaman)
-#   search  = keyword search Threads, dibatasi hari ini (~1 credit/20 posts)
+#   account  = posting terbaru hari ini dari akun publik
+#   hashtag  = feed #tag terbaru IG, type=recent (5 credit/halaman)
+#   tag      = posting Threads yang topic_tag-nya persis tag ini (1–2 credit/tag).
+#              SocialCrawl tidak punya feed tag: threads/search query=<tag> lalu
+#              disaring klien di _fetch_threads_tag (ext.topic_tag == tag).
+# Threads TIDAK pakai keyword search lagi: noise jual-beli, dan tidak membedakan
+# warga yang benar-benar memakai tag dari sekadar menyebut kata.
 sources:
   - platform: instagram
     source_type: account
@@ -21,7 +25,48 @@ sources:
     source_type: hashtag
     source_value: malang
     active: true
+
+  # Threads: posting hari ini dari akun berita + balasan warga (utas)
   - platform: threads
-    source_type: search
+    source_type: account
+    source_value: malangraya_info
+    replies: true
+    active: true
+  - platform: threads
+    source_type: account
+    source_value: infomalangan
+    replies: true
+    active: true
+  - platform: threads
+    source_type: account
+    source_value: jawaposradarmalang
+    replies: true
+    active: true
+  - platform: threads
+    source_type: account
+    source_value: malangposcomedia
+    replies: true
+    active: true
+  - platform: threads
+    source_type: account
+    source_value: infomalangraya
+    replies: true
+    active: true
+
+  # Threads: posting ber-topic_tag (saringan ext.topic_tag di sisi klien)
+  - platform: threads
+    source_type: tag
     source_value: malang
+    active: true
+  - platform: threads
+    source_type: tag
+    source_value: beritamalang
+    active: true
+  - platform: threads
+    source_type: tag
+    source_value: malangraya
+    active: true
+  - platform: threads
+    source_type: tag
+    source_value: infomalang
     active: true

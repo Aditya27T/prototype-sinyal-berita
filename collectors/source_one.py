@@ -5,7 +5,10 @@ Kontrak: collect(query: str, limit: int) -> list[Post] (PLAN §3.3).
 Sumber aktif dibaca dari config/sources.yaml (tidak hardcode):
 - platform=instagram, source_type=account  → posting hari ini dari akun itu.
 - platform=instagram, source_type=hashtag  → feed #tag terbaru (type=recent).
-- platform=threads,   source_type=search   → keyword search Threads.
+- platform=threads,   source_type=account  → posting hari ini dari akun itu
+  + (kalau replies: true) balasan warga di bawah posting tersebut (utas).
+- platform=threads,   source_type=tag      → posting ber-topic_tag; SocialCrawl tidak
+  punya endpoint feed tag, jadi threads/search query=<tag> lalu disaring klien.
 - query yang cocok salah satu source_value → source itu saja; query lain
   (mis. lokasi dari pipeline) → SEMUA source aktif. Fetch di-cache per proses,
   jadi credit SocialCrawl terpakai sekali per run.
@@ -18,7 +21,7 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -40,7 +43,11 @@ CONFIG_SOURCES = ROOT / "config" / "sources.yaml"
 WIB = ZoneInfo("Asia/Jakarta")
 MAX_PAGES = 3  # batas credit per akun per run
 HASHTAG_MAX_PAGES = 2  # search/hashtag = 5 credit per halaman
-THREADS_LIMIT = 40  # search = ~1 credit per ±20 posts (server-side walk)
+THREADS_TAG_LIMIT = 20  # 1 window per tag = 1–2 credit
+# posting induk per akun yang balasannya diambil (1 credit per induk ≈ 20 balasan)
+THREADS_REPLIES_PER_ACCOUNT = int(os.getenv("THREADS_REPLIES_PER_ACCOUNT", "2"))
+THREADS_REPLY_LIMIT = 25  # jangan >25: tanpa login Threads hanya mengekspos sebagian
+THREADS_REPLY_MIN_CHARS = 15  # balasan "👍" / "@user" tidak informatif
 
 _cache: dict[str, list[Post]] = {}
 
@@ -58,18 +65,29 @@ def _today_wib() -> str:
     return datetime.now(WIB).date().isoformat()
 
 
+def _since_date() -> str:
+    """Batas `since`; THREADS_SINCE_DAYS mundurkan bila akun belum posting hari ini."""
+    days = int(os.getenv("THREADS_SINCE_DAYS", "0"))
+    return (datetime.now(WIB) - timedelta(days=days)).date().isoformat()
+
+
 def _snapshot_file() -> Path:
     return FIXTURE_DIR / f"instagram_{_today_wib()}.json"
 
 
 def _load_sources() -> list[dict]:
-    """Semua source aktif dari config (akun, hashtag, search)."""
+    """Semua source aktif dari config (akun, hashtag, Threads akun/tag)."""
     try:
         cfg = yaml.safe_load(CONFIG_SOURCES.read_text()) or {}
     except Exception:
         return []
     return [
-        {"platform": str(s.get("platform", "")), "source_type": str(s.get("source_type", "")), "source_value": str(s.get("source_value", ""))}
+        {
+            "platform": str(s.get("platform", "")),
+            "source_type": str(s.get("source_type", "")),
+            "source_value": str(s.get("source_value", "")),
+            "replies": bool(s.get("replies", False)),
+        }
         for s in cfg.get("sources", [])
         if s.get("active") and s.get("source_value")
     ]
@@ -214,25 +232,88 @@ def _fetch_ig_hashtag(tag: str) -> list[dict] | None:
     return items
 
 
-def _fetch_threads_search(query: str) -> list[dict] | None:
-    """Keyword search Threads, dibatasi tanggal hari ini (server-side walk)."""
+def _fetch_threads_user_posts(handle: str) -> list[dict] | None:
+    """Posting hari ini dari satu akun Threads (1 credit ≈ 15 posting)."""
     creds = _api()
     if not creds:
         return None
     base, api_key = creds
-    today = _today_wib()
+    since = _since_date()
     try:
         with httpx.Client(timeout=60, headers={"x-api-key": api_key}) as client:
             resp = client.get(
-                f"{base}/threads/search",
-                params={"query": query, "limit": THREADS_LIMIT, "start_date": today, "end_date": today},
+                f"{base}/threads/user/posts",
+                params={"handle": handle.lstrip("@"), "since": since},
             )
             resp.raise_for_status()
             items, _ = _items_and_cursor(resp.json())
             return items
     except Exception as e:
-        print(f"[collector] SocialCrawl gagal threads-search={query}: {e}")
+        print(f"[collector] SocialCrawl gagal threads/user/posts handle={handle}: {e}")
         return None
+
+
+def _fetch_threads_replies(url: str) -> list[dict] | None:
+    """Balasan warga di bawah satu posting Threads (1 credit ≈ 20 balasan)."""
+    creds = _api()
+    if not creds:
+        return None
+    base, api_key = creds
+    try:
+        with httpx.Client(timeout=60, headers={"x-api-key": api_key}) as client:
+            resp = client.get(
+                f"{base}/threads/post/comments",
+                params={"url": url, "limit": THREADS_REPLY_LIMIT},
+            )
+            resp.raise_for_status()
+            items, _ = _items_and_cursor(resp.json())
+            return items
+    except Exception as e:
+        print(f"[collector] SocialCrawl gagal threads/post/comments url={url}: {e}")
+        return None
+
+
+def _topic_tag(item: dict) -> str | None:
+    """post.ext.topic_tag dinormalisasi (tanpa '#', lowercase)."""
+    ext = item.get("ext") if isinstance(item, dict) else None
+    raw = ext.get("topic_tag") if isinstance(ext, dict) else None
+    if not raw or not isinstance(raw, str):
+        return None
+    return raw.lstrip("#").strip().lower() or None
+
+
+def _fetch_threads_tag(tag: str) -> list[dict] | None:
+    """Posting ber-topic_tag lewat threads/search + saringan klien.
+
+    SocialCrawl tidak punya endpoint feed tag Threads: topic_tag hanya muncul
+    di ext hasil search, jadi yang kita simpan hanya posting yang tag-nya benar
+    sama dengan tag yang diminta (bukan posting yang sekadar memakai kata).
+    """
+    creds = _api()
+    if not creds:
+        return None
+    base, api_key = creds
+    today = _today_wib()
+    want = tag.lstrip("#").strip().lower()
+    try:
+        with httpx.Client(timeout=60, headers={"x-api-key": api_key}) as client:
+            resp = client.get(
+                f"{base}/threads/search",
+                params={
+                    "query": want,
+                    "limit": THREADS_TAG_LIMIT,
+                    "start_date": today,
+                    "end_date": today,
+                },
+            )
+            resp.raise_for_status()
+            items, _ = _items_and_cursor(resp.json())
+    except Exception as e:
+        print(f"[collector] SocialCrawl gagal threads/search tag=#{want}: {e}")
+        return None
+    matched = [i for i in items if _topic_tag(_unwrap(i)) == want]
+    print(f"[collector] threads tag #{want}: {len(matched)}/{len(items)} item lolos saringan topic_tag")
+    return matched
 
 
 def _load_snapshot() -> dict[str, list[dict]]:
@@ -254,7 +335,20 @@ def _save_snapshot(handle: str, items: list[dict]) -> None:
         print(f"[collector] gagal simpan snapshot: {e}")
 
 
-def _to_post(raw: dict, source_query: str, platform: str = "instagram") -> Post | None:
+def _with_meta(raw: dict, meta: dict) -> dict:
+    """Salin item mentah + metadata lokal (kind/parent) ke dalam raw_data."""
+    out = dict(raw) if isinstance(raw, dict) else {}
+    out.update(meta)
+    return out
+
+
+def _to_post(
+    raw: dict,
+    source_query: str,
+    platform: str = "instagram",
+    kind: str = "root",
+    parent: Post | None = None,
+) -> Post | None:
     item = _unwrap(raw)
     text = _caption(item)
     if not text.strip():
@@ -264,6 +358,12 @@ def _to_post(raw: dict, source_query: str, platform: str = "instagram") -> Post 
     post_id = item.get("id") or item.get("shortcode")
     if not post_id and url:
         post_id = url.rstrip("/").rsplit("/", 1)[-1]
+    meta: dict[str, Any] = {"kind": kind}
+    if parent is not None:
+        meta["parent_post_id"] = parent.platform_post_id
+        meta["parent_url"] = parent.url
+        if not url and parent.url:
+            url = f"{parent.url.rstrip('/')}/comment/{post_id}" if post_id else parent.url
     try:
         return Post(
             platform=platform,
@@ -273,14 +373,79 @@ def _to_post(raw: dict, source_query: str, platform: str = "instagram") -> Post 
             author=(author.get("username") if isinstance(author, dict) else None) or source_query,
             published_at=_post_dt(item),
             source_query=source_query,
-            raw_data=raw,
+            raw_data=_with_meta(raw, meta),
         )
     except Exception:
         return None
 
 
+def _reply_to_post(raw: dict, parent: Post, source_query: str) -> Post | None:
+    """Balasan warga → Post dengan raw_data.parent_post_id. Buang yang tak informatif."""
+    item = _unwrap(raw)
+    flags = item.get("flags") if isinstance(item, dict) else None
+    if isinstance(flags, dict) and (flags.get("deleted") or flags.get("is_deleted")):
+        return None
+    text = _caption(item)
+    if len(text.strip()) < THREADS_REPLY_MIN_CHARS:
+        return None
+    return _to_post(raw, source_query, platform="threads", kind="reply", parent=parent)
+
+
 def _source_key(source: dict) -> str:
     return f"{source['platform']}:{source['source_type']}:{source['source_value']}"
+
+
+def _fresh_enough(post: Post, platform: str) -> bool:
+    """Instagram: hanya hari ini. Threads: sejak `since` (bisa dimundurkan untuk demo)."""
+    if post.published_at is None:
+        return False
+    if platform == "threads":
+        return post.published_at.astimezone(WIB).date() >= date.fromisoformat(_since_date())
+    return _is_today_wib(post.published_at)
+
+
+def _threads_account_posts(handle: str, replies: bool) -> list[Post]:
+    """Posting induk hari ini dari akun Threads + (opsional) balasan warga."""
+    key = f"threads:account:{handle}"
+    items = _fetch_threads_user_posts(handle)
+    if items:
+        _save_snapshot(key, items)
+        print(f"[collector] {key}: {len(items)} item dari SocialCrawl")
+    else:
+        items = _load_snapshot().get(key, []) or _load_snapshot().get(handle, [])
+        if items:
+            print(f"[collector] {key}: {len(items)} item dari snapshot {_snapshot_file().name}")
+    roots = [p for p in (_to_post(i, handle, "threads") for i in items) if p and _fresh_enough(p, "threads")]
+    roots.sort(key=lambda p: p.published_at, reverse=True)
+
+    if not replies:
+        return roots
+
+    replies_key = f"threads:replies:{handle}"
+    replies_by_parent: dict[str, list[dict]] = {}
+    for root in roots[:THREADS_REPLIES_PER_ACCOUNT]:
+        if not root.url:
+            continue
+        raw = _fetch_threads_replies(root.url)
+        if raw:
+            _save_snapshot(f"{replies_key}:{root.platform_post_id}", raw)
+            replies_by_parent[root.platform_post_id or root.url] = raw
+        else:
+            snap_key = f"{replies_key}:{root.platform_post_id}"
+            saved = _load_snapshot().get(snap_key, [])
+            if saved:
+                print(f"[collector] {snap_key}: {len(saved)} balasan dari snapshot")
+                replies_by_parent[root.platform_post_id or root.url] = saved
+    out = list(roots)
+    n_reply = 0
+    for root in roots[:THREADS_REPLIES_PER_ACCOUNT]:
+        raw_items = replies_by_parent.get(root.platform_post_id or root.url, [])
+        for r in (_reply_to_post(r, root, handle) for r in raw_items):
+            if r and _fresh_enough(r, "threads"):
+                out.append(r)
+                n_reply += 1
+    print(f"[collector] threads:account:{handle} → {len(roots)} induk + {n_reply} balasan")
+    return out
 
 
 def _source_posts(source: dict) -> list[Post]:
@@ -289,17 +454,22 @@ def _source_posts(source: dict) -> list[Post]:
     if key in _cache:
         return _cache[key]
     platform, stype, value = source["platform"], source["source_type"], source["source_value"]
-    if stype == "account":
+    if (platform, stype) == ("instagram", "account"):
         items = _fetch_socialcrawl(value.lstrip("@"))
         sq: str = value.lstrip("@")
-    elif stype == "hashtag":
+    elif (platform, stype) == ("instagram", "hashtag"):
         items = _fetch_ig_hashtag(value)
         sq = f"#{value.lstrip('#')}"
-    elif stype == "search":
-        items = _fetch_threads_search(value)
-        sq = value
+    elif (platform, stype) == ("threads", "account"):
+        handle = value.lstrip("@")
+        _cache[key] = _threads_account_posts(handle, bool(source.get("replies")))
+        return _cache[key]
+    elif (platform, stype) == ("threads", "tag"):
+        tag = value.lstrip("#")
+        items = _fetch_threads_tag(tag)
+        sq = f"#{tag}"
     else:
-        print(f"[collector] source_type tak dikenal: {stype} (lewati)")
+        print(f"[collector] source_type tak dikenal: {platform}/{stype} (lewati)")
         _cache[key] = []
         return []
     if items:
@@ -309,7 +479,12 @@ def _source_posts(source: dict) -> list[Post]:
         items = _load_snapshot().get(key, []) or _load_snapshot().get(value.lstrip("@#"), [])
         if items:
             print(f"[collector] {key}: {len(items)} item dari snapshot {_snapshot_file().name}")
-    posts = [p for p in (_to_post(i, sq, platform) for i in items) if p and _is_today_wib(p.published_at)]
+    kind = "tag" if stype == "tag" else "root"
+    posts = [
+        p
+        for p in (_to_post(i, sq, platform, kind=kind) for i in items)
+        if p and _fresh_enough(p, platform)
+    ]
     posts.sort(key=lambda p: p.published_at, reverse=True)
     _cache[key] = posts
     return posts
@@ -346,7 +521,7 @@ def _sample_fallback(query: str, limit: int) -> list[Post]:
 
 
 class SourceOneCollector(BaseCollector):
-    platform: str = "mixed"  # multi-source: instagram (akun + hashtag) + threads (search)
+    platform: str = "mixed"  # multi-source: IG (akun + hashtag) + Threads (akun/utas + tag)
 
     def collect(self, query: str, limit: int = 20) -> list[Post]:
         sources = _load_sources()

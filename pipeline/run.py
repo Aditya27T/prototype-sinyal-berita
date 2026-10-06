@@ -83,6 +83,45 @@ def ensure_source(session: Session, platform: str, source_type: str, source_valu
     return src
 
 
+def resolve_parent_id(session: Session, post: Post) -> str | None:
+    """ID baris `posts` untuk induk posting reply (dari raw_data.parent_post_id)."""
+    parent_platform_id = post.raw_data.get("parent_post_id")
+    if not parent_platform_id:
+        return None
+    row = session.execute(
+        select(PostRow.id).where(
+            PostRow.platform == post.platform,
+            PostRow.platform_post_id == str(parent_platform_id),
+        )
+    ).scalar_one_or_none()
+    return row
+
+
+def link_replies(session: Session) -> int:
+    """Isi parent_post_id untuk reply yang induknya baru masuk di run yang sama."""
+    orphans = session.execute(select(PostRow).where(PostRow.parent_post_id.is_(None))).scalars().all()
+    linked = 0
+    for row in orphans:
+        if (row.raw_data or {}).get("kind") != "reply":
+            continue
+        parent_platform_id = (row.raw_data or {}).get("parent_post_id")
+        if not parent_platform_id:
+            continue
+        pid = session.execute(
+            select(PostRow.id).where(
+                PostRow.platform == row.platform,
+                PostRow.platform_post_id == str(parent_platform_id),
+            )
+        ).scalar_one_or_none()
+        if pid:
+            row.parent_post_id = pid
+            linked += 1
+    if linked:
+        session.commit()
+        print(f"[pipeline] {linked} balasan dihubungkan ke induknya")
+    return linked
+
+
 def post_exists(session: Session, post: Post) -> PostRow | None:
     if post.platform_post_id:
         return session.execute(
@@ -159,6 +198,7 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
                         published_at=cleaned.published_at,
                         collected_at=cleaned.collected_at,
                         raw_data=cleaned.raw_data,
+                        parent_post_id=resolve_parent_id(session, cleaned),
                     )
                     session.add(row)
                     try:
@@ -195,7 +235,7 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
                     stats["analyzed"] += 1
                 except Exception:
                     session.rollback()
-        print(f"[pipeline] selesai: {stats}")
+        print(f"[pipeline] selesai: {stats} (replies_terhubung={link_replies(session)})")
         return stats
 
 
