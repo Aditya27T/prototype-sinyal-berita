@@ -45,3 +45,21 @@ class AnalysisResult(BaseModel):
     location_confidence: float = Field(default=0.0, ge=0.0, le=1.0)
     issue_hint: Optional[str] = None
     reason: Optional[str] = None
+
+
+class EventDraft(BaseModel):
+    """Hasil clustering — satu unit event dari kumpulan posting relevan."""
+
+    key: str = Field(..., min_length=1, description='f"{location}|{issue_hint}|{date}"')
+    location: Optional[str] = None
+    issue_hint: Optional[str] = None
+    post_ids: list[str] = Field(default_factory=list)
+    sample_texts: list[str] = Field(default_factory=list, description="maks 5 teks untuk LLM")
+
+
+class EventInsight(BaseModel):
+    """Isu + urgency satu event — satu panggilan LLM mengisi keduanya."""
+
+    issue_class: str = Field(..., min_length=1, description="dari daftar 12 kelas di prompt")
+    urgency: int = Field(..., ge=1, le=5)
+    rationale: str = Field(..., min_length=1)
