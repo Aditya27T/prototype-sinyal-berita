@@ -9,6 +9,12 @@ const VIEWS = [
   { key: "all", label: "Semua" },
 ];
 
+const PAGES = [
+  { key: "posts", label: "Posting" },
+  { key: "events", label: "Event" },
+  { key: "reports", label: "Laporan" },
+];
+
 function statusOf(post) {
   if (post.is_relevant === true) return "relevant";
   if (post.is_relevant === false) return "noise";
@@ -39,6 +45,7 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState(null);
   const [issue, setIssue] = useState(null);
+  const [page, setPage] = useState("posts");
   const autoSwitched = useRef(false);
 
   async function load() {
@@ -111,6 +118,24 @@ export default function App() {
         </button>
       </header>
 
+      <nav className="pages" role="tablist" aria-label="Halaman">
+        {PAGES.map((p) => (
+          <button
+            key={p.key}
+            role="tab"
+            aria-selected={page === p.key}
+            className={page === p.key ? "active" : ""}
+            onClick={() => setPage(p.key)}
+          >
+            {p.label}
+          </button>
+        ))}
+      </nav>
+
+      {page === "events" && <EventsPage />}
+      {page === "reports" && <ReportsPage />}
+      {page === "posts" && (
+        <>
       <section className="funnel" aria-label="Ringkasan pipeline">
         <Stat label="Terkumpul" value={stats.total} hint="posting masuk pipeline" />
         <Stat label="Dianalisis AI" value={analyzed} hint={`${stats.pending} menunggu`} />
@@ -196,7 +221,280 @@ export default function App() {
           <p className="aside-note">Dihitung dari posting yang sudah dianalisis. Klik untuk memfilter.</p>
         </aside>
       </div>
+        </>
+      )}
     </div>
+  );
+}
+
+function EventsPage() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [minUrgency, setMinUrgency] = useState(1);
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    fetch(`${API}/events?min_urgency=${minUrgency}&limit=100`)
+      .then((r) => {
+        if (!r.ok) throw new Error(`API ${r.status}`);
+        return r.json();
+      })
+      .then((data) => active && setEvents(data))
+      .catch((e) => active && setError(`Gagal memuat event (${e.message}). Jalankan: uv run python -m graph.run insight`))
+      .finally(() => active && setLoading(false));
+    return () => {
+      active = false;
+    };
+  }, [minUrgency]);
+
+  const urgent = events.filter((e) => e.urgency >= 4).length;
+
+  return (
+    <>
+      <section className="funnel" aria-label="Ringkasan event">
+        <Stat label="Event" value={events.length} hint="hasil clustering hari ini" />
+        <Stat label="Urgency ≥ 4" value={urgent} hint="perlu perhatian segera" tone="good" />
+        <Stat
+          label="Posting pendukung"
+          value={events.reduce((n, e) => n + (e.post_count ?? 0), 0)}
+          hint="termasuk balasan warga"
+        />
+      </section>
+
+      <div className="toolbar">
+        <div className="segmented" role="tablist">
+          {[1, 2, 3, 4].map((u) => (
+            <button
+              key={u}
+              className={minUrgency === u ? "active" : ""}
+              onClick={() => setMinUrgency(u)}
+            >
+              Urgency ≥ {u}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {error && <div className="alert">{error}</div>}
+      {loading && <div className="empty">Memuat event…</div>}
+      {!loading && !error && events.length === 0 && (
+        <div className="empty">
+          Belum ada event. Jalankan <code>uv run python -m graph.run insight --date today</code> setelah pipeline.
+        </div>
+      )}
+
+      <ul className="events">
+        {events.map((e) => (
+          <EventCard key={e.id} event={e} />
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function EventCard({ event }) {
+  const level = Math.min(5, Math.max(1, event.urgency ?? 1));
+  return (
+    <li className="event">
+      <div className="event-head">
+        <span className={`urgency u${level}`} title={`Urgency ${level}/5`}>
+          {level}/5
+        </span>
+        <span className="issue">{event.issue_class}</span>
+        {event.location && <span className="tag static">{event.location}</span>}
+        <span className="muted">
+          {event.post_count} posting · {event.window_date}
+        </span>
+      </div>
+
+      {event.rationale && <p className="event-rationale">{event.rationale}</p>}
+
+      <ul className="event-posts">
+        {(event.posts ?? []).map((p) => (
+          <li key={p.id} className={p.kind === "reply" ? "reply" : ""}>
+            <span className="post-text">{p.text}</span>
+            <div className="post-foot">
+              <span>
+                {p.platform}
+                {p.author ? ` · @${p.author}` : ""}
+                {p.kind === "reply" ? " · balasan" : ""}
+                {p.topic_tag ? ` · #${p.topic_tag}` : ""}
+                {formatTime(p.published_at) ? ` · ${formatTime(p.published_at)}` : ""}
+              </span>
+              {p.url ? (
+                <a href={p.url} target="_blank" rel="noreferrer">Sumber ↗</a>
+              ) : (
+                <span className="muted">Tanpa URL</span>
+              )}
+            </div>
+            {p.kind === "reply" && p.parent_url && (
+              <a className="muted parent" href={p.parent_url} target="_blank" rel="noreferrer">
+                ↑ lihat posting induk
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </li>
+  );
+}
+
+function ReportsPage() {
+  const [reports, setReports] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function load(keep = null) {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/reports`);
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      const data = await res.json();
+      setReports(data);
+      const target = data.find((r) => r.id === keep) ?? data.find((r) => r.id === selected) ?? data[0];
+      setSelected(target ?? null);
+    } catch (e) {
+      setError(`Gagal memuat laporan (${e.message}).`);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  async function approve() {
+    if (!selected) return;
+    setBusy(true);
+    try {
+      const res = await fetch(`${API}/reports/${selected.id}/approve`, { method: "POST" });
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      await load(selected.id);
+    } catch (e) {
+      setError(`Gagal menyetujui (${e.message}).`);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="reports">
+      <aside className="report-list">
+        <h2>Laporan</h2>
+        {loading && <p className="muted">Memuat…</p>}
+        {!loading && reports.length === 0 && (
+          <p className="muted">Belum ada draf. Jalankan graph.run insight.</p>
+        )}
+        <ul>
+          {reports.map((r) => (
+            <li key={r.id}>
+              <button
+                className={`report-item ${selected?.id === r.id ? "active" : ""}`}
+                onClick={() => setSelected(r)}
+              >
+                <span>{r.period}</span>
+                <span className={`badge ${r.status}`}>{r.status}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+      <main className="report-detail">
+        {error && <div className="alert">{error}</div>}
+        {!selected && !loading && <div className="empty">Pilih laporan di kiri.</div>}
+        {selected && (
+          <>
+            <div className="report-head">
+              <div>
+                <h2>Laporan {selected.period}</h2>
+                <span className="muted">
+                  {selected.event_count} event · dibuat {formatTime(selected.created_at)}
+                  {selected.approved_at ? ` · disetujui ${formatTime(selected.approved_at)}` : ""}
+                </span>
+              </div>
+              <div className="report-actions">
+                <span className={`badge ${selected.status}`}>{selected.status}</span>
+                {selected.status === "draft" ? (
+                  <button className="btn primary" onClick={approve} disabled={busy}>
+                    {busy ? "Menyimpan…" : "Setujui"}
+                  </button>
+                ) : (
+                  <span className="muted">Sudah disetujui</span>
+                )}
+              </div>
+            </div>
+            <article className="markdown">
+              <Markdown source={selected.body_md} />
+            </article>
+          </>
+        )}
+      </main>
+    </div>
+  );
+}
+
+// Renderer markdown ringan (heading, list, bold, link) — cukup untuk draf laporan.
+function Markdown({ source }) {
+  const blocks = useMemo(() => (source ?? "").split("\n"), [source]);
+  const inline = (text, keyPrefix) => {
+    const parts = [];
+    const re = /(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g;
+    let last = 0;
+    let m;
+    let i = 0;
+    while ((m = re.exec(text)) !== null) {
+      if (m.index > last) parts.push(text.slice(last, m.index));
+      const token = m[0];
+      const key = `${keyPrefix}-${i++}`;
+      if (token.startsWith("**")) {
+        parts.push(<strong key={key}>{token.slice(2, -2)}</strong>);
+      } else {
+        const [, label, href] = token.match(/\[([^\]]+)\]\(([^)]+)\)/);
+        parts.push(
+          <a key={key} href={href} target="_blank" rel="noreferrer">
+            {label}
+          </a>,
+        );
+      }
+      last = m.index + token.length;
+    }
+    if (last < text.length) parts.push(text.slice(last));
+    return parts;
+  };
+
+  return (
+    <>
+      {blocks.map((line, i) => {
+        const t = line.trim();
+        if (!t) return null;
+        if (t.startsWith("### ")) return <h4 key={i}>{inline(t.slice(4), `h${i}`)}</h4>;
+        if (t.startsWith("## ")) return <h3 key={i}>{inline(t.slice(3), `h${i}`)}</h3>;
+        if (t.startsWith("# ")) return <h2 key={i}>{inline(t.slice(2), `h${i}`)}</h2>;
+        if (/^[-*]\s/.test(t)) {
+          const indent = /^\s{2,}/.test(line);
+          const text = t.replace(/^[-*]\s*/, "");
+          return (
+            <li key={i} className={indent ? "sub" : ""}>
+              {inline(text, `l${i}`)}
+            </li>
+          );
+        }
+        if (t.startsWith("_") && t.endsWith("_")) {
+          return (
+            <p key={i} className="muted em">
+              {t.slice(1, -1)}
+            </p>
+          );
+        }
+        return <p key={i}>{inline(t, `p${i}`)}</p>;
+      })}
+    </>
   );
 }
 
@@ -251,6 +549,8 @@ function PostCard({ post, onLocation, onIssue }) {
         <span className={`status ${status}`}>
           {status === "relevant" ? "Relevan" : status === "noise" ? "Tidak relevan" : "Menunggu AI"}
         </span>
+        {post.kind === "reply" && <span className="tag static">balasan</span>}
+        {post.kind === "tag" && <span className="tag static">tag #{post.topic_tag ?? ""}</span>}
         {post.location && (
           <button className="tag" onClick={() => onLocation(post.location)}>{post.location}</button>
         )}
@@ -268,6 +568,11 @@ function PostCard({ post, onLocation, onIssue }) {
       </div>
 
       <p className="post-text">{post.text}</p>
+      {post.kind === "reply" && post.parent_url && (
+        <a className="muted parent" href={post.parent_url} target="_blank" rel="noreferrer">
+          ↑ balasan atas posting @{post.author} — lihat induknya
+        </a>
+      )}
       {post.reason && <p className="post-reason">AI: {post.reason}</p>}
 
       <div className="post-foot">
