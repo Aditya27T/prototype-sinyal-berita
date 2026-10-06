@@ -100,6 +100,49 @@ def _heuristic(post: Post) -> AnalysisResult:
     )
 
 
+def _error_text(err: Exception) -> str:
+    """Pesan error + body respons (pesan kuota OpenRouter hanya ada di body)."""
+    text = str(err)
+    response = getattr(err, "response", None)
+    if response is not None:
+        try:
+            text += " " + response.text
+        except Exception:  # noqa: BLE001 — body tidak selalu bisa dibaca
+            return text.lower()
+    return text.lower()
+
+
+def _is_daily_quota_error(err: Exception) -> bool:
+    """429 free-models-per-day = kuota harian habis; retry tidak akan menolong."""
+    text = _error_text(err)
+    return "free-models-per-day" in text or ("rate limit" in text and "per day" in text)
+
+
+# Kalau kuota harian habis, satu proses tidak perlu mencoba LLM lagi.
+_quota_exhausted = False
+
+
+def llm_unavailable() -> bool:
+    return _quota_exhausted
+
+
+def _mark_quota_if_exhausted(err: Exception) -> None:
+    global _quota_exhausted
+    if _is_daily_quota_error(err):
+        if not _quota_exhausted:
+            print("[ai] kuota LLM harian habis — sisa run memakai heuristic")
+        _quota_exhausted = True
+
+
+def _should_retry(err: Exception, attempt: int) -> bool:
+    if attempt >= 3:
+        return False
+    if _is_daily_quota_error(err):
+        return False
+    status = getattr(getattr(err, "response", None), "status_code", None)
+    return status in (429, 500, 502, 503)
+
+
 def _analyze_gemini(post: Post) -> AnalysisResult:
     """Panggil Gemini (JSON mode + responseSchema). Raise bila gagal → fallback heuristic."""
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
@@ -125,10 +168,10 @@ def _analyze_gemini(post: Post) -> AnalysisResult:
                 body = resp.json()
             text = body["candidates"][0]["content"]["parts"][0]["text"]
             return AnalysisResult(**json.loads(text))
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 — analyze() jatuh ke heuristic
             last_err = e
-            status = getattr(getattr(e, "response", None), "status_code", None)
-            if status in (429, 503) and attempt < 3:
+            _mark_quota_if_exhausted(e)
+            if _should_retry(e, attempt):
                 time.sleep(5 * attempt)  # free-tier throttle: 5s, 10s
                 continue
             break
@@ -177,10 +220,10 @@ def _analyze_openrouter(post: Post) -> AnalysisResult:
                 body = resp.json()
             content = body["choices"][0]["message"]["content"] or "{}"
             return AnalysisResult(**_extract_json(content))
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 — analyze() jatuh ke heuristic
             last_err = e
-            status = getattr(getattr(e, "response", None), "status_code", None)
-            if status in (429, 500, 502, 503) and attempt < 3:
+            _mark_quota_if_exhausted(e)
+            if _should_retry(e, attempt):
                 time.sleep(5 * attempt)
                 continue
             break
@@ -190,12 +233,12 @@ def _analyze_openrouter(post: Post) -> AnalysisResult:
 def analyze(post: Post) -> AnalysisResult:
     """Kontrak Person 2. Provider LLM bila key ada; fallback heuristic bila gagal."""
     prov = provider()
-    if prov in ("gemini", "openrouter"):
+    if prov in ("gemini", "openrouter") and not _quota_exhausted:
         try:
             if prov == "gemini":
                 return _analyze_gemini(post)
             return _analyze_openrouter(post)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 — demo tidak boleh berhenti karena LLM
             r = _heuristic(post)
             r.reason = f"{r.reason} (llm-fallback: {e})"
             return r

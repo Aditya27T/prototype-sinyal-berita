@@ -18,7 +18,7 @@ from sqlalchemy.orm import Session
 
 load_dotenv()
 
-from ai.relevance import analyze, model_version
+from ai.relevance import analyze, llm_unavailable, model_version
 from collectors.source_one import collect
 from core.schemas import Post
 from database.connection import get_session_factory, init_db
@@ -223,8 +223,8 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
                     print(f"[pipeline] analyze gagal post={cleaned.id}: {e}")
                     continue
                 pace = float(os.getenv("AI_PACE_SECONDS", "5"))
-                if pace > 0:
-                    time.sleep(pace)  # hormati rate-limit LLM free-tier
+                if pace > 0 and not llm_unavailable():
+                    time.sleep(pace)  # hormati rate-limit LLM free-tier; skip kalau kuota habis
                 session.add(
                     PostAnalysis(
                         post_id=row.id,

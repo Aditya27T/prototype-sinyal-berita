@@ -159,6 +159,31 @@ def _extract_json(text: str) -> dict:
         return json.loads(m.group(0))
 
 
+def _should_retry(err: Exception, attempt: int) -> bool:
+    """Sama seperti ai.relevance: kuota harian habis tidak perlu di-retry."""
+    from ai.relevance import _is_daily_quota_error
+
+    if _is_daily_quota_error(err):
+        return False
+    if attempt >= 3:
+        return False
+    status = getattr(getattr(err, "response", None), "status_code", None)
+    return status in (429, 500, 502, 503)
+
+
+def llm_unavailable() -> bool:
+    """Sama seperti relevance: kuota harian habis → sisa event pakai heuristic."""
+    from ai.relevance import llm_unavailable as _rel
+
+    return _rel()
+
+
+def mark_llm_unavailable(err: Exception) -> None:
+    from ai.relevance import _mark_quota_if_exhausted
+
+    _mark_quota_if_exhausted(err)
+
+
 def _validate(raw: dict) -> EventInsight:
     return EventInsight(
         issue_class=_normalize_class(raw.get("issue_class")),
@@ -192,8 +217,7 @@ def _insight_gemini(event: EventDraft) -> EventInsight:
             return _validate(json.loads(body["candidates"][0]["content"]["parts"][0]["text"]))
         except Exception as e:  # noqa: BLE001 — fallback heuristic di analyze_event
             last_err = e
-            status = getattr(getattr(e, "response", None), "status_code", None)
-            if status in (429, 503) and attempt < 3:
+            if _should_retry(e, attempt):
                 time.sleep(5 * attempt)
                 continue
             break
@@ -226,8 +250,7 @@ def _insight_openrouter(event: EventDraft) -> EventInsight:
             return _validate(_extract_json(body["choices"][0]["message"]["content"] or "{}"))
         except Exception as e:  # noqa: BLE001 — fallback heuristic di analyze_event
             last_err = e
-            status = getattr(getattr(e, "response", None), "status_code", None)
-            if status in (429, 500, 502, 503) and attempt < 3:
+            if _should_retry(e, attempt):
                 time.sleep(5 * attempt)  # free-tier throttle
                 continue
             break
@@ -237,10 +260,11 @@ def _insight_openrouter(event: EventDraft) -> EventInsight:
 def analyze_event(event: EventDraft) -> EventInsight:
     """Kontrak: heuristic selalu tersedia, LLM hanya meningkatkan kualitas."""
     prov = provider()
-    if prov in ("gemini", "openrouter"):
+    if prov in ("gemini", "openrouter") and not llm_unavailable():
         try:
             insight = _insight_gemini(event) if prov == "gemini" else _insight_openrouter(event)
         except Exception as e:  # noqa: BLE001 — demo tidak boleh berhenti karena LLM
+            mark_llm_unavailable(e)
             result = heuristic_insight(event)
             result.rationale = f"{result.rationale} (llm-fallback: {e})"
             return result

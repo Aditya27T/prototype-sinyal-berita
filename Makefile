@@ -29,7 +29,7 @@ pipeline: ## collect -> clean -> dedup -> insert -> analyze (memakai credit Soci
 	uv run python -m pipeline.run --limit 20
 
 pipeline-snapshot: ## pipeline dari snapshot fixtures, tanpa credit SocialCrawl
-	SOCIALCRAWL_API_KEY= uv run python -m pipeline.run --limit 20
+	SOCIALCRAWL_API_KEY= AI_PACE_SECONDS=$${AI_PACE_SECONDS:-1} uv run python -m pipeline.run --limit 20
 
 insight: ## insight graph (cluster -> isu+urgency -> draf laporan)
 	uv run python -m graph.run insight --date today
