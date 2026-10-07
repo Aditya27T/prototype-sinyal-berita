@@ -5,7 +5,7 @@ WEB_PORT = 5173
 # Tanpa API key dan tanpa snapshot hari ini, collector otomatis memakai snapshot terbaru.
 DATE ?= today
 
-.PHONY: help setup pipeline pipeline-snapshot insight db-reset demo api test web
+.PHONY: help setup pipeline pipeline-snapshot comments insight db-reset demo api test web
 
 .DEFAULT_GOAL := help
 
@@ -17,6 +17,8 @@ help: ## daftar target make
 	@echo "  make setup       cek uv & bun, salin .env, uv sync, bun install"
 	@echo "  make pipeline    pipeline sungguhan (collector SocialCrawl, memakai credit)"
 	@echo "  make pipeline-snapshot  pipeline dari snapshot fixtures (0 credit, untuk demo)"
+	@echo "  make comments    komentar teratas posting relevan yang belum diambil (5 credit/posting)"
+	@echo "                   make comments N=5 --dry-run untuk lihat kandidat tanpa bayar"
 	@echo "  make insight     insight graph: cluster -> isu+urgency -> draf laporan"
 	@echo "  make db-reset    hapus signyal.db lalu create_all"
 	@echo "  make api         hanya FastAPI di :8000"
@@ -34,6 +36,9 @@ pipeline: ## collect -> clean -> dedup -> insert -> analyze (memakai credit Soci
 
 pipeline-snapshot: ## pipeline dari snapshot fixtures, tanpa credit SocialCrawl
 	SOCIALCRAWL_API_KEY= $(if $(filter-out today,$(DATE)),SNAPSHOT_DATE=$(DATE),) AI_PACE_SECONDS=$${AI_PACE_SECONDS:-1} uv run python -m pipeline.run --limit 20
+
+comments: ## komentar teratas posting relevan yang belum diambil (5 credit/posting)
+	uv run python -m pipeline.comments --max-posts $(or $(N),3) $(if $(DRY_RUN),--dry-run,)
 
 insight: ## insight graph (cluster -> isu+urgency -> draf laporan); DATE=YYYY-MM-DD untuk hari lain
 	uv run python -m graph.run insight --date $(DATE)

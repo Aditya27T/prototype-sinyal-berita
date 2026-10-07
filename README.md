@@ -32,8 +32,9 @@ Butuh `make`, `uv`, dan `bun`. Target lain:
 |---|---|
 | `make pipeline` | pipeline sungguhan ke SocialCrawl (memakai credit) |
 | `make pipeline-snapshot` | pipeline dari `fixtures/` tanpa credit — untuk demo & uji ulang |
-| `make insight` | insight graph pada data yang sudah ada di DB |
+| `make comments` | komentar teratas posting relevan yang belum diambil (5 credit/posting). `N=5` untuk jumlah, `DRY_RUN=1` untuk lihat kandidat tanpa bayar |
 | `make db-reset` | hapus `signyal.db` lalu `create_all` |
+| `make insight` | insight graph pada data yang sudah ada di DB |
 | `make test` | pytest |
 | `make api` / `make web` | FastAPI :8000 / API + web :5173 |
 

@@ -13532,5 +13532,3008 @@
         }
       }
     }
+  ],
+  "instagram:comments:4001978493421519817": [
+    {
+      "comment": {
+        "id": "18179712181381866",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/18179712181381866/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "LAPOOOOOOOOOO, FUNGSI-NE OPOOOOOO??? IKU ANGGARAN DIGAWE NGONO2 IKU???????",
+        "author": {
+          "username": "wrinearai",
+          "display_name": "Erwin",
+          "avatar_url": "https://scontent-atl3-2.cdninstagram.com/v/t51.2885-19/241516286_661339138588918_8735385746641801541_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GP4_ZQ72gG4EfFkCAEVRmPQNUzp5bkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy44NTMuQzMifQ%3D%3D&_nc_ohc=rgrkhGTLIL8Q7kNvwFtcamS&_nc_oc=AdpuIP4DpfLws7QFEcXez8w8XACxwkU1KL92hdObzPGFoSLOUw-wbX22k_4ABahH0BE&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_ss=733ba&oh=00_AQNAO8W72WhsJhPfTRL6t-6m4lfqzwsh6_aeOIQwv5xwJw&oe=6ACB6544",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 44,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:00:04.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 0,
+            "score_0_1": 0.05,
+            "confidence": 0.82
+          },
+          "question": {
+            "p": 0.51
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.05
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17988505071099984",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/17988505071099984/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Semuanya militer, padahal gak darurat perang, walaupun perang, gak semuanya harus ikut perang, agak gak masok",
+        "author": {
+          "username": "naka.fes",
+          "display_name": "Raditya",
+          "avatar_url": "https://scontent-atl3-2.cdninstagram.com/v/t51.82787-19/775307457_18339674509265880_6921782351054108407_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=101&ig_cache_key=GMFANi7Yy2s41idBAPf2JQdgHA9gbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=6C-3FWyRM-4Q7kNvwFBZxjl&_nc_oc=AdpNeoCHUDM_kObEjVbaa788uWW5gy8_T4JmzUB308lHfziDhAYc2ktMd-9ukxaS-VI&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_gid=cxfMekZ8dHUNxoEc4yXd9Q&_nc_ss=733ba&oh=00_AQOjr8eJjs2Fv5Sakidm5N2dgny-_0yMSvygYizh8bXY1Q&oe=6ACB8854",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 44,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:58:02.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.21,
+            "confidence": 0.88
+          },
+          "question": {
+            "p": 0.1
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17891730606654629",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/17891730606654629/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "emannnn pak anggarane😢😢😢kan gk terlalu penting kegiatannya gak urgent, seng urgent iku bakale kate banjir ndang di benakno drainase, saluran air yg gk fungsi",
+        "author": {
+          "username": "triyulianie_",
+          "display_name": "Trie",
+          "avatar_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.82787-19/552530487_17981681879884142_1936852739728817604_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=110&ig_cache_key=GDfy7iBuIeqQPuI-AMQ9xw1OFeEabmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=4zytzsgZAiEQ7kNvwHOWo_L&_nc_oc=AdprB48KmY47ml05UTwVM4Beuk_Q9bEvhv8uwRGC5Qi5QZTALjiqTPR0k0h3ZtWUzSo&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_gid=cxfMekZ8dHUNxoEc4yXd9Q&_nc_ss=733ba&oh=00_AQPlL6WETjuHIinTOTR8M5b0UXjJIYOXrMLfLcrMpNuOLQ&oe=6ACB6D95",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 16,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:18:14.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.2,
+            "confidence": 0.84
+          },
+          "question": {
+            "p": 0.19
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.05
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17949926925317973",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/17949926925317973/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Opo dampak nyatane bos…????? \n\n🫣🫣🫣🫣",
+        "author": {
+          "username": "jacobwin_official",
+          "display_name": "Jacob Win, ICP-ACC",
+          "avatar_url": "https://scontent-atl3-2.cdninstagram.com/v/t51.2885-19/487391684_3931820977057079_7580222875308990870_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=101&ig_cache_key=GMQBDR03baho_PcNAJYhFRmLXDJpbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=qHhzBTW77noQ7kNvwE9MNEt&_nc_oc=AdrfcVkSueoU8N0B_7yho9ObE85tolRzZI_ZmctQRGt4yY_0-WUNw_o8RjhAtWHB824&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_ss=733ba&oh=00_AQMUt1HVUoFpZxMBMCCM2V-hdXkK76XlVO6zgKJnFBXueQ&oe=6ACB8D12",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T21:44:30.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.26,
+            "confidence": 0.96
+          },
+          "question": {
+            "p": 0.56
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18125603377895911",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/18125603377895911/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Fungsi dan manfaate opo yu",
+        "author": {
+          "username": "kotakherbal_decky",
+          "display_name": "kotakHerbal_decky",
+          "avatar_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/150210599_178315793751608_5962077066739632181_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GCcI9Ag4XothLaIAADXIhPaAjb1SbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy44MDAuQzMifQ%3D%3D&_nc_ohc=Q5zbCFEEcy0Q7kNvwHpC6NN&_nc_oc=AdpvrKXO2hf7vgVmOkI-neKNkJGKntyXaGoaZ9G9jLObowkKr_cLZ23S3pohxsV5050&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQPnldOWIgz2VjQDzbNmfFQl66vazu41NDpE_wWCFwTCFw&oe=6ACB8493",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 9,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:07:46.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.35,
+            "confidence": 0.66
+          },
+          "question": {
+            "p": 0.82
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17881760442691378",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/17881760442691378/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Walahhh.. ngko moro siswa/i ora dikeplaki maneh tapi malah dipecuti gawe selang.. 😂",
+        "author": {
+          "username": "hermaliansyah007",
+          "display_name": "Herman",
+          "avatar_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/93795245_666894870591909_6792703448224628736_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=110&ig_cache_key=GK0zlwWlOd2PiV4CAAAAAADMh0RebkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=yr-HkTukDOQQ7kNvwEJG-rv&_nc_oc=Adps4MBg7skKcWF1axR1sexMLT3pUwUrqjeJI79jo-eJjk7ZCs4GYeP69aX48ezNW1o&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQO8xQv0MBNCusPTAmpAPHlHoekv5ZQtU957AffU5CYwSw&oe=6ACB8F18",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 5,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:39:16.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.21,
+            "confidence": 0.82
+          },
+          "question": {
+            "p": 0.09
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.05
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17985904398070198",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/17985904398070198/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Habiskan anggaran saja neeh.....😢😢",
+        "author": {
+          "username": "sumantrisaer",
+          "display_name": "Sumantri Saerun",
+          "avatar_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.82787-19/656190292_18352006639226236_9019487513584729526_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=106&ig_cache_key=GFSrHCd8jaWEDTNBALb9STcbqCt9bmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=_SfmFP8Hs1oQ7kNvwHRKEBx&_nc_oc=AdqyfAODpeN5Rr6BHoZe5H5g2b6huFRlnrlUyycTDnjLbE0bw0904_8I-H-4OnelBuw&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_gid=cxfMekZ8dHUNxoEc4yXd9Q&_nc_ss=733ba&oh=00_AQPfnbbdLyIsBbnH7EPWSy0lW5xElIqXx77M-6euXcL4TA&oe=6ACB5ED9",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T23:32:17.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.18,
+            "confidence": 0.77
+          },
+          "question": {
+            "p": 0.07
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17991481281102958",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/17991481281102958/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Output e opo ? Korupsi ne sek mlaku trs ! Gawe acara sing manfaat ngono lho rek !",
+        "author": {
+          "username": "widd.sw",
+          "display_name": "widsw",
+          "avatar_url": "https://scontent-atl3-2.cdninstagram.com/v/t51.2885-19/405804405_1676580969500396_1184846765916613508_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GHUVMBjszh9t1-QFAITruiPba3EQbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=KUqqkpnowt8Q7kNvwGkVTks&_nc_oc=AdpfQ0g5vpC-JYNkIZID6xpXgbLqcKrjmyPA4uyQc9hkTf7ALZU_W7ALRa_9cZB1xAE&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_ss=733ba&oh=00_AQMaaXY3kTa4f2OnhrIsDOLq-iavbSda0l8CLp5qY2mW9A&oe=6ACB5EB0",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 3,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:17:30.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 0,
+            "score_0_1": 0.03,
+            "confidence": 0.9
+          },
+          "question": {
+            "p": 0.34
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18412355218092200",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/18412355218092200/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Ga semua harus di militer militerin yaaa 😂",
+        "author": {
+          "username": "eka_triwulandari",
+          "display_name": "Eka Triwulandari AY",
+          "avatar_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/471608792_1116766083402712_5074162286463169610_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=108&ig_cache_key=GNgtHBzYy7JdsfcDAEo0Uim3C2tGbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=0ehrNFVQ9rkQ7kNvwGWAIya&_nc_oc=AdqIznXJ9K1n6bZimvqber7QyAw5IgPm0GQGOZPqfRiT4AiB3On_Ty88pPpBtqodck0&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQMGbPmD077-1PFxNkckQZTnhouB4WxT9JxHHgsWJKqeUg&oe=6ACB611F",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:35:35.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.25,
+            "confidence": 0.96
+          },
+          "question": {
+            "p": 0.07
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18098996354386261",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/18098996354386261/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Buat apahhh?????",
+        "author": {
+          "username": "littha_stalin",
+          "display_name": "Littha Stalin",
+          "avatar_url": "https://scontent-atl3-2.cdninstagram.com/v/t51.82787-19/723111029_18534674293075535_4012367901622766317_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GHXMGStPLkQlMNlBAO2KZxxZy643bmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=QjztCBiWZQUQ7kNvwGuMmux&_nc_oc=Adp3RKJgXWRHs6fSBmAnDq7PuufKhBHKib5JS4tFVKSLfnll7TcxTMXckm0v4s1h3vk&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_gid=cxfMekZ8dHUNxoEc4yXd9Q&_nc_ss=733ba&oh=00_AQP-FiRdyDt-7_XM7isvinJK2o0ctF570zbCm5LkkUPUhg&oe=6ACB67B8",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:58:44.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.24,
+            "confidence": 0.92
+          },
+          "question": {
+            "p": 0.34
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17948148429321832",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/17948148429321832/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "waduh...waduh....😢😢",
+        "author": {
+          "username": "rindumalang_",
+          "display_name": "rindu malang",
+          "avatar_url": "https://scontent-atl3-2.cdninstagram.com/v/t51.82787-19/809209380_17958901692211191_5535420499071576305_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GCSOOzD3n_ujhs0-APGok7Gdw9FMbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=tEuY8oUXdFkQ7kNvwH_A0TI&_nc_oc=Adq1kIVIo7Q_UHKUOL1CzXbIQJhZvxmSnK29QcuItnU8nRWqNnrTzu9lKuLnOCFLhio&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_gid=cxfMekZ8dHUNxoEc4yXd9Q&_nc_ss=733ba&oh=00_AQPAGnx1vcBDddhSLmkil6sOYyT5KydAfguNyBMnWdPxtg&oe=6ACB7CFF",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:44:13.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.26,
+            "confidence": 0.95
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18104840984258745",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/18104840984258745/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Pembinaan Bernuansa militer ??????😮😮😮",
+        "author": {
+          "username": "ilma_namasaya",
+          "display_name": "ilma",
+          "avatar_url": "https://scontent-atl3-2.cdninstagram.com/v/t51.82787-19/821282063_18370982944241589_3574898420582305767_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=104&ig_cache_key=GA-F8zC195DIT0RBAOfP6UIsl5wxbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=PIvT1RubjOcQ7kNvwEUISK1&_nc_oc=AdrXPW70Sec9i3i5QhNr5ph-Uya3mPnzL2_l3MdxawC6a06ojDiah-Lqho8mLMe_uU4&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_gid=cxfMekZ8dHUNxoEc4yXd9Q&_nc_ss=733ba&oh=00_AQOL7B9ahaabIyhkpTzeUO0fvppMowNZcNerlRHgXvyqIg&oe=6ACB5DF6",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 9,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:52:37.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.27,
+            "confidence": 0.88
+          },
+          "question": {
+            "p": 0.18
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18136255189656952",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/18136255189656952/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "ISO AE gawe acara sing ujung-ujung e duwek.. cair cair cair",
+        "author": {
+          "username": "jafarprast",
+          "display_name": "Jafar Prast",
+          "avatar_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/423450633_308001491767808_6229117528183571338_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=108&ig_cache_key=GAlYPRkA0oEvIBgBAIqDintjRXJWbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy40NzkuQzMifQ%3D%3D&_nc_ohc=Mo2nL9A4HmcQ7kNvwHFTdmj&_nc_oc=Adrbdn-H1SsiJDBpU49ine_t73bZU_WrPHuw59HFhEDnxgoge8oJm0HIh06M32YEYuM&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQPwJe1kv357Ey1bdb9d1o3BBS9UiYCW57kjPt4TE-8Wjw&oe=6ACB8F78",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T15:17:45.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.29,
+            "confidence": 0.42
+          },
+          "question": {
+            "p": 0.14
+          },
+          "purchase_intent": {
+            "p": 0.07
+          },
+          "complaint": {
+            "p": 0.13
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18135432358646548",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/18135432358646548/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Pak, apa gak eman anggarane? Ada yang ada nanti kasus meninggal lagi, opo maneh seng kepsek wes tuek-tuek iku, sakno loh, Pak.\n.\nBek e 300 juta iku digae perbaikan sekolah, opo gak iso? Apakah itu perbaikan kelas, MCK, atau yang lain lah. Intinya yang berguna untuk sekolah ngono lo\n.\nKalau aku duek pajakku digae ngono yo koyok opo ngono rasane, Pak😢",
+        "author": {
+          "username": "newest_journal",
+          "display_name": null,
+          "avatar_url": "https://scontent-atl3-2.cdninstagram.com/v/t51.89012-19/573323465_1219825463302212_7278921664109726296_n.png?stp=dst-webp&_nc_cat=1&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.3-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xNTAuQzMifQ%3D%3D&_nc_ohc=TvJzLfMMkioQ7kNvwGuXFWe&_nc_oc=Adob6UE2yBEdgUvbBMgUFx_C6HfTASdFinII4HACNcTOirIaSjm71RGrRG5uRebJ_wo&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_gid=cxfMekZ8dHUNxoEc4yXd9Q&_nc_ss=733ba&oh=00_AQPfzIWhq6OGshKb29h1qyQ3dLRS7qBbK8ZNwTvnNLsrpA&oe=6ACB5BD9",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T22:16:13.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.15,
+            "confidence": 0.66
+          },
+          "question": {
+            "p": 0.46
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17908278462561974",
+        "url": "https://www.instagram.com/p/DeJ4jyDJIPJ/c/17908278462561974/",
+        "parent_id": null,
+        "post_id": "DeJ4jyDJIPJ",
+        "text": "Mending gawe kesejahteraan honorer wong… bantu sg gk katut pppk",
+        "author": {
+          "username": "iamagung_maulana",
+          "display_name": "Maulana Agung Bin Aji",
+          "avatar_url": "https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/373657530_1460119271441206_878136213855299400_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=106&ig_cache_key=GLqPRRY2A4GC_C8FAEhnQOM7xC8MbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4zMjAuQzMifQ%3D%3D&_nc_ohc=2bpnjBzgt2oQ7kNvwGWoZzO&_nc_oc=AdqPHeI5U57G5ER5Pbd_Nbtb88RCo_Tp-fj2JcW10hqQR8AFo8H9Yzlo2Idcc_D1HrM&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQOq5k0Ox2xBF-KCymXoOWIai0FouSmbz5OKdYO1OGB9xg&oe=6ACB8C43",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 5,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:03:27.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.28,
+            "confidence": 0.84
+          },
+          "question": {
+            "p": 0.06
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    }
+  ],
+  "instagram:comments:4001837241576087766": [
+    {
+      "comment": {
+        "id": "18074805869733875",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18074805869733875/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Horeg iku ganok manfaate bagi masyarakat malah garai bludreg! Sing seneng horeg cuma bbrp orang tp iso mekso warga urunan nyewo horeg lek ga gelem di dendo. Sakjane wong2 ngunu iku ditangkep dipenjara",
+        "author": {
+          "username": "penjelajahsenyap",
+          "display_name": null,
+          "avatar_url": "https://scontent-lax3-1.cdninstagram.com/v/t51.82787-19/540162138_17847533877552901_6368663895581892250_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=108&ig_cache_key=GFo4MiAFZ_PMPGg-AJqeAwYSCmJYbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=PSeEEmlVG-oQ7kNvwHCSldM&_nc_oc=Adpo7TaoP9MpvBdkrQyRbBjDlew-3Bfiqn1__FnJ_1JGxw0Gxb9-J9BlFXN2pEJClSc&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQNGLcPMJDWP_4lWCUGCcwqyAqGc8ffN6S_Fy4iTdTEKBQ&oe=6ACB8EA6",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 39,
+          "replies": 2
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:15:11.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 0,
+            "score_0_1": 0.04,
+            "confidence": 0.88
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.12
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17923125186429379",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/17923125186429379/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Halah percuma, ngontrol senenge uwong iku angel, opomaneh lek wes fanatike kenemenen.\nOjo’o nak deso, nak pantai seng panggone uwong golek tenang, refreshing, ikuloh seng kober ae dikesroh karo para horeg mania 😢",
+        "author": {
+          "username": "rizkom19",
+          "display_name": "rizkom",
+          "avatar_url": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-19/669996563_17876636814561400_112926565964302118_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=111&ig_cache_key=GBNW7yd4UBzbtII-ACbHAQodMpEBbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MDEuQzMifQ%3D%3D&_nc_ohc=JbGd3nzL9YkQ7kNvwHujnmP&_nc_oc=Ado-aKZBUZCeK9Gh4TmwwPgpk3NMvCWpTnlSM-t56HX3gnNsaHZrqIPpPtZZNCntPHU&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQM4iK3pNqXqLZ__H0zT4KS4QG06HSdr-B5wO2dtin-DBA&oe=6ACB86A8",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 13,
+          "replies": 2
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:17:37.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.22,
+            "confidence": 0.87
+          },
+          "question": {
+            "p": 0.07
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.09
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18386264563230324",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18386264563230324/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "yg kaya tetep pemilik sound",
+        "author": {
+          "username": "angel_arsyena",
+          "display_name": "angel arsyena",
+          "avatar_url": "https://scontent-lax3-1.cdninstagram.com/v/t51.2885-19/118199292_310100540218797_7680141510993388775_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GPyTCwetXYvoCBoBAOckflsDWJVqbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy45MTYuQzMifQ%3D%3D&_nc_ohc=4IWQPYTlKb0Q7kNvwHfYUyx&_nc_oc=Adpm5W-U9Nob3O0D8BnP-vOX2v9uW90B_hRwyEA8ZDo8EnAYLa6fq11tLUZ58WE4EaI&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQOEqRCyFxUtZ7aYZoclSAuWhz-d6wKGduXda2Fro4owGA&oe=6ACB66D1",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 9,
+          "replies": 5
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T08:45:18.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.41,
+            "confidence": 0.63
+          },
+          "question": {
+            "p": 0.1
+          },
+          "purchase_intent": {
+            "p": 0.06
+          },
+          "complaint": {
+            "p": 0.07
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18187531048416712",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18187531048416712/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Anggaran neh 😂",
+        "author": {
+          "username": "yustisiodenta99",
+          "display_name": "yustisio denta saputra",
+          "avatar_url": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-19/727241715_18453972910115051_137576344616134110_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GPPTWCvriABkyo9BAN5lV970xOgBbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=5Xq4whQHGQcQ7kNvwFCaHxy&_nc_oc=AdoXhOowWQVjhInXVbC3cHiPFWtsmDMisbsrUM8b3zx67_B86ty15hlav4smnsZqsPo&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQOGMHwVFumJa72TTlAIfvX010We5_utSBBbS2_daKuEmg&oe=6ACB796F",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T16:34:21.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.34,
+            "confidence": 0.68
+          },
+          "question": {
+            "p": 0.08
+          },
+          "purchase_intent": {
+            "p": 0.05
+          },
+          "complaint": {
+            "p": 0.05
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18100373177275360",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18100373177275360/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Dilarang lak wes ..kok kakean model",
+        "author": {
+          "username": "ernaisroekminiwati",
+          "display_name": "Erna Isroekminiwati",
+          "avatar_url": "https://scontent-lax3-1.cdninstagram.com/v/t51.2885-19/13561654_1662777123947187_1917228869_a.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=108&ig_cache_key=GDbvzgCzQtB3SegFAEWXRnIAAAAAYUULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=U0NxOkLjDVYQ7kNvwHDrmDb&_nc_oc=Adp-45dSF5MylZ0J4-GwCgP_OSiPli30nfYvbL88VzxUzPe7HAJyWHnBluvemG1RZj4&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQMprNXNdiCGnVQ1XYGOLuw7h65dmjZMLZkPgGtdaCoKfQ&oe=6ACB6BC0",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 8,
+          "replies": 2
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:09:34.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.36,
+            "confidence": 0.46
+          },
+          "question": {
+            "p": 0.1
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.05
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18466363555186472",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18466363555186472/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "😮😮😮😮",
+        "author": {
+          "username": "indihome.malangofficial",
+          "display_name": "INTERNET WIFI || MARKETING OFFICIAL INDIHOME MALANG",
+          "avatar_url": "https://scontent-lax3-1.cdninstagram.com/v/t51.2885-19/350569294_1705720993238063_3570694854697970801_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=104&ig_cache_key=GE5D5RQvTOMdWA8GAHFslk8NqI0xbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy44NDMuQzMifQ%3D%3D&_nc_ohc=yveUzKQREfIQ7kNvwHexJuW&_nc_oc=Adp7Y5EcO5nACwl61npBuGBf4CiRW0F9d3BPMflE3yWRlbDiNFT-50VImnBXb0f5bJc&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQPP-_KWrTTfAo0nTF8dJWQPLrwEKrCtrA5QqlP72wshrA&oe=6ACB81E6",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T10:12:32.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.51,
+            "confidence": 0.79
+          },
+          "question": {
+            "p": 0.03
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18115724447044396",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18115724447044396/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Alah bupatine AE sek pemilu Iko wes ngomong ate ngembang no ngono.. OPO Tah gawe topeng tok.. Oalah..",
+        "author": {
+          "username": "e_r7892",
+          "display_name": "Edo Rizki",
+          "avatar_url": "https://scontent-lax3-2.cdninstagram.com/v/t51.2885-19/452848388_1152098216005112_6952754136600351747_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GATr-Rr4TenE0xcEAAMUscoMJX1gbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=6cWFadvHHgoQ7kNvwHiiTv2&_nc_oc=AdpsDbZV4DPr5qKDBJ_Z4sBfk2NJA5XLBFkxmZgFQuNixpX9KIu251ikvhmZ4t8XVeM&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_ss=733ba&oh=00_AQNPz6Or1GkABbdnQ5_kMN4kFDAxv0kZZgcPETot32aBkA&oe=6ACB6A51",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:01:17.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.18,
+            "confidence": 0.75
+          },
+          "question": {
+            "p": 0.11
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18153507571533911",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18153507571533911/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Lagu lawas diulang kembali😂",
+        "author": {
+          "username": "warisun87",
+          "display_name": "warisun87",
+          "avatar_url": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-19/670886496_18032580818804250_4091247174780108161_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=106&ig_cache_key=GGDq-CcanhZmiRBAAIG9Fg2hB8c4bmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=3o4ETsNpol0Q7kNvwHR4gG-&_nc_oc=AdoABPvTw8yIwLquIz7zmnTOd3d41cgfHIKGp9QlC1kqvGLyAoowOSCJijMrGKpfMJk&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQOcEqu4tKqMaD8GojRNOC46r9baDZZkXqZQyTfNquP3hw&oe=6ACB77BC",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:31:31.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.3,
+            "confidence": 0.84
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18184210591420876",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18184210591420876/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Apakah itu desa sumber porong?? @j_achmad",
+        "author": {
+          "username": "lailatul_fn",
+          "display_name": "Lailatul FN",
+          "avatar_url": "https://scontent-lax3-1.cdninstagram.com/v/t51.82787-19/587324771_18543312145021581_912697783484079801_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=109&ig_cache_key=GGPdASON_lxNC_FBALne2mPMjaoMbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=U80hmhbo7hwQ7kNvwEE6y5G&_nc_oc=AdqBC5yz5K236M5Lk4oaF6K6uDBFhk5x0-XwaTJggv5ra_uv6Uc5pAyySsc8Yg5nQhg&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQMP7U8Ij9ZtKEnVGoYfQ-OnWIM4oK8peqoGFbvuEfNi3Q&oe=6ACB84BB",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:50:49.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.5,
+            "confidence": 0.98
+          },
+          "question": {
+            "p": 0.79
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18593043811066266",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/18593043811066266/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Wagir kah mas @lanangedan ?",
+        "author": {
+          "username": "agungwillypramana",
+          "display_name": "Ida IDewa Agung Willy Pramana",
+          "avatar_url": "https://scontent-lax7-1.cdninstagram.com/v/t51.82787-19/551332229_18521884573003828_7398291185617776961_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GIWp3CA0cItOjs1BAEGxpq_iAqxmbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=DpgNB_k-XYcQ7kNvwHB_IzD&_nc_oc=Adony2dSp1jjjliaiUvVFQOyDtafBBJtU9MuVqIdhDdS1C3ONDHV6IF7Ayc7-m3g8oU&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax7-1.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQNisJHhZ2t55tTy7qA1og26OxhIWbQHmKRnYedoPz4ENA&oe=6ACB5AC5",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:12:55.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.49,
+            "confidence": 0.95
+          },
+          "question": {
+            "p": 0.63
+          },
+          "purchase_intent": {
+            "p": 0.12
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17901767451373994",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/17901767451373994/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Lak onok ae kiasane",
+        "author": {
+          "username": "mbruutt",
+          "display_name": "mbruutt_",
+          "avatar_url": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-19/791117849_18631870786041958_1951807369961332232_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GBmAJy9m_LN3ljFCAAjeiDx2NhYbbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=zASqg5JOmUAQ7kNvwFkhRsm&_nc_oc=AdrrLbedsAPsSovHY6NWknv-5Lr_xQC4hBQCPEGF-5TiTex8fiEReC6nr7LaijhSlu4&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQNGN9td0hmTpJjoob0bjvupy1m9NwHHdusbe6il8w_JKw&oe=6ACB6EA8",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T11:41:00.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.38,
+            "confidence": 0.54
+          },
+          "question": {
+            "p": 0.17
+          },
+          "purchase_intent": {
+            "p": 0.09
+          },
+          "complaint": {
+            "p": 0.06
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17955043023254412",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/17955043023254412/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Alah paling yo deso\"ne\" dw...",
+        "author": {
+          "username": "ncylable",
+          "display_name": null,
+          "avatar_url": "https://scontent-lax7-1.cdninstagram.com/v/t51.82787-19/794946811_17907982902489553_4273474939425169581_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GPvsYS-R8YsvN58-AK2g_MjQbk47bmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=oIgQU3VgbIkQ7kNvwHsAHLA&_nc_oc=Ado9dCRBlti6evu2QLVCgqQoAOvktmk0P9xXJRkgSMcHtQPWzbBZrHI4rVxLAjpdnBE&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax7-1.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQPctQtC6cF9WcbaJOIy2W6tTJ04wyitk55ecvajJeUB0g&oe=6ACB8B4D",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:42:06.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.27,
+            "confidence": 0.81
+          },
+          "question": {
+            "p": 0.1
+          },
+          "purchase_intent": {
+            "p": 0.03
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17975387190130823",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/17975387190130823/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Kok mesti nyenggol2 😂😂 masio di larang Yo tetep ae 🤣 seng nyewo Yo per RW e Dewe masyarakat e dewe",
+        "author": {
+          "username": "adi117tok",
+          "display_name": "Adi Allen Heath",
+          "avatar_url": "https://scontent-lax3-2.cdninstagram.com/v/t51.82787-19/581888621_18082734281088694_8386081503751687622_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=107&ig_cache_key=GG3qriK2XmSpJj5AAMbNl0CyWGF0bmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=6V_ZtRQ4O54Q7kNvwGtkRg8&_nc_oc=Adq-rVIXVr3tGPHqBjIdGjoTszHmmi-0_Hkf2klyjOnWzaqJWjQSA3dPmG4hBEcyMxU&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-2.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQO1zTwoydaMdKQW5zziRTZJhgpm7CYaYgncPawTyFonGg&oe=6ACB8705",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T16:08:32.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": null
+      }
+    },
+    {
+      "comment": {
+        "id": "17972119233148400",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/17972119233148400/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Angel",
+        "author": {
+          "username": "masadi2006",
+          "display_name": "Mas Adi",
+          "avatar_url": "https://scontent-lax3-1.cdninstagram.com/v/t51.89012-19/573323465_1219825463302212_7278921664109726296_n.png?stp=dst-webp&_nc_cat=1&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.3-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xNTAuQzMifQ%3D%3D&_nc_ohc=TvJzLfMMkioQ7kNvwFVYlfR&_nc_oc=AdpXaK7Zt1WMnUn22OstHwGRRzrjAT43ro7keVIjxQ665fiAKjTGLtvk8c7-pvtX67s&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_gid=zd-QgTKm5WrmxYG5uYelPA&_nc_ss=733ba&oh=00_AQNzoj9ydP_eq-QooCb50u1fG8pcCHYy-tZL_ArlQhOpvQ&oe=6ACB5BD9",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:17:00.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": null
+      }
+    },
+    {
+      "comment": {
+        "id": "17996049870012609",
+        "url": "https://www.instagram.com/p/DeJYcTBEmDW/c/17996049870012609/",
+        "parent_id": null,
+        "post_id": "DeJYcTBEmDW",
+        "text": "Ndabrus",
+        "author": {
+          "username": "ekacatya",
+          "display_name": "Eka Catya Puji Sutrisna",
+          "avatar_url": "https://scontent-lax3-1.cdninstagram.com/v/t51.2885-19/62012553_395802251027668_8059911339633541120_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=104&ig_cache_key=GIk8sgPU5JLk_mcBAAAAAACpjtpvbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MjAuQzMifQ%3D%3D&_nc_ohc=8LQFBAeBYY0Q7kNvwGuHuTX&_nc_oc=AdrqefIwdhejIldyJEwk2hfrb7WXtSwVyJiyp04DsdLVmWc9ZtfvnH1wQjltVv9xUGY&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQMp82IPvTwbeQ4IQxXEcox-yaQpz3WG3wPMmqLmsfqbkg&oe=6ACB8A90",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T09:07:48.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": null
+      }
+    }
+  ],
+  "instagram:comments:4001255120114805359": [
+    {
+      "comment": {
+        "id": "18039479681835403",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18039479681835403/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Tebu iku wkwk mari panen di obong wkek",
+        "author": {
+          "username": "afnhbl98",
+          "display_name": "alfariss",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/782252193_18066046295733343_1793825929048089622_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=111&ig_cache_key=GKE4oC5f9PMv_S5AABbky6kt8_QYbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=ROqXG-buxmkQ7kNvwFnn4_z&_nc_oc=AdrZPDZNv-KL4jHgf39ceJOor5yGId4h0se57ZOBUaCYasBgUmdi0kN3OKrDqKUOMQs&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=tOyFU6V_GFN3y1eiyGZh3w&_nc_ss=733ba&oh=00_AQMQdM4pNh74-WIqT0SYJDxNKnCBPRk78mNQ7ToMTHtJXA&oe=6ACB8A4C",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T02:34:14.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.28,
+            "confidence": 0.37
+          },
+          "question": {
+            "p": 0.07
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17979415767139952",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/17979415767139952/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Sisa ne tebu iku min di obong ancen karo seng due lahan tebu mari di panen 😂 😂😂",
+        "author": {
+          "username": "pr_nwan",
+          "display_name": "Purnawan",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.2885-19/145137881_178476893617849_1489031360133961052_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=108&ig_cache_key=GNmgpgi5PtjjUqIAAFyVMwAiGqoUbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy45NjAuQzMifQ%3D%3D&_nc_ohc=KHRXP7-KaSwQ7kNvwGjNFmN&_nc_oc=Adp_behhYoE9-mZZgB0SaPBISif4T3LTzU3R6nCMXZpMk2o-W5PSHpkhtFqk3dpOAmo&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQMwJEHTx4HQaPC37uWcMgHUL7r9I5QoRbdEUNQFOFs5hA&oe=6ACB5FB3",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 6,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T16:25:24.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.28,
+            "confidence": 0.45
+          },
+          "question": {
+            "p": 0.12
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18102682280202687",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18102682280202687/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Mana ada kebakaran, itu sengaja di bakar",
+        "author": {
+          "username": "viqih",
+          "display_name": "Viqih Fardani",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.2885-19/470894726_1037434391404725_5788710861048719632_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=111&ig_cache_key=GIZIERy1oGCEiq8DABApQbTboVVQbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=qrSWJC_gPOMQ7kNvwFPlnvJ&_nc_oc=AdpCaCpIYsRDZywmUBAWICV6R9PSH-TQWpaUaKCXaPq24BG3n4CqVtJ54nwKSBcBr-Y&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQOJviyrApTeWYpI7hbF7nqHPLxstWc0lTkhfOhbMct-qg&oe=6ACB9000",
+          "verified": true
+        },
+        "engagement": {
+          "likes": 6,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T15:22:11.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.32,
+            "confidence": 0.72
+          },
+          "question": {
+            "p": 0.06
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18123958774909913",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18123958774909913/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "😮😮",
+        "author": {
+          "username": "wokamdoor",
+          "display_name": "SEWA TENDA MALANG SELATAN",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.2885-19/451216722_1578518366421124_7392018442573701230_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GFIF5RqEgIByp5sFAG7gveKbuZVmbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy40NzguQzMifQ%3D%3D&_nc_ohc=pEop3FKzvmEQ7kNvwF25fuy&_nc_oc=AdpFCLujEw-uDpRRwtGzrg3uoxxk5sxAfwc4Ae4R3zDVkjtUJmm7TvKl5UqT6CFzZA8&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQOpSQ3BCoEMbg5WZCEPWE0MKVSpWylum4ea_5LIM4_sdg&oe=6ACB6A55",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T13:50:45.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.39,
+            "confidence": 0.56
+          },
+          "question": {
+            "p": 0.03
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18108167738355917",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18108167738355917/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Binus iku d araya ga se kok iso\"ne onok obong\"an daerah araya",
+        "author": {
+          "username": "novellouuu",
+          "display_name": "novellouuu",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/685018684_17869001160614265_6320989315853834760_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GDyO1Ch5YasKw3s-AAjagfBKqrhXbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=l7CvaSMvyPwQ7kNvwHe-BNu&_nc_oc=Adp5Cg-1ZV6Auef5p7jxkgRGuleCaHbat4rh_Z0ex0xNcEvSwDXKCipY0WjF903MjXg&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=tOyFU6V_GFN3y1eiyGZh3w&_nc_ss=733ba&oh=00_AQOURIIQ-yIvDro37MynKw7uagvQsfD7CSnuv_82KLlmfQ&oe=6ACB6427",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 5,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T14:32:54.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.27,
+            "confidence": 0.88
+          },
+          "question": {
+            "p": 0.35
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.06
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18344847307249457",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18344847307249457/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Kok koyo wong ngobong bekas e tebu",
+        "author": {
+          "username": "huda.spzl87",
+          "display_name": "misbachul huda",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/673870892_18097472983891909_3569861081590985432_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GCx0KijFf4lIjktAANjyuGG9sYoxbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=8M7BloIojXAQ7kNvwH4VvHx&_nc_oc=AdoM55FuAcJ6IakhmoVeeXymde2S1dOvgDYWt4LNaL1GZZ71ap_Zsqz7bLe9QhFSOG8&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=tOyFU6V_GFN3y1eiyGZh3w&_nc_ss=733ba&oh=00_AQMiMH_mm5jnGxr8pao3iIWF9bhDJxraOyVYDQPywz6iUQ&oe=6ACB7FD1",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 6,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T13:52:20.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.33,
+            "confidence": 0.72
+          },
+          "question": {
+            "p": 0.14
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17876969712566606",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/17876969712566606/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Ya ampuuun",
+        "author": {
+          "username": "trivenalinna",
+          "display_name": "Trivena Linna",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/830272055_18463563148190608_1137330401141848302_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=106&ig_cache_key=GDfyfDGQY7xKg5hBAO74T1j5m8gPbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=Joz5W27Db_8Q7kNvwFALphu&_nc_oc=AdrudOnPFUM-KqnaPDCCpdlMo-ts9jUIvdn4az7DUZEpaIaMlcLxYgk7Wh6wdyFJAns&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=tOyFU6V_GFN3y1eiyGZh3w&_nc_ss=733ba&oh=00_AQP01-Qyl6OtKeCZO8hadYIH3ycqFvYYAR2GZK1U0pB_mg&oe=6ACB7FBA",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T16:59:52.000Z"
+      },
+      "computed": {
+        "language": "es",
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.28,
+            "confidence": 0.76
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17946841308359841",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/17946841308359841/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "mulakno panas",
+        "author": {
+          "username": "asazxc_",
+          "display_name": "Asa el diablo escanor gustavo petrus salamanca",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/621123288_18037549142746084_5524195968437603876_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GNiWBSXko0UtDhVAACROXgD34qlMbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy44MjguQzMifQ%3D%3D&_nc_ohc=domibzo1vb0Q7kNvwGLKiNo&_nc_oc=AdpbNqwe5vd001yw4490XBDKLJYP3sXwCymi4n27_0SiJivcqKRMVe1CdU9FniLCgkc&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=tOyFU6V_GFN3y1eiyGZh3w&_nc_ss=733ba&oh=00_AQP7YrVc_zcW3MnkiE51hAnAG2sBgyDJtdI-F1Mn_zSHVw&oe=6ACB6B23",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T13:43:34.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.27,
+            "confidence": 0.49
+          },
+          "question": {
+            "p": 0.18
+          },
+          "purchase_intent": {
+            "p": 0.03
+          },
+          "complaint": {
+            "p": 0.09
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18126373706499084",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18126373706499084/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Kelakuan wong kere obong2",
+        "author": {
+          "username": "sebutsaja_gedhang",
+          "display_name": "Yudha",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/540537837_18527637226003343_4756502255744979240_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=100&ig_cache_key=GO3zNyCPG2KzydJBACgRBr_ZfQJCbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=D0vWnnvMmU4Q7kNvwFsN7vz&_nc_oc=AdoeJDdabpY59qAH9ITIr9aN6Rs67lkezQxApG3XgtsEHulA3TKueQy83OMQ4xjSxNE&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=tOyFU6V_GFN3y1eiyGZh3w&_nc_ss=733ba&oh=00_AQMqWIrKY5WSeuNXmysDoivgx0w7xHMMUbGkI_nHLX29eQ&oe=6ACB6F01",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 10,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T13:56:44.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 0,
+            "score_0_1": 0.05,
+            "confidence": 0.84
+          },
+          "question": {
+            "p": 0.06
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17933364687143971",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/17933364687143971/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "@gatot_eka",
+        "author": {
+          "username": "ita.triwulandari",
+          "display_name": "ita.triwulandari",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/821538105_18567675385074703_1441416022393510656_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=101&ig_cache_key=GDmt9zAP1KHPM-dBAABbUkQ88AAUbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=9LQhk8FhUp4Q7kNvwGgy16C&_nc_oc=AdpNpAwyK9-rXsWlTn6WeXUYW7jMwkcNIEIIVMWMtCtfvCJh6_2zjFvO_jokbBKb6Dc&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=tOyFU6V_GFN3y1eiyGZh3w&_nc_ss=733ba&oh=00_AQPXdC6TvEQLz-qY8WMkvJ0xGKpwDb3MMlWm8ITz_xqMaw&oe=6ACB5F0C",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T15:12:15.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.5,
+            "confidence": 0.98
+          },
+          "question": {
+            "p": 0.05
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18204183169375241",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18204183169375241/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "😢😢😢😢",
+        "author": {
+          "username": "myrepublicmalang_official",
+          "display_name": "MyRepublic Malang Official",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.2885-19/460898663_8177278852352933_250016435542047365_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=100&ig_cache_key=GGfBeBulSzkZMQ0dAIU6fpyfPHgDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy41NTQuQzMifQ%3D%3D&_nc_ohc=8pJfZt07Z5kQ7kNvwFyUqDO&_nc_oc=AdqtPvVS8C7XQdPDLtf05iwxJKfAbbAqi1RRZIbZII0WI-sTapm5LqSHEYmkpApcyVM&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQNVr_hQoiXvDzlvNEWi-pT29d7dMFH_FK66WY0smPQdQQ&oe=6ACB6CC2",
+          "verified": true
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T04:30:39.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.25,
+            "confidence": 0.9
+          },
+          "question": {
+            "p": 0.02
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17969548908170851",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/17969548908170851/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Barongan Tah?",
+        "author": {
+          "username": "risalamoon_notebook",
+          "display_name": "Servis Laptop Malang",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-19/553721838_18498347296066149_5685235328266798550_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=109&ig_cache_key=GO4fASFlioMbJrhBANYF2M1oA_ZObmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=sA6p-hDCbiMQ7kNvwGj321f&_nc_oc=AdpKBJtcoS4z7T2oyACNNjF1XW2dp03mATQAadwg2HeOhDIJUi0O0gFkgY5roATjFEk&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=tOyFU6V_GFN3y1eiyGZh3w&_nc_ss=733ba&oh=00_AQMZ8Qw6MgZWPTMgM75UYCOG99ZV-FWVmO1p-pe1WhfmTw&oe=6ACB5CAF",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 1
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T13:48:11.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.52,
+            "confidence": 0.88
+          },
+          "question": {
+            "p": 0.39
+          },
+          "purchase_intent": {
+            "p": 0.04
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17990637204083758",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/17990637204083758/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "@sirarudiant_official",
+        "author": {
+          "username": "prillnyooo",
+          "display_name": "Prill",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.2885-19/395216833_1747071459077808_2179486889716429555_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=108&ig_cache_key=GMGHjhewLrfF8zQGAPMyK17HFz8ebkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=KdSxjXQj0fAQ7kNvwH2USxM&_nc_oc=AdrGxhrUxZg9fcEs43RLFMwV-GNBHX5FVo5albLHcb7zwKOvWDxDVBaETe1OgELznRU&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQNH25kmlXt7uaAXSt-eLYQ_U6SxJSS78cyT1dxuBDV_hw&oe=6ACB8FBF",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T16:21:21.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.51,
+            "confidence": 0.96
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.03
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18125702896851331",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18125702896851331/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Revisi min, cari yg valid😂",
+        "author": {
+          "username": "dickynoko",
+          "display_name": "DickyNoko",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.2885-19/482169823_657242403925444_5852380251952730791_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GN9TvRzEbQQswlUCAKdSJ-jU1DdRbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=red1hzC5-2kQ7kNvwEOj4en&_nc_oc=AdrXwn1sG1pMWgjw_msEqhbQZZdGv0sv3m4jC6GIa_cPbLbMoxs0PEoXDrWjmZLLNlA&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQMLYuoBFuKXhVeSB5zN59iJs-HmGho5e4fmxHXk4nu8CA&oe=6ACB5B47",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T15:48:53.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.26,
+            "confidence": 0.96
+          },
+          "question": {
+            "p": 0.17
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.08
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18129365704801221",
+        "url": "https://www.instagram.com/p/DeHUFUKJ-pv/c/18129365704801221/",
+        "parent_id": null,
+        "post_id": "DeHUFUKJ-pv",
+        "text": "Lek gak mobil nyangkut , yo kobongan eh malang saiki",
+        "author": {
+          "username": "anandakrisna____",
+          "display_name": "ananda krisna",
+          "avatar_url": "https://scontent-sea5-1.cdninstagram.com/v/t51.2885-19/46878999_272005956809503_5090545880902139904_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=104&ig_cache_key=GBdRywIfs25SY-cAAAAAAACCQKVGbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy44NTUuQzMifQ%3D%3D&_nc_ohc=Sk6dgm012zEQ7kNvwG7b29J&_nc_oc=AdqHRrIFO9G8_XbgX08LQO7UKYxJBUwIBsLZlzjsbzZj0kVWd-oxlykpEBlaSbcSo-g&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQNkT5-HsUSJAEW3JcfzhfZhf5N6WE4aMI6JfX09ls3HZg&oe=6ACB5AD8",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 25,
+          "replies": 2
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-05T13:45:28.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.27,
+            "confidence": 0.59
+          },
+          "question": {
+            "p": 0.14
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.33
+          }
+        }
+      }
+    }
+  ],
+  "instagram:comments:4001714520796042229": [
+    {
+      "comment": {
+        "id": "18115635880823332",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18115635880823332/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Innalillahi wa inna ilaihi roji'un",
+        "author": {
+          "username": "fajar_nortanto",
+          "display_name": "Jar_Fajar",
+          "avatar_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.2885-19/274133567_400292331901047_3949310979872193056_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GD-yVhB30D9SEGwBACD61G5pxc42bkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy41MzIuQzMifQ%3D%3D&_nc_ohc=J5ty4A8Z8CgQ7kNvwErY9Tp&_nc_oc=AdpkpqlaUyaIItRGDppWrp-W2KLkWUCyQxGfEKUyi5GpRs3UKiktZBHx-shhg3UAhd4&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQOG9tISC-xyGd3gULqOUBXtikl077QZgZGVlj3QFzFt-w&oe=6ACB5ECD",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T05:11:43.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.42,
+            "confidence": 0.39
+          },
+          "question": {
+            "p": 0.02
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.01
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17915724492457991",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/17915724492457991/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Innalillahi wainnailaihi raji'un",
+        "author": {
+          "username": "indihome.malangofficial",
+          "display_name": "INTERNET WIFI || MARKETING OFFICIAL INDIHOME MALANG",
+          "avatar_url": "https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/350569294_1705720993238063_3570694854697970801_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=104&ig_cache_key=GE5D5RQvTOMdWA8GAHFslk8NqI0xbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy44NDMuQzMifQ%3D%3D&_nc_ohc=yveUzKQREfIQ7kNvwHF6pQ7&_nc_oc=Ador0A9LQX94oLsUaoLg9a4U0LCC_aWeK4KHzN4UGAPLyZP6q2HXHmHGl7qWnEOxOIA&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQN2wVsOrTH-dz9kRv1uXwjh8p28ldyX7iz_wB8RjnIfkQ&oe=6ACB81E6",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T05:23:33.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.47,
+            "confidence": 0.24
+          },
+          "question": {
+            "p": 0.02
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18115640224826384",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18115640224826384/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Ya allah apess",
+        "author": {
+          "username": "dje_pang",
+          "display_name": "Anjar Permana",
+          "avatar_url": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-19/541916757_18499557202064169_2205296532899411678_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GFX_TCAp84fPP7lBAN623jODyZoebmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=RbDz2bo9ZScQ7kNvwHVMBcW&_nc_oc=AdrV0l4ic-TJ5FUwqT5boyRe2XbFEu79cV2ObJA4JRnx0-bgvT45LPEvBSYRJDjUFOI&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_gid=-QoMUFcNsz3YqrQu79PfuQ&_nc_ss=733ba&oh=00_AQP_ccdmh6kOOL0ZYta0s7ocyt24SKVHAyn30nBGYZBv4w&oe=6ACB7935",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T05:12:57.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.43,
+            "confidence": 0.31
+          },
+          "question": {
+            "p": 0.07
+          },
+          "purchase_intent": {
+            "p": 0.02
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18110917646142559",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18110917646142559/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Korban knp kok tiba2 jatuh",
+        "author": {
+          "username": "indrieast",
+          "display_name": "indri astutik",
+          "avatar_url": "https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/328335152_861861278493211_3332886980573685326_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=108&ig_cache_key=GDD-kRMbqlm32w8DAE5mnukMy0AubkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43NTYuQzMifQ%3D%3D&_nc_ohc=pBr8Wb3TTJEQ7kNvwFq8eg3&_nc_oc=AdpDPxsgIfYJxAUQGO0O9V0DQApIZdiwXMavrwajjoY0JR3bUCKlanL6HAwM28HVQJk&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQP0pWf3tPRRuFUxQK1AGdj5GoM7i-3pOQW1qRqVFKMWtg&oe=6ACB79AE",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T06:35:18.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.28,
+            "confidence": 0.7
+          },
+          "question": {
+            "p": 0.44
+          },
+          "purchase_intent": {
+            "p": 0.03
+          },
+          "complaint": {
+            "p": 0.09
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18592790056069473",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18592790056069473/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Innalillahi wa innaillaihi roji'un😢",
+        "author": {
+          "username": "macaronicundamani",
+          "display_name": "Macaroni Cundamani",
+          "avatar_url": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/559511892_18342568210200191_8386480535805847197_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=101&ig_cache_key=GFR5WSF-9m-2dypBAJ1mbySdw2J0bmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=awppbZaHr4kQ7kNvwHaAAmI&_nc_oc=Adp7yZrBwNfuY0AgRAZP_hPfdufLQxbRSKSX-5N1Fi0w9FKb6K68I-9IXgAp_YtE8Ms&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_gid=-QoMUFcNsz3YqrQu79PfuQ&_nc_ss=733ba&oh=00_AQOZbdRCGQGiRXvA4Jarv6pmUYMCGltgznHrpRFV_8sAEg&oe=6ACB5E88",
+          "verified": true
+        },
+        "engagement": {
+          "likes": 3,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T05:53:58.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.4,
+            "confidence": 0.47
+          },
+          "question": {
+            "p": 0.03
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17923807728431171",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/17923807728431171/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "innalillahi, walah mbok sg ati2 poo rekk tas mari seneng seneng maleh senep lek ngene ki😢 turut berduka cita semoga keluarga yg ditinggalkan diberi ketabahan❤️",
+        "author": {
+          "username": "holywikk",
+          "display_name": null,
+          "avatar_url": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-19/770751255_18482368069110755_1461494608201801764_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GBe78C3jC16nnalBACRgBFOaRUgUbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=cFTgOer_064Q7kNvwEUqmWJ&_nc_oc=AdrxAOuXqKy_EvDdb1Buie0F7wCN-Gwsn896kE5VdkPf-bTtMherukMvZYXtJct7pDM&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_gid=-QoMUFcNsz3YqrQu79PfuQ&_nc_ss=733ba&oh=00_AQO3NUc9hQ7LvUSOiT5WUXhZkJMTzE4EXN6jnBYhT78akg&oe=6ACB6847",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T07:05:58.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.39,
+            "confidence": 0.35
+          },
+          "question": {
+            "p": 0.12
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17913955050538940",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/17913955050538940/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "penjarakan pemotor",
+        "author": {
+          "username": "grossiagst",
+          "display_name": "G",
+          "avatar_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/825773018_18235092589316438_7090240770968551152_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=106&ig_cache_key=GNpLODFWiTtYuMhAAPB_kl1qmGVibmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=5FomMpG6chMQ7kNvwE_ln4K&_nc_oc=AdpADlDQyBYrWSmGrAJz4d5Vng_y5DRQsuGq9QIEJCV0vH-B7UhcAh-vAQf0GplWorU&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_gid=-QoMUFcNsz3YqrQu79PfuQ&_nc_ss=733ba&oh=00_AQORzsvUTUKO59jBrb0tBRMyzb2tWi5O1PUNbP0LKQJFUQ&oe=6ACB8865",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T06:02:08.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.46,
+            "confidence": 0.77
+          },
+          "question": {
+            "p": 0.08
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18098282993383988",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18098282993383988/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "aku saksi mata 🙂 gausah bohong",
+        "author": {
+          "username": "axepsloow",
+          "display_name": "axepsloow",
+          "avatar_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/825323171_18123706604485002_2087232592425686086_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GKNuMTGKeSxGamNAAEaUJvP7VvccbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=WbskKaBG5yQQ7kNvwGy6TmD&_nc_oc=AdphZJp8zNewhwyjsIDq_0IhVnHUPfHeGa1_aE_FkEeokzmulxgLVcJ7WXd06ugAP1A&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_gid=-QoMUFcNsz3YqrQu79PfuQ&_nc_ss=733ba&oh=00_AQM1sylH2ty1reFdRZcCnk10yyeY6b20JYaojMVhXR_fhQ&oe=6ACB64A6",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 15,
+          "replies": 2
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T07:51:40.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.14,
+            "confidence": 0.59
+          },
+          "question": {
+            "p": 0.07
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.05
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18075872105810788",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18075872105810788/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Jelas cowo e sing salah... jalur hukum opo kekeluargaan ngono iku ?",
+        "author": {
+          "username": "wiwin_santosa",
+          "display_name": "Wiwin Sri Wijinarti",
+          "avatar_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.2885-19/416002863_678468724468758_8164491720244994847_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GC_zyxgWLFBPEGkCAB8j0lT2GU5xbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy41MzguQzMifQ%3D%3D&_nc_ohc=EuR-f1FlkxMQ7kNvwH9yoTu&_nc_oc=Adq-MRN1wPE7kKs1OOGBxtDRW5OJ_5IC-Ebub3yVAqNBDAfVKHWSZvKdtKxhF1ugBKY&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQPHvRkkJw63rBHiv_dJXRKBuzNu3Y7P6z0J9Iw-YHsNiw&oe=6ACB7B46",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 3,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:54:25.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.13,
+            "confidence": 0.56
+          },
+          "question": {
+            "p": 0.29
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18080561546651375",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18080561546651375/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "jalan veteran lagi😢",
+        "author": {
+          "username": "nails.byzalicha",
+          "display_name": "𝐍𝐚𝐢𝐥 𝐀𝐫𝐭 𝐌𝐚𝐥𝐚𝐧𝐠 𝟒𝟎𝐊 𝐒𝐢𝐧𝐜𝐞 𝟐𝟎𝟐𝟐",
+          "avatar_url": "https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/387689079_835869258017471_3524697102992525849_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=104&ig_cache_key=GHeqGxe-6jP6N-gCABnKtyxXPeowbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=8haM73MIgn4Q7kNvwGal3Ld&_nc_oc=Adr9VkkptQ3K5UIbDHl4d_M1vrjyH2sIZHUqb45_q6wxqW0_p1NlB3EV93k2n8K_laU&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQNqXTho-9Ufz3Ac2jZcJXNR7FumDI1I6Ma2doJO4t8cHw&oe=6ACB6753",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 1
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T05:50:37.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.41,
+            "confidence": 0.65
+          },
+          "question": {
+            "p": 0.05
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18096247667539366",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18096247667539366/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Terjatuh e karena opo , yoo karena kakean pola , akeh saksi e , salah lanangan e pisan",
+        "author": {
+          "username": "ricky_muncil28",
+          "display_name": "Rakhmad Ricky Arisadi",
+          "avatar_url": "https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/472626437_544999598560761_4851956650362277854_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=110&ig_cache_key=GAW1Kxz5lXmbrO8BAN4PcOLdnFVDbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43NTAuQzMifQ%3D%3D&_nc_ohc=AY_ZbGEyluEQ7kNvwE0kECG&_nc_oc=AdrKYmlv26U82UDCXuyVexbNzqqGX_9j1jdgS5kGllxQNzS_crsBIush5RZ4iYzDv2I&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQNuzU0-q8YNUkmR9Y4PZot19U2UJGNuWFW_mTOJzn942w&oe=6ACB6B75",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 3,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T12:23:57.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.17,
+            "confidence": 0.62
+          },
+          "question": {
+            "p": 0.31
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18119377279877087",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18119377279877087/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Kasihan sopir truck nya",
+        "author": {
+          "username": "fi_diandah",
+          "display_name": "the~eldest",
+          "avatar_url": "https://scontent-iad3-2.cdninstagram.com/v/t51.2885-19/425712646_1564804564269584_766535829205771164_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GAbcXxkQOjJ0Lo8FAJxja39GSKMKbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=HGiw2qnXwggQ7kNvwG9peha&_nc_oc=AdoMvaSsYbFdMQRbNH9NQGpEE4JHe1LiMWOjBpNrRU9CcmRFQtlI84aeeiKCJysTj7o&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_ss=733ba&oh=00_AQMjvYOev6af-zs-32n7-5g2w25B0QuCeFvVhR5S5Kp2Rg&oe=6ACB8F80",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T07:05:16.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.48,
+            "confidence": 0.22
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18199657834381196",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18199657834381196/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "Konvoi boleh rek tapi harus patuh juga dengan lalu lintas dan jangan membahayakan diri sendiri dan orang lain jaga diri sendiri sendiri ingat kalian juga merantau untuk menempuh mencari ilmu orang tua disana menunggu kalian rekk ingat jangan urak an di jalan apalagi mahasiswa mahasiswa yang dari luar malang tolong dijaga sopan santun etikanya dan saat berkendara semoga tidak ada kejadian seperti ini dan semoga si pelaku yang membonceng mau bertanggung jawab",
+        "author": {
+          "username": "gianyodha_",
+          "display_name": "gian yodha",
+          "avatar_url": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/743373756_18058951937752066_2402733142211229422_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=107&ig_cache_key=GLz7TiwC-ENnhShAAO72jgcQOVghbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=gRxxtkSydlEQ7kNvwFOM0WS&_nc_oc=Adr1e4pYrc4OtJMFjxpjqO9rPNrkDsi04f1gn9faKdHR0H20QCTkSJRM8oHgYNa_UMQ&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_gid=-QoMUFcNsz3YqrQu79PfuQ&_nc_ss=733ba&oh=00_AQNzp3prHfBuLxnTa9OMeCpQn4rYC_i_Jcr-T06PvA743A&oe=6ACB6A56",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T17:47:22.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 2,
+            "score_0_1": 0.41,
+            "confidence": 0.43
+          },
+          "question": {
+            "p": 0.05
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18010260281969050",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/18010260281969050/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": null,
+        "author": {
+          "username": "kuhz1987",
+          "display_name": "Kukuh Xfriends",
+          "avatar_url": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-19/773603550_18408623308083714_6288938160447931902_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=111&ig_cache_key=GN5AHC4CEhWdi2ZBAP7F5cvvy0ZXbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=Mubrec9l-y0Q7kNvwH7GWFK&_nc_oc=Adp_u-z1vQEwkao4QqpYlYEJqV6ZUvrPYYH4QL8wz-tWkMe89RVTg4JaH5vUFPTZaZA&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_gid=-QoMUFcNsz3YqrQu79PfuQ&_nc_ss=733ba&oh=00_AQMd1A7ejYB-8upWm8qeCab9jw14QHlWLB_PW8TXo2oyVA&oe=6ACB793B",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T19:32:51.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": null
+      }
+    },
+    {
+      "comment": {
+        "id": "17959733931220316",
+        "url": "https://www.instagram.com/p/DeI8ieYkhP1/c/17959733931220316/",
+        "parent_id": null,
+        "post_id": "DeI8ieYkhP1",
+        "text": "tiba tiba terjatuh 😂😂😂 \n\nada yang bilang cowoknya diduga standing, saat ditanya ngakunya \"tidak sengaja\" tekan tuas persneling dan kopling\n\nada yang bilang ceweknya diduga live streaming, sehingga terjatuh karena tidak pegangan erat ke cowok\n\ncoklat oh coklat\nada akibat, pasti ada penyebabnya\n\nkenapa bisa tiba tiba terjatuh, apa penyebabnya ?\n\nenteng banget menjawabnya, saya jadi curiga \n\nsebagai pembaca saya sangat penasaran dengan live streaming dan cctv sekitar jalan besar veteran \n\njangan sampai si coklat ngomong tidak ada rekaman cctv di jalan besar dan padat aktivitas masyarakat",
+        "author": {
+          "username": "rendradtya",
+          "display_name": null,
+          "avatar_url": "https://scontent-iad3-1.cdninstagram.com/v/t51.89012-19/573323465_1219825463302212_7278921664109726296_n.png?stp=dst-webp&_nc_cat=1&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.3-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xNTAuQzMifQ%3D%3D&_nc_ohc=TvJzLfMMkioQ7kNvwE7-ojd&_nc_oc=AdqUyC6e8zPCkKga6-2oBHXdSdeHDRm8ZCb_PVvkndl9GYCoon2CXf3wIHy59EpqbVg&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_gid=-QoMUFcNsz3YqrQu79PfuQ&_nc_ss=733ba&oh=00_AQPS1dqj8EIwBbqCWvashX2ZRicTNtK_ay_KB7Wkj_W7vA&oe=6ACB5BD9",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 58,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T06:36:43.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.26,
+            "confidence": 0.95
+          },
+          "question": {
+            "p": 0.4
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    }
+  ],
+  "instagram:comments:4001974585993708233": [
+    {
+      "comment": {
+        "id": "18134706574734094",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18134706574734094/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "😢😢😢😢😢😢😢😢😢",
+        "author": {
+          "username": "pijat_malang_raya_",
+          "display_name": "TERAPHIST PIJAT PANGGILAN MALANG",
+          "avatar_url": "https://scontent-dfw6-1.cdninstagram.com/v/t51.2885-19/313281568_2312051165636739_7373056742423133436_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GCBMrBKDKG5czDYIAPz87QgLXFJmbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-JdE9EEJaGAQ7kNvwEsrGcV&_nc_oc=AdrckP0afJXSnthQQrd5-k_f3WXEPh5E89hzocfK_efiq8lt1vEm5bPzboT89CTWspU&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw6-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQPegwT1b-luuxJbEnObMkEvlsUHocpS9ASFCSPJD4vN0g&oe=6ACB60A5",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:40:41.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.22,
+            "confidence": 0.82
+          },
+          "question": {
+            "p": 0.02
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18078463496716201",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18078463496716201/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "😢😢😢",
+        "author": {
+          "username": "villasamawa",
+          "display_name": "Villa Samawa Kota Malang",
+          "avatar_url": "https://scontent-dfw6-1.cdninstagram.com/v/t51.2885-19/274647965_1243165679426561_7659707785849803518_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GJ3LXhABHLgQp2oEAP4S3-qlv0xqbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=I-Y2DXL2lmwQ7kNvwF7pGYq&_nc_oc=AdpC7x7N9uvWIsXBdDOHRqDGgJbW6Wgz3qXGeFSK8KBSAk3fAPlWfj_EzAeGss3ygpo&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw6-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQNKVyUBG4cNbKL1iGt0JS5bbZ2KSlt0ZjSOx_R9_Jh3fg&oe=6ACB8955",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T23:15:20.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.24,
+            "confidence": 0.84
+          },
+          "question": {
+            "p": 0.02
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18111535043160060",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18111535043160060/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "Wes lawas min kaet upload",
+        "author": {
+          "username": "_reyhannsf",
+          "display_name": "Rey",
+          "avatar_url": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-19/716070136_18112675244494775_1930525421789951427_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GPhcriq3T_HVYVlAAMO1poukmsoabmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=Ce22B30LTZAQ7kNvwFyC3rX&_nc_oc=AdrHcXQxOHdYN7G9sbrsKkLPNLHm2GILHzWe79cQ7CrBjv7mjh1NVW8P31Nh4q0h5DY&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_gid=lT9_BI1XtNlPbnfhqiHfyQ&_nc_ss=733ba&oh=00_AQPdgmExVzBh-nB6D6IBn3zsBYGWg6EhKgM1eHN1wHtASw&oe=6ACB784A",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:31:04.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.32,
+            "confidence": 0.55
+          },
+          "question": {
+            "p": 0.19
+          },
+          "purchase_intent": {
+            "p": 0.03
+          },
+          "complaint": {
+            "p": 0.19
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18147683647483417",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18147683647483417/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "Awas aja yang nyalahin korban",
+        "author": {
+          "username": "dinda_yunita_purnamasari",
+          "display_name": "Dinda Yunita Purnamasari",
+          "avatar_url": "https://scontent-dfw6-2.cdninstagram.com/v/t51.2885-19/481950150_3233267430155129_6067632627420012117_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=110&ig_cache_key=GMb5uRx5Y6O8o3wLAFWe8Bi6jzRUbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=LhvENBWLqtYQ7kNvwHDvhaN&_nc_oc=Adq081HstsFaUnbLtqJIVsjBXYmpcQzBuvuJhFmqLkX3LHiUxLC3JvAUW58TZ2jSSC4&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw6-2.cdninstagram.com&_nc_ss=733ba&oh=00_AQMlB5488PiYzI7PjDli_oG5VNagWvhpMTd1d_URRNkZlQ&oe=6ACB5D61",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 16,
+          "replies": 1
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:02:47.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.28,
+            "confidence": 0.06
+          },
+          "question": {
+            "p": 0.06
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18011422844981493",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18011422844981493/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "Klo tjd pd anak sy...7 turunan sy buat menyesall...",
+        "author": {
+          "username": "vio.cimut",
+          "display_name": "vio.cimut",
+          "avatar_url": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-19/631635907_18014959871657598_5639499385251579781_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=111&ig_cache_key=GMP-pSV_BsuzggBAAIVH9MDPhkNObmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy43MDUuQzMifQ%3D%3D&_nc_ohc=wnOsYbtLN_IQ7kNvwE8VK7l&_nc_oc=AdpwEhmZJQ7XuxlOjPmd0ADLSlBCFBI8mtebm50kbRQuFETX84zOliwK1WfZa_I3kaM&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_gid=lT9_BI1XtNlPbnfhqiHfyQ&_nc_ss=733ba&oh=00_AQOXNNTpNaeD2ptxfmM0BrUdW85BfHfj924F_VPNuq7ugA&oe=6ACB76F2",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 3,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:15:49.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 0,
+            "score_0_1": 0.07,
+            "confidence": 0.77
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18107073296262272",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18107073296262272/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "He tolong kelakuan mu‼️ @penggemaria_",
+        "author": {
+          "username": "halolekk_",
+          "display_name": "Alfinroiss",
+          "avatar_url": "https://scontent-dfw6-2.cdninstagram.com/v/t51.82787-19/656836834_18186075064371999_2292268281654618064_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=108&ig_cache_key=GOKIJicfCxKQI5xAANAn63Hbxc8fbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=elc2weQEsYgQ7kNvwGjh7Nn&_nc_oc=AdpM0ggOwQpa4qFVEFALn16pi9C7AU73Q90o8z5NJNSoyJ-X-9G_POWD4USaCZ2p2FY&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw6-2.cdninstagram.com&_nc_gid=lT9_BI1XtNlPbnfhqiHfyQ&_nc_ss=733ba&oh=00_AQPuUY2YPJBsOcaIFCEy8hOnyGbKX_0E5bUGkAwXSJ7NMg&oe=6ACB653B",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 2,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T15:36:17.000Z"
+      },
+      "computed": {
+        "language": "en",
+        "labels": {
+          "sentiment": {
+            "level": 0,
+            "score_0_1": 0.01,
+            "confidence": 0.96
+          },
+          "question": {
+            "p": 0.06
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.04
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17995103300868246",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/17995103300868246/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "Ndak karu karuan ngene sak iki",
+        "author": {
+          "username": "bahrul_anwar711",
+          "display_name": "Rull",
+          "avatar_url": "https://scontent-dfw6-1.cdninstagram.com/v/t51.82787-19/773556325_17911649706450300_5458395373866807629_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=102&ig_cache_key=GGWIGy58HRjujKI-AE1x9zasHcBLbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=d7-tb3A3y3wQ7kNvwGWrCkU&_nc_oc=Ado8_ztKNgPEniF8VJBL55TRj5KleWn2oeFmTUbvIKGIbuSleLLkOABi-8wne7-llDs&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw6-1.cdninstagram.com&_nc_gid=lT9_BI1XtNlPbnfhqiHfyQ&_nc_ss=733ba&oh=00_AQPTsgKQ6Mw9imNpFi_MctkkfK8yWkeGV9fvSxI-RB2OCw&oe=6ACB8BAB",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:38:35.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.15,
+            "confidence": 0.59
+          },
+          "question": {
+            "p": 0.09
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.03
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18106602608212499",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18106602608212499/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "PIKIRAN E TEMPIK TERUS",
+        "author": {
+          "username": "lil_roen",
+          "display_name": "Putra",
+          "avatar_url": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-19/825324366_18104799887361733_6579274088129417301_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=111&ig_cache_key=GE5zMTHFBgQ2OFJAAFXQ4rbsRk5bbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy45NDQuQzMifQ%3D%3D&_nc_ohc=EoxYoikQopAQ7kNvwG-i-6X&_nc_oc=AdrBZF3XGb_R4opQHTPt2vW0kPuif-aIVc0DONsbl-r5p-glt-5VP70NE4cdqvC9sg0&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_gid=lT9_BI1XtNlPbnfhqiHfyQ&_nc_ss=733ba&oh=00_AQMEHq_-JFEz99nNX60fjc2gDYqhvmT9zatSb5GVSWSLiQ&oe=6ACB7109",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 0,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T14:43:32.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 0,
+            "score_0_1": 0.04,
+            "confidence": 0.86
+          },
+          "question": {
+            "p": 0.06
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "17933313630142675",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/17933313630142675/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "Jngn nyalahin korban ya, awas aja.",
+        "author": {
+          "username": "ilvfles",
+          "display_name": "ErikaPutri",
+          "avatar_url": "https://scontent-dfw5-2.cdninstagram.com/v/t51.82787-19/833275126_18344075854253995_9167388746682453580_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=104&ig_cache_key=GPbEqjGrjwb91itBAEzO64N_Gzl-bmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=jTGnw0CqewYQ7kNvwEF3HrE&_nc_oc=AdpqzePPIybDp3nuu8pczIqRrzSA3AkWXnSLANQN0QVhG_tw4ql8_8MpSeMM_l6OWSM&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw5-2.cdninstagram.com&_nc_gid=lT9_BI1XtNlPbnfhqiHfyQ&_nc_ss=733ba&oh=00_AQN1XxtW6RAR_nLV9M0zTfhqOI2XnABdS0YZcWQ1X3m6QQ&oe=6ACB7804",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 5,
+          "replies": 2
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:41:28.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.25,
+            "confidence": 0.17
+          },
+          "question": {
+            "p": 0.03
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18116183966320727",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18116183966320727/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "Keinget pas awal2 maba, diajak2 ngopi ama kating, gataunya diajak minum sampek teler, bangun2 udah gak pake baju 😢, btw aku cowok dan emang aku ini ganteng, dan yg nglecehin aku juga cowok boti. Sampek sekrang trauma 😢😢",
+        "author": {
+          "username": "kuncistang2",
+          "display_name": "Sayang",
+          "avatar_url": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-19/782615973_18109043414123593_2650522517801713032_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=105&ig_cache_key=GKXFpS5JxOs7FFZAAIi9vtYvjMgkbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=uvT_1SWvdd8Q7kNvwHNuluk&_nc_oc=AdoRaV1rACCB3Ck2nsWgWvhA9nny59X9b7V77LPsc0b_wgkGItwjwgg9zqOLKSASRK8&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_gid=lT9_BI1XtNlPbnfhqiHfyQ&_nc_ss=733ba&oh=00_AQNuURhpXkNRbxd9kj-ug9X53MqKsTY-yzwi1jrxTz7Sbg&oe=6ACB8CF3",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 15,
+          "replies": 8
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:39:34.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.16,
+            "confidence": 0.49
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.07
+          }
+        }
+      }
+    },
+    {
+      "comment": {
+        "id": "18118242653061774",
+        "url": "https://www.instagram.com/p/DeJ3q6-S8LJ/c/18118242653061774/",
+        "parent_id": null,
+        "post_id": "DeJ3q6-S8LJ",
+        "text": "Wajib usut tuntas @polrestamalangkotaofficial",
+        "author": {
+          "username": "pijat_malang_raya_",
+          "display_name": "TERAPHIST PIJAT PANGGILAN MALANG",
+          "avatar_url": "https://scontent-dfw6-1.cdninstagram.com/v/t51.2885-19/313281568_2312051165636739_7373056742423133436_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=103&ig_cache_key=GCBMrBKDKG5czDYIAPz87QgLXFJmbkULAAAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=-JdE9EEJaGAQ7kNvwEsrGcV&_nc_oc=AdrckP0afJXSnthQQrd5-k_f3WXEPh5E89hzocfK_efiq8lt1vEm5bPzboT89CTWspU&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-dfw6-1.cdninstagram.com&_nc_ss=733ba&oh=00_AQPegwT1b-luuxJbEnObMkEvlsUHocpS9ASFCSPJD4vN0g&oe=6ACB60A5",
+          "verified": false
+        },
+        "engagement": {
+          "likes": 1,
+          "replies": 0
+        },
+        "flags": {
+          "pinned": null,
+          "deleted": false
+        },
+        "published_at": "2026-10-06T13:41:10.000Z"
+      },
+      "computed": {
+        "language": null,
+        "labels": {
+          "sentiment": {
+            "level": 1,
+            "score_0_1": 0.22,
+            "confidence": 0.28
+          },
+          "question": {
+            "p": 0.04
+          },
+          "purchase_intent": {
+            "p": 0.01
+          },
+          "complaint": {
+            "p": 0.02
+          }
+        }
+      }
+    }
   ]
 }
