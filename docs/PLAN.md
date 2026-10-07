@@ -182,3 +182,7 @@ Selesai jika: setiap posting mendapat label, dan spot-check menunjukkan precisio
 1. Sepakati kontrak di bagian 3, lalu tulis `core/schemas.py`.
 2. Siapkan `pyproject.toml` (Python 3.12, `uv`), `.env.example`, `.gitignore`, dan `git init`.
 3. Person 1 dan 2 mulai di folder masing-masing; Person 3 mulai dari `database/` dan `pipeline/`.
+
+## 9. Lanjutan
+
+Roadmap setelah prototype 1 hari ada di `ROADMAP.md`.

@@ -5,6 +5,7 @@ dilabel manual sesuai aturan PLAN). Skip bila tanpa GEMINI_API_KEY.
 Target PLAN: precision indikatif ~80%.
 """
 import json
+import os
 import time
 from pathlib import Path
 
@@ -52,6 +53,9 @@ def _candidates():
 
 
 def test_llm_precision_on_real_posts(monkeypatch):
+    # Opt-in: memanggil LLM sungguhan (kuota + ±2 menit). Jalankan: RUN_LLM_EVAL=1 uv run pytest
+    if os.getenv("RUN_LLM_EVAL") != "1":
+        pytest.skip("eval LLM hanya saat RUN_LLM_EVAL=1")
     monkeypatch.delenv("AI_PROVIDER", raising=False)  # lepas paksa-heuristic conftest
     if provider() not in ("gemini", "openrouter"):
         pytest.skip("tanpa LLM key — eval LLM dilewati")

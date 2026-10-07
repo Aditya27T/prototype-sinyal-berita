@@ -11,6 +11,7 @@ import httpx
 import yaml
 from dotenv import load_dotenv
 
+from ai.llm_keys import GEMINI_POOL, gemini_keys, is_gemini_quota_error
 from core.schemas import AnalysisResult, Post
 
 load_dotenv()
@@ -52,7 +53,7 @@ def provider() -> str:
         return forced
     if os.getenv("OPENROUTER_API_KEY", "").strip():
         return "openrouter"
-    if os.getenv("GEMINI_API_KEY", "").strip():
+    if gemini_keys():
         return "gemini"
     return "heuristic"
 
@@ -123,6 +124,8 @@ _quota_exhausted = False
 
 
 def llm_unavailable() -> bool:
+    if provider() == "gemini":
+        return GEMINI_POOL.all_exhausted()
     return _quota_exhausted
 
 
@@ -144,11 +147,7 @@ def _should_retry(err: Exception, attempt: int) -> bool:
 
 
 def _analyze_gemini(post: Post) -> AnalysisResult:
-    """Panggil Gemini (JSON mode + responseSchema). Raise bila gagal → fallback heuristic."""
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("GEMINI_API_KEY kosong")
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+    """Panggil Gemini (JSON mode + responseSchema), bergilir antar key. Raise bila gagal."""
     payload = {
         "contents": [{"parts": [{"text": _prompt_for(post.text)}]}],
         "generationConfig": {
@@ -159,20 +158,42 @@ def _analyze_gemini(post: Post) -> AnalysisResult:
             "thinkingConfig": {"thinkingBudget": 0},
         },
     }
+    raw = gemini_generate(payload)
+    return AnalysisResult(**json.loads(raw))
+
+
+def gemini_generate(payload: dict, model: str | None = None) -> str:
+    """Satu panggilan generateContent dengan key bergilir.
+
+    429/kuota → key ditandai habis, coba key berikutnya tanpa tidur. Error server
+    (5xx) → tidur sebentar lalu coba lagi. Habis key → RuntimeError.
+    """
+    url = (
+        "https://generativelanguage.googleapis.com/v1beta/models/"
+        f"{model or GEMINI_MODEL}:generateContent"
+    )
     last_err: Exception | None = None
-    for attempt in (1, 2, 3):
+    tried = 0
+    max_tries = max(3, len(gemini_keys()) + 1)
+    while tried < max_tries:
+        api_key = GEMINI_POOL.next_key()
+        if not api_key:
+            raise RuntimeError(f"semua key Gemini habis kuota: {last_err}")
+        tried += 1
         try:
             with httpx.Client(timeout=GEMINI_TIMEOUT) as client:
                 resp = client.post(url, headers={"x-goog-api-key": api_key}, json=payload)
                 resp.raise_for_status()
                 body = resp.json()
-            text = body["candidates"][0]["content"]["parts"][0]["text"]
-            return AnalysisResult(**json.loads(text))
-        except Exception as e:  # noqa: BLE001 — analyze() jatuh ke heuristic
+            return body["candidates"][0]["content"]["parts"][0]["text"]
+        except Exception as e:  # noqa: BLE001 — pemanggil jatuh ke heuristic
             last_err = e
-            _mark_quota_if_exhausted(e)
-            if _should_retry(e, attempt):
-                time.sleep(5 * attempt)  # free-tier throttle: 5s, 10s
+            if is_gemini_quota_error(e):
+                GEMINI_POOL.mark_exhausted(api_key)
+                continue  # langsung key berikutnya
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            if status in (500, 502, 503) and tried < max_tries:
+                time.sleep(3 * tried)
                 continue
             break
     raise RuntimeError(f"gemini gagal: {last_err}")
@@ -233,7 +254,7 @@ def _analyze_openrouter(post: Post) -> AnalysisResult:
 def analyze(post: Post) -> AnalysisResult:
     """Kontrak Person 2. Provider LLM bila key ada; fallback heuristic bila gagal."""
     prov = provider()
-    if prov in ("gemini", "openrouter") and not _quota_exhausted:
+    if prov in ("gemini", "openrouter") and not llm_unavailable():
         try:
             if prov == "gemini":
                 return _analyze_gemini(post)

@@ -313,3 +313,10 @@ aside { display: grid; gap: 12px; position: sticky; top: 16px; }
 @media (max-width: 820px) {
   .reports { grid-template-columns: 1fr; }
 }
+
+/* Narasi event */
+.event-title { margin: 10px 0 4px; font-size: 15px; }
+.event-meta { margin: 0 0 6px; font-size: 12px; }
+
+/* badge urgency kecil di tombol filter */
+.urgency.mini { display: inline-block; min-width: 18px; padding: 0 6px; font-size: 12px; line-height: 18px; text-align: center; }

@@ -45,6 +45,7 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState(null);
   const [issue, setIssue] = useState(null);
+  const [platform, setPlatform] = useState(null); // null = semua; "instagram" | "threads"
   const [page, setPage] = useState("posts");
   const autoSwitched = useRef(false);
 
@@ -91,19 +92,32 @@ export default function App() {
     const ts = (p) => new Date(p.published_at ?? p.collected_at ?? 0).getTime() || 0;
     return posts
       .filter((p) => view === "all" || statusOf(p) === view)
+      .filter((p) => !platform || p.platform === platform)
       .filter((p) => !location || p.location === location)
       .filter((p) => !issue || p.issue_hint === issue)
       .filter((p) => !q || `${p.text} ${p.author ?? ""}`.toLowerCase().includes(q))
       .sort((a, b) => ts(b) - ts(a) || (b.relevance_score ?? -1) - (a.relevance_score ?? -1));
-  }, [posts, view, search, location, issue]);
+  }, [posts, view, search, location, issue, platform]);
+
+  // jumlah per platform mengikuti tab aktif (Relevan/Noise/...), bukan seluruh data
+  const platformCounts = useMemo(() => {
+    const c = {};
+    for (const p of posts) {
+      if (view !== "all" && statusOf(p) !== view) continue;
+      c[p.platform] = (c[p.platform] ?? 0) + 1;
+    }
+    return c;
+  }, [posts, view]);
+  const platforms = Object.keys(platformCounts).sort();
 
   const analyzed = stats.relevant + stats.noise;
-  const hasFilter = search || location || issue;
+  const hasFilter = search || location || issue || platform;
 
   function clearFilters() {
     setSearch("");
     setLocation(null);
     setIssue(null);
+    setPlatform(null);
   }
 
   return (
@@ -167,6 +181,30 @@ export default function App() {
                 </button>
               ))}
             </div>
+            {platforms.length > 1 && (
+              <div className="segmented" role="tablist" aria-label="Filter platform">
+                <button
+                  role="tab"
+                  aria-selected={platform == null}
+                  className={platform == null ? "active" : ""}
+                  onClick={() => setPlatform(null)}
+                >
+                  Semua platform
+                </button>
+                {platforms.map((pf) => (
+                  <button
+                    key={pf}
+                    role="tab"
+                    aria-selected={platform === pf}
+                    className={platform === pf ? "active" : ""}
+                    onClick={() => setPlatform(platform === pf ? null : pf)}
+                  >
+                    {pf === "instagram" ? "Instagram" : pf === "threads" ? "Threads" : pf}
+                    <span className="count">{platformCounts[pf]}</span>
+                  </button>
+                ))}
+              </div>
+            )}
             <input
               className="search"
               type="search"
@@ -178,6 +216,7 @@ export default function App() {
 
           {hasFilter && (
             <div className="active-filters">
+              {platform && <Chip onRemove={() => setPlatform(null)}>Platform: {platform}</Chip>}
               {location && <Chip onRemove={() => setLocation(null)}>Lokasi: {location}</Chip>}
               {issue && <Chip onRemove={() => setIssue(null)}>Isu: {issue}</Chip>}
               {search && <Chip onRemove={() => setSearch("")}>“{search}”</Chip>}
@@ -231,12 +270,13 @@ function EventsPage() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [minUrgency, setMinUrgency] = useState(1);
+  // null = semua; angka = HANYA urgency itu (bukan kumulatif), supaya 4 tidak ikut di 1
+  const [urgency, setUrgency] = useState(null);
 
   useEffect(() => {
     let active = true;
     setLoading(true);
-    fetch(`${API}/events?min_urgency=${minUrgency}&limit=100`)
+    fetch(`${API}/events?limit=200`)
       .then((r) => {
         if (!r.ok) throw new Error(`API ${r.status}`);
         return r.json();
@@ -247,15 +287,21 @@ function EventsPage() {
     return () => {
       active = false;
     };
-  }, [minUrgency]);
+  }, []);
 
-  const urgent = events.filter((e) => e.urgency >= 4).length;
+  const countBy = useMemo(() => {
+    const c = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    for (const e of events) c[Math.min(5, Math.max(1, e.urgency ?? 1))] += 1;
+    return c;
+  }, [events]);
+  const visible = urgency == null ? events : events.filter((e) => (e.urgency ?? 1) === urgency);
+  const urgent = countBy[4] + countBy[5];
 
   return (
     <>
       <section className="funnel" aria-label="Ringkasan event">
         <Stat label="Event" value={events.length} hint="hasil clustering hari ini" />
-        <Stat label="Urgency ≥ 4" value={urgent} hint="perlu perhatian segera" tone="good" />
+        <Stat label="Urgency 4–5" value={urgent} hint="perlu perhatian segera" tone="good" />
         <Stat
           label="Posting pendukung"
           value={events.reduce((n, e) => n + (e.post_count ?? 0), 0)}
@@ -264,14 +310,26 @@ function EventsPage() {
       </section>
 
       <div className="toolbar">
-        <div className="segmented" role="tablist">
-          {[1, 2, 3, 4].map((u) => (
+        <div className="segmented" role="tablist" aria-label="Filter urgency">
+          <button
+            role="tab"
+            aria-selected={urgency == null}
+            className={urgency == null ? "active" : ""}
+            onClick={() => setUrgency(null)}
+          >
+            Semua<span className="count">{events.length}</span>
+          </button>
+          {[5, 4, 3, 2, 1].map((u) => (
             <button
               key={u}
-              className={minUrgency === u ? "active" : ""}
-              onClick={() => setMinUrgency(u)}
+              role="tab"
+              aria-selected={urgency === u}
+              className={urgency === u ? "active" : ""}
+              onClick={() => setUrgency(urgency === u ? null : u)}
+              title={`Hanya event dengan urgency ${u}`}
             >
-              Urgency ≥ {u}
+              <span className={`urgency u${u} mini`}>{u}</span>
+              <span className="count">{countBy[u]}</span>
             </button>
           ))}
         </div>
@@ -284,9 +342,12 @@ function EventsPage() {
           Belum ada event. Jalankan <code>uv run python -m graph.run insight --date today</code> setelah pipeline.
         </div>
       )}
+      {!loading && !error && events.length > 0 && visible.length === 0 && (
+        <div className="empty">Tidak ada event dengan urgency {urgency}.</div>
+      )}
 
       <ul className="events">
-        {events.map((e) => (
+        {visible.map((e) => (
           <EventCard key={e.id} event={e} />
         ))}
       </ul>
@@ -309,7 +370,14 @@ function EventCard({ event }) {
         </span>
       </div>
 
-      {event.rationale && <p className="event-rationale">{event.rationale}</p>}
+      {event.narrative?.title && <h3 className="event-title">{event.narrative.title}</h3>}
+      <p className="event-rationale">{event.narrative?.summary || event.rationale}</p>
+      {event.narrative && (
+        <p className="event-meta muted">
+          Sentimen {event.narrative.sentiment ?? "-"} · perhatian {event.narrative.attention_level ?? "-"} ·
+          status {event.narrative.status ?? "-"}
+        </p>
+      )}
 
       <ul className="event-posts">
         {(event.posts ?? []).map((p) => (
@@ -420,6 +488,15 @@ function ReportsPage() {
               </div>
               <div className="report-actions">
                 <span className={`badge ${selected.status}`}>{selected.status}</span>
+                <a
+                  className="btn"
+                  href={`${API}/reports/${selected.id}.pdf`}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="PDF untuk dibagikan — tanpa bagian Rekomendasi"
+                >
+                  Unduh PDF
+                </a>
                 {selected.status === "draft" ? (
                   <button className="btn primary" onClick={approve} disabled={busy}>
                     {busy ? "Menyimpan…" : "Setujui"}

@@ -11153,68 +11153,7 @@
       }
     }
   ],
-  "threads:replies:malangraya_info:4001732694287428823": [
-    {
-      "comment": {
-        "id": "4001757718185070966",
-        "url": "https://www.threads.com/@doa.ysp/post/DeJGXFFmVF2",
-        "parent_id": null,
-        "post_id": "4001732694287428823",
-        "text": "Polisi malang kok corrective terus, kapan preventive  e masalah lalu lintas gak tegas penindakannya",
-        "author": {
-          "username": "doa.ysp",
-          "display_name": "Do'a Yorangga",
-          "avatar_url": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-19/814735340_18132214726579673_3069014899140735357_n.jpg?_nc_cat=110&ccb=7-5&_nc_sid=30ff31&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xNTAuQzMifQ%3D%3D&_nc_ohc=UqCShHNsIM0Q7kNvwHkQUQi&_nc_oc=AdpEXULDYLJi5lQ_r5Ng65c9pHyWlTwnmHWSjDIzhT9eINe9CU9Woj6-28RNgc1wxoU&_nc_zt=24&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_gid=NH9DL1EFCrx_eHL6u7WxmQ&_nc_ss=7f289&oh=00_AQMaFE04RsaMPwpadTOXBpc5Kw0EAawcYN-i2-mf385MlA&oe=6ACA8FC1",
-          "verified": false
-        },
-        "engagement": {
-          "likes": 0,
-          "replies": 0
-        },
-        "flags": {
-          "pinned": false,
-          "deleted": false
-        },
-        "published_at": "2026-10-06T06:05:16.000Z",
-        "ext": {
-          "published_at_epoch": 1791266716
-        }
-      },
-      "computed": {
-        "language": null
-      }
-    },
-    {
-      "comment": {
-        "id": "4001819453173235029",
-        "url": "https://www.threads.com/@diaryyofmoon__/post/DeJUZcRo31V",
-        "parent_id": null,
-        "post_id": "4001732694287428823",
-        "text": "Si truk pasti takut huhu :( kesian",
-        "author": {
-          "username": "diaryyofmoon__",
-          "display_name": "Moon's page and her memoirs .",
-          "avatar_url": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-19/773052415_17978180544111337_5931493746167235725_n.jpg?stp=dst-jpg_s206x206_tt6&_nc_cat=102&ccb=7-5&_nc_sid=30ff31&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=OjrnQ2um19sQ7kNvwFaJSiv&_nc_oc=Adqg1yN_wVrpJAvzqwdzcMOypl8DuuZbSAeu8RAvtjQlhyVBPi286wUfIYuYYQV4Aho&_nc_zt=24&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_gid=NH9DL1EFCrx_eHL6u7WxmQ&_nc_ss=7f289&oh=00_AQMlUNSgWzok8J7FJ_JN6H1nexL9e80r5-2bfnyjOZBCNQ&oe=6ACAA8A7",
-          "verified": false
-        },
-        "engagement": {
-          "likes": 0,
-          "replies": 1
-        },
-        "flags": {
-          "pinned": false,
-          "deleted": false
-        },
-        "published_at": "2026-10-06T08:07:55.000Z",
-        "ext": {
-          "published_at_epoch": 1791274075
-        }
-      },
-      "computed": {
-        "language": null
-      }
-    }
-  ],
+  "threads:replies:malangraya_info:4001732694287428823": [],
   "threads:account:infomalangan": [
     {
       "post": {

@@ -3,9 +3,12 @@
 Tanpa API key dan tanpa snapshot — semua fetcher dimonkeypatch, jadi tidak
 menyentuh credit SocialCrawl.
 """
+from datetime import datetime, timezone
+
 import collectors.source_one as so
 
-TODAY = "2026-10-06T05:00:00Z"
+# tanggal dinamis: _fresh_enough membuang posting yang bukan "hari ini"
+TODAY = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _root_item(pid="111", url="https://www.threads.com/@infomalangan/post/AAA", text="Banjir Sawojajar parah"):
@@ -35,7 +38,10 @@ def _reply_item(pid="222", text="Disini genangan air tidaksted flows", author="w
 
 def _reset(monkeypatch):
     so._cache.clear()
+    monkeypatch.delenv("SNAPSHOT_DATE", raising=False)
+    monkeypatch.setattr(so, "_today_wib", lambda: datetime.now(so.WIB).date().isoformat())
     monkeypatch.setattr(so, "_snapshot_file", lambda: so.FIXTURE_DIR / "tidak-ada.json")
+    monkeypatch.setattr(so, "_save_snapshot", lambda key, items: None)  # test tidak menulis fixtures/
     monkeypatch.setattr(so, "_since_date", lambda: so._today_wib())
 
 
@@ -160,3 +166,56 @@ def test_config_sources_have_no_threads_search():
     tags = [s for s in sources if s["platform"] == "threads" and s["source_type"] == "tag"]
     assert len(accounts) == 5 and all(s["replies"] for s in accounts)
     assert {s["source_value"] for s in tags} == {"malang", "karangploso malang"}
+
+def test_all_replies_emitted_when_limit_reached(monkeypatch):
+    """Regresi: dulu loop output berhenti begitu jumlah induk ber-balasan mencapai batas → 0 balasan."""
+    _reset(monkeypatch)
+    monkeypatch.setattr(so, "THREADS_REPLIES_PER_ACCOUNT", 2)
+    monkeypatch.setattr(so, "THREADS_REPLIES_MAX_POSTS", 4)
+    items = [_root_item(pid=str(i), url=f"https://www.threads.com/@a/post/P{i}") for i in range(3)]
+    monkeypatch.setattr(so, "_fetch_threads_user_posts", lambda handle: items)
+    monkeypatch.setattr(so, "_fetch_threads_replies", lambda url: [_reply_item(pid="r" + url[-1])])
+    posts = so._source_posts(
+        {"platform": "threads", "source_type": "account", "source_value": "a", "replies": True}
+    )
+    replies = [p for p in posts if p.raw_data["kind"] == "reply"]
+    assert len(replies) == 2  # tepat sebanyak batas per akun, bukan 0
+    assert {r.raw_data["parent_post_id"] for r in replies} == {"0", "1"}
+
+
+def _ig_root(pid="900", n_comments=7):
+    return {
+        "post": {
+            "id": pid,
+            "url": "https://www.instagram.com/malangraya_info/p/ABC/",
+            "content": {"text": "Banjir di Sawojajar pagi ini"},
+            "author": {"username": "malangraya_info"},
+            "published_at": TODAY,
+            "engagement": {"comments": n_comments},
+        }
+    }
+
+
+def _ig_comment(cid, text="Iya di gang saya juga sudah selutut airnya"):
+    return {"comment": {"id": cid, "text": text, "author": {"username": "warga"}, "published_at": TODAY}}
+
+
+def test_fetch_top_comments_maps_to_reply_posts(monkeypatch):
+    _reset(monkeypatch)
+    monkeypatch.setattr(so, "IG_COMMENTS_TOP_N", 2)
+    monkeypatch.setattr(
+        so, "_fetch_ig_comments", lambda url: [_ig_comment("c1"), _ig_comment("c2", "👍"), _ig_comment("c3")]
+    )
+    parent = so._to_post(_ig_root(), "malangraya_info", "instagram")
+    out = so.fetch_top_comments(parent)
+    assert [p.platform_post_id for p in out] == ["c1", "c3"]  # emoji dibuang, maks TOP_N
+    assert all(p.platform == "instagram" and p.raw_data["kind"] == "reply" for p in out)
+    assert out[0].raw_data["parent_post_id"] == "900"
+    assert out[0].url == parent.url  # komentar tanpa permalink → tautan ke induk
+
+
+def test_fetch_top_comments_only_for_instagram(monkeypatch):
+    _reset(monkeypatch)
+    monkeypatch.setattr(so, "_fetch_ig_comments", lambda url: (_ for _ in ()).throw(AssertionError("tidak boleh dipanggil")))
+    threads_parent = so._to_post(_root_item(), "infomalangan", "threads")
+    assert so.fetch_top_comments(threads_parent) == []

@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import os
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -18,8 +19,8 @@ from sqlalchemy.orm import Session
 
 load_dotenv()
 
-from ai.relevance import analyze, llm_unavailable, model_version
-from collectors.source_one import collect
+from ai.relevance import analyze, llm_unavailable, model_version, provider
+from collectors.source_one import collect, fetch_top_comments
 from core.schemas import Post
 from database.connection import get_session_factory, init_db
 from database.models import PostAnalysis, PostRow, Source
@@ -149,6 +150,127 @@ def _model_version_for(result) -> str:
     return model_version()
 
 
+def _pace() -> None:
+    """Jeda antar panggilan LLM free-tier; tidak perlu saat heuristic/kuota habis."""
+    pace = float(os.getenv("AI_PACE_SECONDS", "5"))
+    if pace > 0 and provider() != "heuristic" and not llm_unavailable():
+        time.sleep(pace)
+
+
+def _save_analysis(session: Session, row: PostRow, post: Post) -> bool:
+    """analyze() + simpan post_analysis untuk satu baris; False bila gagal."""
+    try:
+        result = analyze(post)
+    except Exception as e:
+        print(f"[pipeline] analyze gagal post={post.id}: {e}")
+        return False
+    _pace()
+    session.add(
+        PostAnalysis(
+            post_id=row.id,
+            is_relevant=result.is_relevant,
+            relevance_score=result.relevance_score,
+            location=result.location,
+            location_confidence=result.location_confidence,
+            issue_hint=result.issue_hint,
+            reason=result.reason,
+            model_version=_model_version_for(result),
+        )
+    )
+    try:
+        session.commit()
+        return True
+    except Exception:
+        session.rollback()
+        return False
+
+
+# posting IG relevan yang komentarnya diambil per run (5 credit per posting)
+IG_COMMENTS_MAX_POSTS = int(os.getenv("IG_COMMENTS_MAX_POSTS", "3"))
+
+
+def _row_to_post(row: PostRow) -> Post:
+    return Post(
+        id=row.id,
+        platform=row.platform,
+        platform_post_id=row.platform_post_id,
+        url=row.url,
+        text=row.text,
+        author=row.author,
+        published_at=row.published_at,
+        collected_at=row.collected_at,
+        source_query=(row.raw_data or {}).get("source_query") or row.author,
+        raw_data=row.raw_data or {},
+    )
+
+
+def enrich_ig_comments(session: Session, post_ids: list[str]) -> dict:
+    """Komentar teratas untuk posting IG relevan dari run ini → baris reply + analysis.
+
+    Prioritas: posting dengan `engagement.comments` terbanyak. Induk ditandai
+    `raw_data.comments_fetched_at` agar run berikutnya tidak membayar ulang.
+    """
+    stats = {"ig_comment_posts": 0, "ig_comments": 0}
+    if not post_ids or IG_COMMENTS_MAX_POSTS <= 0:
+        return stats
+    rows = session.execute(
+        select(PostRow)
+        .join(PostAnalysis, PostAnalysis.post_id == PostRow.id)
+        .where(
+            PostRow.id.in_(post_ids),
+            PostRow.platform == "instagram",
+            PostAnalysis.is_relevant.is_(True),
+        )
+    ).scalars().all()
+    candidates = [
+        r for r in rows
+        if (r.raw_data or {}).get("kind", "root") == "root"
+        and not (r.raw_data or {}).get("comments_fetched_at")
+    ]
+
+    def _n_comments(r: PostRow) -> int:
+        eng = ((r.raw_data or {}).get("post") or {}).get("engagement") or {}
+        return int(eng.get("comments") or 0)
+
+    candidates.sort(key=_n_comments, reverse=True)
+    for parent_row in candidates[:IG_COMMENTS_MAX_POSTS]:
+        if _n_comments(parent_row) == 0:
+            continue  # tidak ada komentar: jangan bayar 5 credit untuk halaman kosong
+        parent = _row_to_post(parent_row)
+        comments = fetch_top_comments(parent)
+        parent_row.raw_data = {**(parent_row.raw_data or {}), "comments_fetched_at": datetime.now(timezone.utc).isoformat()}
+        session.commit()
+        stats["ig_comment_posts"] += 1
+        for c in comments:
+            if post_exists(session, c):
+                continue
+            row = PostRow(
+                id=str(c.id),
+                source_id=parent_row.source_id,
+                platform=c.platform,
+                platform_post_id=c.platform_post_id,
+                url=c.url,
+                text=c.text,
+                author=c.author,
+                published_at=c.published_at,
+                collected_at=c.collected_at,
+                raw_data=c.raw_data,
+                parent_post_id=parent_row.id,
+            )
+            session.add(row)
+            try:
+                session.commit()
+            except Exception:
+                session.rollback()
+                continue
+            session.refresh(row)
+            stats["ig_comments"] += 1
+            _save_analysis(session, row, c)
+    if stats["ig_comment_posts"]:
+        print(f"[pipeline] komentar IG: {stats}")
+    return stats
+
+
 def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
     init_db()
     SessionLocal = get_session_factory()
@@ -164,6 +286,7 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
             src_map[(s["platform"], str(s["source_value"]).strip().lstrip("#@").lower())] = src
         match_map: dict[str, Source] = {f"{plat}:{val}": src for (plat, val), src in src_map.items()}
         seen_keys: set[str] = set()
+        analyzed_ids: list[str] = []  # kandidat enrich komentar IG (hanya yang dinilai run ini)
         for query in load_queries():
             try:
                 posts = collect(query, limit_per_query)
@@ -217,31 +340,10 @@ def run(limit_per_query: int = 20, only_relevant: bool = False) -> dict:
                     session.refresh(row)
                     stats["inserted"] += 1
 
-                try:
-                    result = analyze(cleaned)
-                except Exception as e:
-                    print(f"[pipeline] analyze gagal post={cleaned.id}: {e}")
-                    continue
-                pace = float(os.getenv("AI_PACE_SECONDS", "5"))
-                if pace > 0 and not llm_unavailable():
-                    time.sleep(pace)  # hormati rate-limit LLM free-tier; skip kalau kuota habis
-                session.add(
-                    PostAnalysis(
-                        post_id=row.id,
-                        is_relevant=result.is_relevant,
-                        relevance_score=result.relevance_score,
-                        location=result.location,
-                        location_confidence=result.location_confidence,
-                        issue_hint=result.issue_hint,
-                        reason=result.reason,
-                        model_version=_model_version_for(result),
-                    )
-                )
-                try:
-                    session.commit()
+                if _save_analysis(session, row, cleaned):
                     stats["analyzed"] += 1
-                except Exception:
-                    session.rollback()
+                    analyzed_ids.append(row.id)
+        stats.update(enrich_ig_comments(session, analyzed_ids))
         print(f"[pipeline] selesai: {stats} (replies_terhubung={link_replies(session)})")
         return stats
 

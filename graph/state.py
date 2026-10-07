@@ -27,7 +27,7 @@ class InsightState(TypedDict, total=False):
     window_date: str
     min_score: float
     posts: Annotated[list[dict], _merge_lists]
-    drafts: Annotated[list[EventDraft], _merge_lists]
+    drafts: list[EventDraft]  # ditimpa tiap node (cluster_rule → merge_llm), bukan digabung
     events: Annotated[list[dict], _merge_lists]
     report_id: str
     report_period: str

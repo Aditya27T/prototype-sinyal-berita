@@ -1,6 +1,9 @@
 UV = uv
 API_PORT = 8000
 WEB_PORT = 5173
+# Tanggal data untuk demo/insight: today, atau YYYY-MM-DD agar memutar ulang snapshot hari lalu.
+# Tanpa API key dan tanpa snapshot hari ini, collector otomatis memakai snapshot terbaru.
+DATE ?= today
 
 .PHONY: help setup pipeline pipeline-snapshot insight db-reset demo api test web
 
@@ -9,6 +12,7 @@ WEB_PORT = 5173
 help: ## daftar target make
 	@echo "Telinga Digital — target make:"
 	@echo "  make demo        pipeline (snapshot) -> insight -> web, untuk demo end-to-end"
+	@echo "                   DATE=2026-10-06 memutar ulang snapshot hari itu"
 	@echo "  make web         setup + data bila DB kosong + API & web, browser terbuka"
 	@echo "  make setup       cek uv & bun, salin .env, uv sync, bun install"
 	@echo "  make pipeline    pipeline sungguhan (collector SocialCrawl, memakai credit)"
@@ -29,16 +33,21 @@ pipeline: ## collect -> clean -> dedup -> insert -> analyze (memakai credit Soci
 	uv run python -m pipeline.run --limit 20
 
 pipeline-snapshot: ## pipeline dari snapshot fixtures, tanpa credit SocialCrawl
-	SOCIALCRAWL_API_KEY= AI_PACE_SECONDS=$${AI_PACE_SECONDS:-1} uv run python -m pipeline.run --limit 20
+	SOCIALCRAWL_API_KEY= $(if $(filter-out today,$(DATE)),SNAPSHOT_DATE=$(DATE),) AI_PACE_SECONDS=$${AI_PACE_SECONDS:-1} uv run python -m pipeline.run --limit 20
 
-insight: ## insight graph (cluster -> isu+urgency -> draf laporan)
-	uv run python -m graph.run insight --date today
+insight: ## insight graph (cluster -> isu+urgency -> draf laporan); DATE=YYYY-MM-DD untuk hari lain
+	uv run python -m graph.run insight --date $(DATE)
 
 db-reset: ## hapus DB lalu create_all (data hilang)
 	rm -f signyal.db
 	uv run python -c "from database.connection import init_db; init_db(); print('db dibuat ulang')"
 
-demo: pipeline-snapshot insight web ## demo end-to-end: pipeline snapshot -> insight -> web
+demo: ## demo end-to-end: pipeline snapshot -> insight -> web (DATE otomatis = snapshot terbaru bila hari ini belum ada)
+	@d=$(DATE); if [ "$$d" = "today" ]; then \
+		d=$$(SOCIALCRAWL_API_KEY= uv run python -c "from collectors.source_one import _today_wib; print(_today_wib())"); \
+		echo "demo memakai data tanggal $$d"; \
+	fi; \
+	$(MAKE) pipeline-snapshot insight web DATE=$$d
 
 api: ## hanya FastAPI (tanpa web)
 	uv run uvicorn api.main:app --reload --port $(API_PORT)
@@ -55,7 +64,7 @@ web: setup ## setup + isi data bila kosong + API & web + buka browser
 		echo "DB sudah berisi $$n posts - lewati pipeline (refresh manual: make pipeline)"; \
 	fi
 	@trap 'kill 0' INT TERM EXIT; \
-	uv run uvicorn api.main:app --port $(API_PORT) & \
+	uv run uvicorn api.main:app --reload --port $(API_PORT) & \
 	for i in $$(seq 1 15); do \
 		if curl -sf http://localhost:$(API_PORT)/health >/dev/null; then break; fi; \
 		sleep 1; \

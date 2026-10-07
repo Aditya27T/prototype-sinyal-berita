@@ -55,3 +55,6 @@ lsof -i :8000 -i :5173    # kosong — kedua proses sudah mati
 mv signyal.db /tmp/ && make web   # DB kosong → pipeline jalan otomatis, data muncul lagi
 make test                 # test yang ada tetap hijau
 ```
+
+---
+**Status: selesai** — diimplementasikan di commit `c82b09e` (`make web`).

@@ -55,11 +55,27 @@ class EventDraft(BaseModel):
     issue_hint: Optional[str] = None
     post_ids: list[str] = Field(default_factory=list)
     sample_texts: list[str] = Field(default_factory=list, description="maks 5 teks untuk LLM")
+    # {author, platform, url, published_at (ISO), kind} — bahan "Eksposur Media Sosial"
+    sources: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class EventInsight(BaseModel):
-    """Isu + urgency satu event — satu panggilan LLM mengisi keduanya."""
+    """Isu + urgency + narasi laporan satu event — satu panggilan LLM mengisi semuanya.
+
+    Field narasi mengikuti format docs/contohlaporan.md; None bila LLM tidak
+    mengisi (heuristic akan melengkapi dengan template).
+    """
 
     issue_class: str = Field(..., min_length=1, description="dari daftar 12 kelas di prompt")
     urgency: int = Field(..., ge=1, le=5)
     rationale: str = Field(..., min_length=1)
+    title: Optional[str] = None  # judul singkat, mis. "Kecelakaan Lalu Lintas di Jalan Veteran"
+    occurred_at: Optional[str] = None  # waktu kejadian dalam teks, hanya bila ada di posting
+    summary: Optional[str] = None  # Ringkasan Isu (2–4 kalimat)
+    exposure: Optional[str] = None  # Eksposur Media Sosial (dihitung dari sources)
+    sentiment: Optional[str] = None  # negatif | netral | positif
+    attention_level: Optional[str] = None  # rendah | sedang | tinggi
+    issue_character: Optional[str] = None  # mis. "Insidental / kejadian lokal"
+    potential: Optional[str] = None  # Potensi Isu
+    recommendation: Optional[str] = None  # Rekomendasi (tidak ikut ke PDF)
+    status: Optional[str] = None  # monitor | prioritas | selesai

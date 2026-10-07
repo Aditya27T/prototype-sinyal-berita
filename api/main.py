@@ -7,11 +7,13 @@ from typing import Optional
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse, Response
 from pydantic import BaseModel
 from sqlalchemy import desc, select
 
 load_dotenv()
 
+from api.report_export import markdown_to_pdf, strip_recommendation  # noqa: E402
 from database.connection import get_session_factory, init_db  # noqa: E402
 from database.models import Event, EventPost, PostAnalysis, PostRow, Report  # noqa: E402
 
@@ -145,6 +147,7 @@ class EventOut(BaseModel):
     issue_class: str
     urgency: int
     rationale: Optional[str] = None
+    narrative: Optional[dict] = None  # title, summary, exposure, sentiment, ... (EventInsight)
     window_date: str
     created_at: Optional[datetime] = None
     post_count: int = 0
@@ -195,6 +198,7 @@ def _event_payload(s, event: Event, with_posts: bool) -> dict:
         "issue_class": event.issue_class,
         "urgency": event.urgency,
         "rationale": event.rationale,
+        "narrative": event.narrative,
         "window_date": event.window_date,
         "created_at": event.created_at,
         "post_count": len(posts),
@@ -206,12 +210,15 @@ def _event_payload(s, event: Event, with_posts: bool) -> dict:
 def list_events(
     date_: Optional[str] = Query(None, alias="date"),
     min_urgency: int = Query(1, ge=1, le=5),
+    urgency: Optional[int] = Query(None, ge=1, le=5, description="hanya urgency ini (bukan kumulatif)"),
     limit: int = Query(50, ge=1, le=200),
 ) -> list[dict]:
     """Event dari insight graph, urut urgency tertinggi."""
     SessionLocal = get_session_factory()
     with SessionLocal() as s:
         stmt = select(Event).where(Event.urgency >= min_urgency)
+        if urgency is not None:
+            stmt = stmt.where(Event.urgency == urgency)
         if date_:
             stmt = stmt.where(Event.window_date == date_)
         stmt = stmt.order_by(desc(Event.urgency), desc(Event.created_at)).limit(limit)
@@ -259,11 +266,51 @@ def list_reports(
         return out
 
 
+def _load_report(s, report_id: str) -> Report:
+    report = s.get(Report, report_id)
+    if not report:
+        raise HTTPException(status_code=404, detail="laporan tidak ditemukan")
+    return report
+
+
+@app.get("/reports/{report_id}.pdf")
+def report_pdf(report_id: str, with_recommendation: bool = Query(False)) -> Response:
+    """PDF laporan untuk dibagikan — bagian Rekomendasi dibuang kecuali diminta."""
+    SessionLocal = get_session_factory()
+    with SessionLocal() as s:
+        report = _load_report(s, report_id)
+        pdf = markdown_to_pdf(
+            report.body_md,
+            title=f"Laporan Monitoring {report.period}",
+            include_recommendation=with_recommendation,
+        )
+        return Response(
+            content=pdf,
+            media_type="application/pdf",
+            headers={"Content-Disposition": f'inline; filename="laporan-{report.period}.pdf"'},
+        )
+
+
+@app.get("/reports/{report_id}.md", response_class=PlainTextResponse)
+def report_markdown(report_id: str, with_recommendation: bool = Query(True)) -> str:
+    """Markdown laporan (lengkap secara default; ?with_recommendation=false untuk dibagikan)."""
+    SessionLocal = get_session_factory()
+    with SessionLocal() as s:
+        report = _load_report(s, report_id)
+        return report.body_md if with_recommendation else strip_recommendation(report.body_md)
+
+
 @app.get("/reports/{report_id}", response_model=ReportOut)
 def get_report(report_id: str) -> dict:
     SessionLocal = get_session_factory()
     with SessionLocal() as s:
         report = s.get(Report, report_id)
+        if not report and "." in report_id:
+            # server lama (tanpa route .pdf/.md) menangkap "id.pdf" di sini → pesan yang menolong
+            raise HTTPException(
+                status_code=404,
+                detail="laporan tidak ditemukan — jika URL berakhiran .pdf/.md, restart API (make web)",
+            )
         if not report:
             raise HTTPException(status_code=404, detail="laporan tidak ditemukan")
         n = s.execute(select(Event).where(Event.window_date == report.period)).scalars().all()

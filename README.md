@@ -74,6 +74,12 @@ make web
 
 - Credit SocialCrawl: 1 run nyata ≈ 40–70 credit (IG 3 akun + #malang, Threads 5 akun + balasan + 2 tag). Bisa dicek: `GET /v1/credits/balance`.
 - `THREADS_REPLIES_PER_ACCOUNT` (default 2) = jumlah posting per akun yang **memang punya balasan**; `THREADS_REPLIES_MAX_POSTS` (default 4) = batas request balasan per akun.
+- Komentar Instagram diambil **setelah** relevance, hanya untuk posting relevan dengan komentar terbanyak (`IG_COMMENTS_MAX_POSTS`, default 3 posting × 5 credit; `IG_COMMENTS_TOP_N` komentar teratas disimpan). Komentar masuk sebagai baris `kind=reply` dengan `parent_post_id`, ikut event induknya di insight graph.
+- `make demo DATE=2026-10-06` memutar ulang snapshot hari itu; tanpa `DATE`, demo otomatis memakai snapshot terbaru bila hari ini belum ada run nyata.
+- **Laporan** mengikuti format `docs/contohlaporan.md`: satu bagian per isu (Kategori, Lokasi, Waktu kejadian, Ringkasan Isu, Eksposur Media Sosial, Sentimen, Level perhatian, Karakter isu, Potensi Isu, Rekomendasi, Status, Sumber). Narasi ditulis Gemini per event (satu panggilan per event, fallback template); Eksposur selalu dihitung dari data.
+- **Ekspor**: `GET /reports/{id}.pdf` (tombol "Unduh PDF" di web) — **tanpa bagian Rekomendasi** (internal tim); `?with_recommendation=true` untuk versi lengkap. `GET /reports/{id}.md` markdown lengkap.
+- **3 API key Gemini**: isi `GEMINI_API_KEY`, `GEMINI_API_KEY_2`, `GEMINI_API_KEY_3` (atau `GEMINI_API_KEYS=a,b,c`). Dipakai bergilir; key yang 429/kuota habis dilewati otomatis, heuristic hanya dipakai bila semua habis.
+- **Clustering dua tahap**: (1) aturan — satu utas (induk + balasan/komentar) = satu kandidat, duplikat teks dan lokasi-spesifik+kelas sama digabung; (2) **LLM merge** (`ai/prompts/event_merge.txt`, satu panggilan Gemini per ≤25 kandidat) menyatukan kandidat yang satu konteks berita walau akun/platform/label lokasinya beda (mis. berita IG + Threads + video konvoi tentang kecelakaan yang sama), hanya bila confidence ≥ 0,7. Matikan dengan `INSIGHT_LLM_MERGE=0` (lalu aturan teks ketat dipakai). Run ulang `make insight` memperbarui event (yang tergabung dihapus), bukan menumpuk.
 - Free tier LLM sering 404/429. Karena itu `ai/insight.py` dan `ai/relevance.py` selalu punya versi heuristic, dan `post_analysis.model_version` ditulis `heuristic-fallback` bila LLM gagal — jangan pernah berlabel model LLM saat hasil dari heuristic.
 
 ## Detail pembagian kerja (3 orang, sudah selesai) — `docs/PLAN.md`

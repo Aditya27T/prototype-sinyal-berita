@@ -64,13 +64,32 @@ def _api() -> tuple[str, str] | None:
 
 
 def _today_wib() -> str:
-    return datetime.now(WIB).date().isoformat()
+    """"Hari ini" untuk saringan tanggal dan nama snapshot.
+
+    SNAPSHOT_DATE=YYYY-MM-DD memaksa tanggal (demo ulang data hari lalu).
+    Tanpa API key dan tanpa snapshot hari ini, pakai snapshot terbaru yang ada
+    supaya `make demo` di hari baru tidak jatuh ke data contoh.
+    """
+    forced = os.getenv("SNAPSHOT_DATE", "").strip()
+    if forced:
+        return forced
+    today = datetime.now(WIB).date().isoformat()
+    if _api() is None and not (FIXTURE_DIR / f"instagram_{today}.json").exists():
+        latest = _latest_snapshot_date()
+        if latest:
+            return latest
+    return today
+
+
+def _latest_snapshot_date() -> str | None:
+    files = sorted(FIXTURE_DIR.glob("instagram_????-??-??.json"))
+    return files[-1].stem.removeprefix("instagram_") if files else None
 
 
 def _since_date() -> str:
     """Batas `since`; THREADS_SINCE_DAYS mundurkan bila akun belum posting hari ini."""
     days = int(os.getenv("THREADS_SINCE_DAYS", "0"))
-    return (datetime.now(WIB) - timedelta(days=days)).date().isoformat()
+    return (date.fromisoformat(_today_wib()) - timedelta(days=days)).isoformat()
 
 
 def _snapshot_file() -> Path:
@@ -338,6 +357,8 @@ def _load_snapshot() -> dict[str, list[dict]]:
 
 
 def _save_snapshot(handle: str, items: list[dict]) -> None:
+    if _api() is None:
+        return  # mode offline membaca snapshot lama; jangan menimpanya dengan hasil kosong
     snap = _load_snapshot()
     snap[handle] = items
     try:
@@ -377,7 +398,7 @@ def _to_post(
         meta["parent_post_id"] = parent.platform_post_id
         meta["parent_url"] = parent.url
         if not url and parent.url:
-            url = f"{parent.url.rstrip('/')}/comment/{post_id}" if post_id else parent.url
+            url = parent.url  # komentar tanpa permalink: tautkan ke kolom komentar induknya
     try:
         return Post(
             platform=platform,
@@ -394,7 +415,7 @@ def _to_post(
 
 
 def _reply_to_post(raw: dict, parent: Post, source_query: str) -> Post | None:
-    """Balasan warga → Post dengan raw_data.parent_post_id. Buang yang tak informatif."""
+    """Balasan/komentar warga → Post dengan raw_data.parent_post_id. Buang yang tak informatif."""
     item = _unwrap(raw)
     flags = item.get("flags") if isinstance(item, dict) else None
     if isinstance(flags, dict) and (flags.get("deleted") or flags.get("is_deleted")):
@@ -402,7 +423,58 @@ def _reply_to_post(raw: dict, parent: Post, source_query: str) -> Post | None:
     text = _caption(item)
     if len(text.strip()) < THREADS_REPLY_MIN_CHARS:
         return None
-    return _to_post(raw, source_query, platform="threads", kind="reply", parent=parent)
+    return _to_post(raw, source_query, platform=parent.platform, kind="reply", parent=parent)
+
+
+# --- Komentar Instagram untuk posting yang sudah dinilai relevan -------------
+# Dipanggil pipeline SETELAH relevance, bukan di collect(): komentar IG 5 credit
+# per posting, jadi hanya posting relevan yang layak dibayar.
+IG_COMMENTS_TOP_N = int(os.getenv("IG_COMMENTS_TOP_N", "5"))  # komentar teratas yang disimpan
+
+
+def _fetch_ig_comments(url: str) -> list[dict] | None:
+    """Komentar teratas (sort=top) satu posting IG; 5 credit per halaman."""
+    creds = _api()
+    if not creds:
+        return None
+    base, api_key = creds
+    try:
+        with httpx.Client(timeout=60, headers={"x-api-key": api_key}) as client:
+            resp = client.get(
+                f"{base}/instagram/post/comments", params={"url": url, "sort": "top"}
+            )
+            resp.raise_for_status()
+            items, _ = _items_and_cursor(resp.json())
+            return items
+    except Exception as e:
+        print(f"[collector] SocialCrawl gagal instagram/post/comments url={url}: {e}")
+        return None
+
+
+def fetch_top_comments(parent: Post) -> list[Post]:
+    """Komentar teratas untuk satu posting induk (IG) → Post kind=reply.
+
+    Snapshot per posting (`instagram:comments:<post_id>`) supaya run ulang dan
+    mode offline tidak membayar lagi. Komentar tidak disaring tanggal: yang
+    penting ia menempel ke induk yang relevan.
+    """
+    if parent.platform != "instagram" or not parent.url:
+        return []
+    snap_key = f"instagram:comments:{parent.platform_post_id}"
+    raw = _fetch_ig_comments(parent.url)
+    if raw is not None:
+        _save_snapshot(snap_key, raw)
+    else:
+        raw = _load_snapshot().get(snap_key, [])
+    out: list[Post] = []
+    for item in raw:
+        p = _reply_to_post(item, parent, parent.source_query or parent.author or "instagram")
+        if p:
+            out.append(p)
+        if len(out) >= IG_COMMENTS_TOP_N:
+            break
+    print(f"[collector] {snap_key}: {len(out)} komentar teratas dari {len(raw)} item")
+    return out
 
 
 def _source_key(source: dict) -> str:
@@ -442,11 +514,12 @@ def _threads_account_posts(handle: str, replies: bool) -> list[Post]:
         if len(replies_by_parent) >= THREADS_REPLIES_PER_ACCOUNT:
             break  # sudah dapat balasan dari cukup posting
         if checked >= THREADS_REPLIES_MAX_POSTS or not root.url:
-            continue  # manyalan posting kosong: jangan habiskan credit tanpa hasil
+            continue  # posting tanpa balasan: jangan habiskan credit tanpa hasil
         checked += 1
         snap_key = f"{replies_key}:{root.platform_post_id}"
         raw = _fetch_threads_replies(root.url)
-        _save_snapshot(snap_key, raw or [])  # tetap disimpan walau kosong: run lalu hemat credit
+        if raw is not None:
+            _save_snapshot(snap_key, raw)  # disimpan walau kosong: run ulang tidak bayar lagi
         if raw:
             replies_by_parent[root.platform_post_id or root.url] = raw
         else:
@@ -456,9 +529,8 @@ def _threads_account_posts(handle: str, replies: bool) -> list[Post]:
                 replies_by_parent[root.platform_post_id or root.url] = saved
     out = list(roots)
     n_reply = 0
+    # batas per akun sudah ditegakkan saat fetch; di sini semua yang terkumpul dikeluarkan
     for root in roots:
-        if len(replies_by_parent) >= THREADS_REPLIES_PER_ACCOUNT:
-            break
         raw_items = replies_by_parent.get(root.platform_post_id or root.url, [])
         for r in (_reply_to_post(r, root, handle) for r in raw_items):
             if r and _fresh_enough(r, "threads"):
@@ -550,7 +622,7 @@ class SourceOneCollector(BaseCollector):
         # limit berlaku PER SOURCE agar tiap source kebagian kuota (union bisa > limit;
         # pipeline mendedup lintas query). Cap union mentah max 200 sebagai pengaman.
         posts = [p for s in targets for p in _source_posts(s)[:limit]]
-        live = os.getenv("SOCIALCRAWL_API_KEY", "").strip() or _snapshot_file().exists()
+        live = _api() is not None or _snapshot_file().exists()
         if not posts and not live:
             # tanpa key & tanpa snapshot → data contoh (jangan campur ke mode live)
             return _sample_fallback(query, limit)

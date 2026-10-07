@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import sessionmaker
 
@@ -48,3 +48,24 @@ def get_session_factory(url: str | None = None) -> sessionmaker:
 def init_db(url: str | None = None) -> None:
     eng = get_engine(url)
     Base.metadata.create_all(eng)
+    _ensure_columns(eng)
+
+
+def _ensure_columns(eng: Engine) -> None:
+    """Tambah kolom baru (nullable) ke tabel yang sudah ada — pengganti migrasi untuk prototype.
+
+    create_all tidak mengubah tabel lama; tanpa ini anggota tim harus db-reset
+    setiap ada kolom baru (mis. events.narrative).
+    """
+    insp = inspect(eng)
+    for table in Base.metadata.sorted_tables:
+        if not insp.has_table(table.name):
+            continue
+        existing = {c["name"] for c in insp.get_columns(table.name)}
+        for col in table.columns:
+            if col.name in existing or not col.nullable:
+                continue
+            ddl = f"ALTER TABLE {table.name} ADD COLUMN {col.name} {col.type.compile(eng.dialect)}"
+            with eng.begin() as conn:
+                conn.execute(text(ddl))
+            print(f"[db] kolom baru: {table.name}.{col.name}")
