@@ -8,7 +8,7 @@ Roadmap setelah prototype (LangGraph ingest, MCP, PDF, cron): `docs/ROADMAP.md`.
 
 ```
 Threads 5 akun berita + balasan warga (utas)  ┐
-Instagram 3 akun + #malang                     ├─ collector (SocialCrawl) → pipeline loop → relevance LLM → posts relevan
+Instagram 3 akun + komentar teratasnya     ├─ collector (SocialCrawl) → pipeline loop → relevance LLM → posts relevan
 Threads tag (#malang, #karangploso malang)     ┘
         ↓ python -m graph.run insight --date today   (LangGraph serial)
    fetch_relevant → cluster_rule → analyze_events → persist → draft_report
@@ -64,7 +64,8 @@ make web
 | Endpoint | Guna |
 |---|---|
 | `GET /posts/relevant` | posting relevan (skor, lokasi, isu) |
-| `GET /posts/all` | semua posting + `kind` (root/reply/tag), `parent_url`, `topic_tag` |
+| `GET /posts/all?days=&kind=` | semua posting + `kind` (root/reply/tag), `parent_url`, `topic_tag`, `comment_count`; `days` = N hari terakhir |
+| `GET /posts/{id}/comments` | komentar/balasan turunan satu posting (isi dropdown "Komentar" di web) |
 | `GET /events?date=&min_urgency=` | event hasil clustering, urut urgency |
 | `GET /events/{id}` | event + posting pendukung |
 | `GET /reports` · `GET /reports/{id}` | daftar/detail laporan (markdown) |
@@ -72,7 +73,8 @@ make web
 
 ## Catatan biaya & LLM
 
-- Credit SocialCrawl: 1 run nyata ≈ 40–70 credit (IG 3 akun + #malang, Threads 5 akun + balasan + 2 tag). Bisa dicek: `GET /v1/credits/balance`.
+- Credit SocialCrawl: 1 run nyata ≈ 40–70 credit (IG 3 akun + komentar 3 posting relevan, Threads 5 akun + balasan + 2 tag). Bisa dicek: `GET /v1/credits/balance`.
+- **Hashtag Instagram dihapus** (6 Okt 2026): `search/hashtag` 5 credit/halaman dan isinya didominasi unggahan jual-beli/fashion, bukan isu publik. Sumber IG hanya 3 akun berita + komentar teratas posting relevan.
 - `THREADS_REPLIES_PER_ACCOUNT` (default 2) = jumlah posting per akun yang **memang punya balasan**; `THREADS_REPLIES_MAX_POSTS` (default 4) = batas request balasan per akun.
 - Komentar Instagram diambil **setelah** relevance, hanya untuk posting relevan dengan komentar terbanyak (`IG_COMMENTS_MAX_POSTS`, default 3 posting × 5 credit; `IG_COMMENTS_TOP_N` komentar teratas disimpan). Komentar masuk sebagai baris `kind=reply` dengan `parent_post_id`, ikut event induknya di insight graph.
 - `make demo DATE=2026-10-06` memutar ulang snapshot hari itu; tanpa `DATE`, demo otomatis memakai snapshot terbaru bila hari ini belum ada run nyata.
@@ -86,7 +88,7 @@ make web
 
 - [x] `core/schemas.py` — kontrak `Post`, `AnalysisResult`, `EventDraft`, `EventInsight`
 - [x] `database/` — models (`sources`, `posts`, `post_analysis`, `events`, `event_posts`, `reports`) + `connection.py`
-- [x] `collectors/source_one.py` — Instagram (akun + hashtag) & Threads (akun + balasan + tag)
+- [x] `collectors/source_one.py` — Instagram (3 akun + komentar posting relevan) & Threads (akun + balasan + tag)
 - [x] `pipeline/run.py` — collect → clean → dedup → insert → analyze, idempotent
 - [x] `graph/insight_graph.py` — LangGraph serial: cluster → isu/urgency → persist → draf laporan
 - [x] `api/main.py` — FastAPI posts + events + reports

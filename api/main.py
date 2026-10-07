@@ -1,21 +1,24 @@
 """FastAPI — milik Person 3 (PLAN: endpoint baca relevant posts)."""
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Optional
+from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse, Response
 from pydantic import BaseModel
-from sqlalchemy import desc, select
+from sqlalchemy import desc, func, select
 
 load_dotenv()
 
 from api.report_export import markdown_to_pdf, strip_recommendation  # noqa: E402
 from database.connection import get_session_factory, init_db  # noqa: E402
 from database.models import Event, EventPost, PostAnalysis, PostRow, Report  # noqa: E402
+
+_WIB = ZoneInfo("Asia/Jakarta")
 
 app = FastAPI(title="Telinga Digital — Signyal Prototype", version="0.1.0")
 app.add_middleware(
@@ -89,9 +92,42 @@ def list_relevant(
         ]
 
 
+def _post_dict(r: PostRow, a: PostAnalysis | None, *, comment_count: int | None = None) -> dict:
+    raw = r.raw_data or {}
+    out = {
+        "id": r.id,
+        "platform": r.platform,
+        "url": r.url,
+        "text": r.text,
+        "author": r.author,
+        "published_at": r.published_at,
+        "collected_at": r.collected_at,
+        "is_relevant": a.is_relevant if a else None,
+        "relevance_score": a.relevance_score if a else None,
+        "location": a.location if a else None,
+        "issue_hint": a.issue_hint if a else None,
+        "reason": a.reason if a else None,
+        "kind": raw.get("kind", "root"),
+        "topic_tag": raw.get("topic_tag"),
+        "parent_post_id": r.parent_post_id,
+        "parent_url": raw.get("parent_url"),
+    }
+    if comment_count is not None:
+        out["comment_count"] = comment_count
+    return out
+
+
 @app.get("/posts/all")
-def list_all(limit: int = Query(50, ge=1, le=200)) -> list[dict]:
-    """Debug: semua posts + flag relevant (bantu Person 2 spot-check)."""
+def list_all(
+    limit: int = Query(200, ge=1, le=500),
+    days: Optional[int] = Query(None, ge=1, le=90, description="posting N hari terakhir"),
+    kind: Optional[str] = Query(None, description="filter kind: root|reply|tag"),
+) -> list[dict]:
+    """Semua posts + flag relevant, dengan jumlah komentar/balasan turunan.
+
+    `days` membatasi jendela waktu (WIB) supaya operator bisa memilih
+    "hari ini", "2 hari lalu", atau beberapa hari ke belakang.
+    """
     SessionLocal = get_session_factory()
     with SessionLocal() as s:
         stmt = (
@@ -100,29 +136,49 @@ def list_all(limit: int = Query(50, ge=1, le=200)) -> list[dict]:
             .order_by(desc(PostRow.collected_at))
             .limit(limit)
         )
-        out = []
-        for r, a in s.execute(stmt).all():
-            out.append(
-                {
-                    "id": r.id,
-                    "platform": r.platform,
-                    "url": r.url,
-                    "text": r.text,
-                    "author": r.author,
-                    "published_at": r.published_at,
-                    "collected_at": r.collected_at,
-                    "is_relevant": a.is_relevant if a else None,
-                    "relevance_score": a.relevance_score if a else None,
-                    "location": a.location if a else None,
-                    "issue_hint": a.issue_hint if a else None,
-                    "reason": a.reason if a else None,
-                    "kind": (r.raw_data or {}).get("kind", "root"),
-                    "topic_tag": (r.raw_data or {}).get("topic_tag"),
-                    "parent_post_id": r.parent_post_id,
-                    "parent_url": (r.raw_data or {}).get("parent_url"),
-                }
-            )
-        return out
+        if days:
+            cutoff = datetime.now(_WIB) - timedelta(days=days)
+            stmt = stmt.where(PostRow.published_at >= cutoff)
+        rows = s.execute(stmt).all()
+        if kind:
+            rows = [(r, a) for r, a in rows if ((r.raw_data or {}).get("kind") or "root") == kind]
+        ids = [r.id for r, _ in rows]
+        counts: dict[str, int] = {}
+        if ids:
+            for pid, n in s.execute(
+                select(PostRow.parent_post_id, func.count())
+                .where(PostRow.parent_post_id.in_(ids))
+                .group_by(PostRow.parent_post_id)
+            ).all():
+                counts[pid] = n
+        return [_post_dict(r, a, comment_count=counts.get(r.id, 0)) for r, a in rows]
+
+
+@app.get("/posts/{post_id}/comments")
+def post_comments(post_id: str) -> dict:
+    """Komentar/balasan turunan satu posting, untuk dropdown "komentar teratas" di web."""
+    SessionLocal = get_session_factory()
+    with SessionLocal() as s:
+        parent = s.get(PostRow, post_id)
+        if not parent:
+            raise HTTPException(status_code=404, detail="posting tidak ditemukan")
+        rows = s.execute(
+            select(PostRow, PostAnalysis)
+            .outerjoin(PostAnalysis, PostAnalysis.post_id == PostRow.id)
+            .where(PostRow.parent_post_id == post_id)
+            .order_by(desc(PostRow.collected_at))
+        ).all()
+        return {
+            "post_id": post_id,
+            "platform": parent.platform,
+            "author": parent.author,
+            "url": parent.url,
+            "count": len(rows),
+            "comments": [
+                _post_dict(r, a, comment_count=0)
+                for r, a in rows
+            ],
+        }
 
 
 # --- Event & laporan (insight graph) ---------------------------------------

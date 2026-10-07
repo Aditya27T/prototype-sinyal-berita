@@ -15,10 +15,27 @@ const PAGES = [
   { key: "reports", label: "Laporan" },
 ];
 
+// Jendela waktu: null = semua data yang ada.
+const DATE_RANGES = [
+  { key: "today", label: "Hari ini", days: 1 },
+  { key: "2days", label: "2 hari lalu", days: 2 },
+  { key: "7days", label: "7 hari", days: 7 },
+  { key: "30days", label: "30 hari", days: 30 },
+];
+
 function statusOf(post) {
   if (post.is_relevant === true) return "relevant";
   if (post.is_relevant === false) return "noise";
   return "pending";
+}
+
+// "Hari ini" menurut zona waktu Indonesia, sama seperti filter server.
+function startOfWibDay(offsetDays = 0) {
+  const now = new Date();
+  const wib = new Date(now.getTime() + (7 * 60 + 0) * 60 * 1000); // UTC+7
+  wib.setHours(0, 0, 0, 0);
+  wib.setDate(wib.getDate() - offsetDays);
+  return new Date(wib.getTime() - (7 * 60) * 60 * 1000);
 }
 
 function formatTime(value) {
@@ -46,14 +63,18 @@ export default function App() {
   const [location, setLocation] = useState(null);
   const [issue, setIssue] = useState(null);
   const [platform, setPlatform] = useState(null); // null = semua; "instagram" | "threads"
+  const [dateRange, setDateRange] = useState(null); // key DATE_RANGES, null = semua
   const [page, setPage] = useState("posts");
   const autoSwitched = useRef(false);
 
-  async function load() {
+  async function load(days) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${API}/posts/all?limit=200`);
+      // Fetch semua sekali; filter tanggal diterapkan di sisi klien supaya
+      // pindah rentang tidak memuat ulang /posts/all.
+      const qs = days ? `?limit=500&days=${days}` : "?limit=500";
+      const res = await fetch(`${API}/posts/all${qs}`);
       if (!res.ok) throw new Error(`API ${res.status}`);
       setPosts(await res.json());
     } catch (e) {
@@ -66,6 +87,9 @@ export default function App() {
   useEffect(() => {
     load();
   }, []);
+
+  // Rentang cepat selalu tampil: filter di sisi klien, jadi tidak ada fetch ulang.
+  const availableRanges = DATE_RANGES;
 
   const stats = useMemo(() => {
     const s = { total: posts.length, relevant: 0, noise: 0, pending: 0 };
@@ -90,14 +114,16 @@ export default function App() {
   const visible = useMemo(() => {
     const q = search.trim().toLowerCase();
     const ts = (p) => new Date(p.published_at ?? p.collected_at ?? 0).getTime() || 0;
+    const since = dateRange ? startOfWibDay(dateRange.days - 1).getTime() : null;
     return posts
       .filter((p) => view === "all" || statusOf(p) === view)
       .filter((p) => !platform || p.platform === platform)
       .filter((p) => !location || p.location === location)
       .filter((p) => !issue || p.issue_hint === issue)
+      .filter((p) => (since == null ? true : ts(p) >= since))
       .filter((p) => !q || `${p.text} ${p.author ?? ""}`.toLowerCase().includes(q))
       .sort((a, b) => ts(b) - ts(a) || (b.relevance_score ?? -1) - (a.relevance_score ?? -1));
-  }, [posts, view, search, location, issue, platform]);
+  }, [posts, view, search, location, issue, platform, dateRange]);
 
   // jumlah per platform mengikuti tab aktif (Relevan/Noise/...), bukan seluruh data
   const platformCounts = useMemo(() => {
@@ -111,13 +137,14 @@ export default function App() {
   const platforms = Object.keys(platformCounts).sort();
 
   const analyzed = stats.relevant + stats.noise;
-  const hasFilter = search || location || issue || platform;
+  const hasFilter = search || location || issue || platform || dateRange;
 
   function clearFilters() {
     setSearch("");
     setLocation(null);
     setIssue(null);
     setPlatform(null);
+    setDateRange(null);
   }
 
   return (
@@ -181,6 +208,29 @@ export default function App() {
                 </button>
               ))}
             </div>
+            {availableRanges.length > 1 && (
+              <div className="segmented" role="tablist" aria-label="Filter tanggal">
+                <button
+                  role="tab"
+                  aria-selected={dateRange == null}
+                  className={dateRange == null ? "active" : ""}
+                  onClick={() => setDateRange(null)}
+                >
+                  Semua tanggal
+                </button>
+                {availableRanges.map((r) => (
+                  <button
+                    key={r.key}
+                    role="tab"
+                    aria-selected={dateRange?.key === r.key}
+                    className={dateRange?.key === r.key ? "active" : ""}
+                    onClick={() => setDateRange(dateRange?.key === r.key ? null : r)}
+                  >
+                    {r.label}
+                  </button>
+                ))}
+              </div>
+            )}
             {platforms.length > 1 && (
               <div className="segmented" role="tablist" aria-label="Filter platform">
                 <button
@@ -216,6 +266,9 @@ export default function App() {
 
           {hasFilter && (
             <div className="active-filters">
+              {dateRange && (
+                <Chip onRemove={() => setDateRange(null)}>Tanggal: {dateRange.label}</Chip>
+              )}
               {platform && <Chip onRemove={() => setPlatform(null)}>Platform: {platform}</Chip>}
               {location && <Chip onRemove={() => setLocation(null)}>Lokasi: {location}</Chip>}
               {issue && <Chip onRemove={() => setIssue(null)}>Isu: {issue}</Chip>}
@@ -619,6 +672,34 @@ function PostCard({ post, onLocation, onIssue }) {
   const status = statusOf(post);
   const time = formatTime(post.published_at ?? post.collected_at);
   const score = post.relevance_score;
+  const [commentsOpen, setCommentsOpen] = useState(false);
+  const [comments, setComments] = useState(null);
+  const [commentsLoading, setCommentsLoading] = useState(false);
+  const [commentsError, setCommentsError] = useState("");
+
+  // Hanya posting induk yang punya turunan; Reply-nya sendiri disembunyikan supaya
+  // tidak tampil dua kali (sudah muncul di dropdown induknya).
+  if (post.kind === "reply") return null;
+
+  async function toggleComments() {
+    if (commentsOpen) {
+      setCommentsOpen(false);
+      return;
+    }
+    setCommentsOpen(true);
+    if (comments) return; // sudah dimuat
+    setCommentsLoading(true);
+    setCommentsError("");
+    try {
+      const res = await fetch(`${API}/posts/${post.id}/comments`);
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      setComments(await res.json());
+    } catch (e) {
+      setCommentsError(`Gagal memuat komentar (${e.message}).`);
+    } finally {
+      setCommentsLoading(false);
+    }
+  }
 
   return (
     <li className={`post ${status}`}>
@@ -645,11 +726,6 @@ function PostCard({ post, onLocation, onIssue }) {
       </div>
 
       <p className="post-text">{post.text}</p>
-      {post.kind === "reply" && post.parent_url && (
-        <a className="muted parent" href={post.parent_url} target="_blank" rel="noreferrer">
-          ↑ balasan atas posting @{post.author} — lihat induknya
-        </a>
-      )}
       {post.reason && <p className="post-reason">AI: {post.reason}</p>}
 
       <div className="post-foot">
@@ -658,12 +734,47 @@ function PostCard({ post, onLocation, onIssue }) {
           {post.author ? ` · @${post.author}` : ""}
           {time ? ` · ${time}` : ""}
         </span>
-        {post.url ? (
-          <a href={post.url} target="_blank" rel="noreferrer">Buka sumber asli ↗</a>
-        ) : (
-          <span className="muted">Tanpa URL sumber</span>
-        )}
+        <span className="post-actions">
+          <button className="link" onClick={toggleComments}>
+            {commentsOpen ? "▾ Sembunyikan" : "▸"} Komentar
+            {post.comment_count > 0 && ` (${post.comment_count})`}
+          </button>
+          {post.url ? (
+            <a href={post.url} target="_blank" rel="noreferrer">Buka sumber asli ↗</a>
+          ) : (
+            <span className="muted">Tanpa URL sumber</span>
+          )}
+        </span>
       </div>
+
+      {commentsOpen && (
+        <div className="comments">
+          {commentsLoading && <p className="muted">Memuat komentar…</p>}
+          {commentsError && <p className="alert inline">{commentsError}</p>}
+          {comments && comments.count === 0 && (
+            <p className="muted">
+              Belum ada komentar tersimpan untuk posting ini. Komentar diambil hanya untuk
+              posting yang dinilai relevan (5 credit per posting).
+            </p>
+          )}
+          {comments?.comments.map((c) => (
+            <div key={c.id} className="comment">
+              <span className="comment-author">@{c.author ?? "anonim"}</span>
+              <p className="comment-text">{c.text}</p>
+              <span className="muted small">
+                {formatTime(c.published_at) ?? ""}
+                {c.is_relevant === true ? " · relevan" : c.is_relevant === false ? " · tidak relevan" : ""}
+                {c.url ? (
+                  <>
+                    {" · "}
+                    <a href={c.url} target="_blank" rel="noreferrer">sumber ↗</a>
+                  </>
+                ) : null}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </li>
   );
 }

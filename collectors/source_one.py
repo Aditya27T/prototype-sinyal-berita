@@ -86,10 +86,20 @@ def _latest_snapshot_date() -> str | None:
     return files[-1].stem.removeprefix("instagram_") if files else None
 
 
+def _fresh_days() -> int:
+    """Jendela kesegaran data: berapa hari ke belakang posting diterima.
+
+    Default 3 hari, supaya filter tanggal di web ("hari ini", "2 hari lalu",
+    "beberapa hari") punya isi. Menambah angka ini TIDAK menambah credit:
+    satu halaman profile/posts sudah memuat beberapa hari posting.
+    """
+    return max(1, int(os.getenv("COLLECT_FRESH_DAYS", "3")))
+
+
 def _since_date() -> str:
-    """Batas `since`; THREADS_SINCE_DAYS mundurkan bila akun belum posting hari ini."""
-    days = int(os.getenv("THREADS_SINCE_DAYS", "0"))
-    return (date.fromisoformat(_today_wib()) - timedelta(days=days)).isoformat()
+    """Batas `since`; mengikuti jendela kesegaran atau THREADS_SINCE_DAYS."""
+    days = int(os.getenv("THREADS_SINCE_DAYS", str(_fresh_days() - 1)))
+    return (date.fromisoformat(_today_wib()) - timedelta(days=max(0, days))).isoformat()
 
 
 def _snapshot_file() -> Path:
@@ -150,6 +160,14 @@ def _post_dt(item: dict) -> datetime | None:
 
 def _is_today_wib(dt: datetime | None) -> bool:
     return dt is not None and dt.astimezone(WIB).date().isoformat() == _today_wib()
+
+
+def _is_fresh_wib(dt: datetime | None) -> bool:
+    """Dalam jendela `_fresh_days()` hari terakhir — dipakai untuk menghentikan paging."""
+    if dt is None:
+        return False
+    cutoff = date.fromisoformat(_today_wib()) - timedelta(days=_fresh_days() - 1)
+    return dt.astimezone(WIB).date() >= cutoff
 
 
 def _unwrap(item: dict) -> dict:
@@ -221,10 +239,10 @@ def _fetch_socialcrawl(handle: str) -> list[dict] | None:
                 resp.raise_for_status()
                 page, cursor = _items_and_cursor(resp.json())
                 items.extend(page)
-                # berhenti bila satu halaman tak berisi posting hari ini (pinned post bisa lama,
-                # jadi jangan berhenti di posting lama pertama)
+                # berhenti bila satu halaman tak berisi posting yang masih dalam jendela
+                # kesegaran (pinned post bisa lama, jadi jangan berhenti di posting lama pertama)
                 if not cursor or not any(
-                    _is_today_wib(_post_dt(_unwrap(i))) for i in page
+                    _is_fresh_wib(_post_dt(_unwrap(i))) for i in page
                 ):
                     break
     except Exception as e:
@@ -234,7 +252,11 @@ def _fetch_socialcrawl(handle: str) -> list[dict] | None:
 
 
 def _fetch_ig_hashtag(tag: str) -> list[dict] | None:
-    """Feed #tag terbaru IG (type=recent, satu-satunya type yang bisa paging)."""
+    """Feed #tag terbaru IG (type=recent). Tidak dipakai lagi — hashtag IG dihapus dari config.
+
+    Fungsinya dibiarkan agar `source_type: hashtag` di config lama tidak gagal diam-diam;
+    jangan menambahkan sumber IG lewat hashtag (5 credit/halaman, isinya bukan isu publik).
+    """
     creds = _api()
     if not creds:
         return None
@@ -253,7 +275,7 @@ def _fetch_ig_hashtag(tag: str) -> list[dict] | None:
                 page, cursor = _items_and_cursor(resp.json())
                 items.extend(page)
                 if not cursor or not any(
-                    _is_today_wib(_post_dt(_unwrap(i))) for i in page
+                    _is_fresh_wib(_post_dt(_unwrap(i))) for i in page
                 ):
                     break
     except Exception as e:
@@ -482,12 +504,16 @@ def _source_key(source: dict) -> str:
 
 
 def _fresh_enough(post: Post, platform: str) -> bool:
-    """Instagram: hanya hari ini. Threads: sejak `since` (bisa dimundurkan untuk demo)."""
+    """Terima posting dalam jendela `_fresh_days()` hari terakhir (WIB).
+
+    Dulu Instagram dibatasi "hari ini" saja; sekarang jendela widened supaya
+    filter tanggal di web punya isi. Instagram: satu halaman profile/posts sudah
+    memuat beberapa hari, jadi tidak menambah credit.
+    """
     if post.published_at is None:
         return False
-    if platform == "threads":
-        return post.published_at.astimezone(WIB).date() >= date.fromisoformat(_since_date())
-    return _is_today_wib(post.published_at)
+    cutoff = date.fromisoformat(_today_wib()) - timedelta(days=_fresh_days() - 1)
+    return post.published_at.astimezone(WIB).date() >= cutoff
 
 
 def _threads_account_posts(handle: str, replies: bool) -> list[Post]:
@@ -550,8 +576,9 @@ def _source_posts(source: dict) -> list[Post]:
         items = _fetch_socialcrawl(value.lstrip("@"))
         sq: str = value.lstrip("@")
     elif (platform, stype) == ("instagram", "hashtag"):
-        items = _fetch_ig_hashtag(value)
-        sq = f"#{value.lstrip('#')}"
+        print(f"[collector] PERINGATAN: source_type hashtag IG sudah dinonaktifkan ({value}) — dilewati")
+        _cache[key] = []
+        return []
     elif (platform, stype) == ("threads", "account"):
         handle = value.lstrip("@")
         _cache[key] = _threads_account_posts(handle, bool(source.get("replies")))

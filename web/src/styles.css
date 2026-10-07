@@ -320,3 +320,12 @@ aside { display: grid; gap: 12px; position: sticky; top: 16px; }
 
 /* badge urgency kecil di tombol filter */
 .urgency.mini { display: inline-block; min-width: 18px; padding: 0 6px; font-size: 12px; line-height: 18px; text-align: center; }
+
+/* Dropdown komentar/balasan per posting */
+.post-actions { display: inline-flex; gap: 12px; align-items: center; }
+.comments { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); display: grid; gap: 8px; }
+.comment { background: var(--neutral-soft); border-radius: 8px; padding: 8px 10px; }
+.comment-author { font-weight: 600; font-size: 12px; }
+.comment-text { margin: 2px 0 4px; font-size: 14px; overflow-wrap: anywhere; }
+.comment .small { font-size: 11px; }
+.alert.inline { display: block; padding: 6px 10px; font-size: 12px; }

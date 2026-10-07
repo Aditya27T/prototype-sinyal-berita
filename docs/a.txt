@@ -1,0 +1,193 @@
+Tergantung mau lihat apa:
+
+Tidak perlu make pipeline kalau tujuannya cuma mengecek fitur baru (PDF, filter urgency, filter platform, narasi). Data 6 Oktober sudah lengkap di DB: 60 posting, 15 event, laporan draf dengan narasi Gemini. Cukup make web.
+
+Perlu make pipeline kalau mau data hari ini (7 Oktober) dan membuktikan dua hal yang belum pernah terjadi di data nyata: balasan Threads dan komentar IG masuk DB (sekarang replies = 0). Biayanya ±40–85 credit SocialCrawl (IG 10–15, Threads akun + balasan 5–15, tag 2–4, komentar IG 3 posting × 5 = 15), plus panggilan Gemini untuk relevance (±60) dan insight (±16). Cek saldo dulu — kalau sisa credit gratis sudah di bawah 85, turunkan IG_COMMENTS_MAX_POSTS=1 di .env atau beli Starter.
+
+Urutan kalau mau run hari ini:
+
+
+make pipeline                 # collect + relevance (pakai credit)
+make insight                  # cluster → LLM merge → narasi → draf laporan 2026-10-07
+make web                      # lalu cek tab Event / Laporan → Unduh PDF
+Catatan: ada snapshot instagram_2026-10-07.json berisi IG saja (dari run jam 06.01 tadi, tanpa Threads) — make pipeline akan menimpanya dengan data lengkap, tidak masalah.
+
+Kalau cuma mau demo tanpa credit: make demo DATE=2026-10-06.
+
+
+
+run.py
+oke bisa jelaskan peran lang graph dan beberapa pipelinnya gimana alurnya sistemnya dan bagaimana clusternya da bagaimana jalannya
+Berikut peta sistemnya dari ujung ke ujung. Ada dua "mesin" yang berbeda sifatnya: pipeline ingest (loop Python biasa) dan insight graph (LangGraph).
+
+1. Alur besar
+
+make pipeline                                   make insight                         make web
+┌──────────────────────────────────────┐   ┌──────────────────────────────────┐   ┌──────────────┐
+│ INGEST  (pipeline/run.py, loop)      │   │ INSIGHT (graph/insight_graph.py) │   │ API + web    │
+│ collect → clean → dedup → insert     │──▶│ LangGraph serial, 6 node         │──▶│ Event,       │
+│ → analyze (relevance) → komentar IG  │   │ cluster → merge LLM → narasi     │   │ Laporan, PDF │
+└──────────────────────────────────────┘   └──────────────────────────────────┘   └──────────────┘
+          tabel: posts, post_analysis              tabel: events, event_posts, reports
+Keduanya hanya bertemu lewat database. Insight tidak pernah memanggil collector; ia membaca posts yang sudah berlabel relevan.
+
+2. Pipeline ingest — pipeline/run.py
+Loop sederhana per posting, idempotent:
+
+collect(query) — collectors/source_one.py. Untuk tiap seed lokasi, semua source aktif di config/sources.yaml ditarik (di-cache per proses, jadi credit terpakai sekali per run): IG akun + #malang, Threads 5 akun berita + balasan warga (kind=reply, parent_post_id), Threads tag (search lalu disaring topic_tag).
+clean → dedup_key — buang kosong, cek UNIQUE(platform, platform_post_id); posting yang sudah ada dan sudah dianalisis dilewati.
+insert PostRow, balasan dihubungkan ke induknya (parent_post_id).
+analyze(post) — ai/relevance.py: Gemini (3 key bergilir) memberi is_relevant, location, issue_hint; fallback heuristic berlabel jujur.
+enrich_ig_comments — hanya untuk posting IG yang baru dinilai relevan: ambil komentar teratas (5 credit/posting, maks 3), simpan sebagai kind=reply.
+Kenapa ini bukan LangGraph: alurnya linear dan deterministik; graph tidak menambah apa pun di sini (roadmap Fase 1 baru memindahkannya kalau perlu retry/resume/paralel).
+
+3. Insight graph — LangGraph (graph/insight_graph.py)
+Peran LangGraph: memisahkan tahapan menjadi node dengan state bersama, sehingga tiap langkah bisa diganti/diuji sendiri dan nanti bisa diberi checkpoint, retry, dan interrupt() untuk persetujuan operator. Sekarang dipakai dalam bentuk paling sederhana: StateGraph serial, state = InsightState (window_date, posts, drafts, events, report_id, session).
+
+
+fetch_relevant ─▶ cluster_rule ─▶ merge_llm ─▶ analyze_events ─▶ persist ─▶ draft_report
+Node	Yang dilakukan	Sumber
+fetch_relevant	ambil posting relevan di tanggal window + semua balasan/komentar yang induknya relevan (walau balasannya sendiri tak menyebut lokasi); balasan mewarisi lokasi/hint induk	DB
+cluster_rule	clustering tahap 1 (aturan, lihat §4) → EventDraft[]	kode
+merge_llm	clustering tahap 2: Gemini menyatukan kandidat yang satu konteks berita	1 panggilan LLM / ≤25 kandidat
+analyze_events	per event: kelas isu (13 kelas), urgency 1–5, dan narasi laporan (judul, ringkasan, sentimen, level perhatian, potensi, rekomendasi, status); eksposur dihitung dari data	1 panggilan LLM / event
+persist	upsert events + event_posts per key; event lama di window yang tak lagi dihasilkan dihapus (hasil = clustering terbaru, tidak menumpuk)	DB
+draft_report	markdown ala contohlaporan.md, satu bagian per isu, status draft	template
+4. Clustering — dua tahap
+Tahap 1, aturan (cluster_rule + merge_similar):
+
+Satu utas = satu kandidat: posting induk + semua balasan/komentarnya (lewat parent_post_id). Komentar tidak pernah jadi event sendiri.
+Kandidat digabung bila: teks hampir identik (Jaccard ≥ 0,25 — repost berita yang sama), atau lokasi spesifik (nama kecamatan dari locations.yaml) dan kelas isu sama. Dua kecamatan berbeda tidak pernah digabung oleh aturan.
+Saat LLM aktif, aturan teks yang lebih longgar (token langka, lokasi-disebut) dimatikan — itu diserahkan ke tahap 2 supaya tidak salah gabung.
+Tahap 2, LLM (merge_events_llm, prompt ai/prompts/event_merge.txt):
+
+Semua kandidat sehari dikirim sekali (label lokasi, hint, sumber, cuplikan teks). LLM menilai dari isi teks, bukan label: "video konvoi di Suhat" dan "laka Jalan Veteran di Klojen" adalah kejadian yang sama.
+Hanya grup dengan confidence ≥ 0,7 yang diterapkan; LLM juga menetapkan lokasi kanonik. Kemarin: 18 kandidat → 15 event, kecelakaan Veteran jadi 1 event dengan 6 posting lintas IG + Threads.
+Key event = lokasi|hint|tanggal|hash(post_ids) — unik walau dua berita Pemkot punya lokasi + hint sama.
+Kalau LLM tidak tersedia (kuota habis / AI_PROVIDER=heuristic), tahap 2 dilewati dan aturan teks longgar dipakai kembali — hasil lebih kasar tapi demo tetap jalan.
+
+5. Cara menjalankan
+
+make pipeline      # tarik data hari ini + relevance + komentar IG   (pakai credit)
+make insight       # graph: cluster → merge → narasi → draf laporan  (DATE=YYYY-MM-DD untuk hari lain)
+make web           # API (--reload) + web; tab Event, Laporan, Unduh PDF (tanpa Rekomendasi)
+make demo          # tanpa credit: snapshot → insight → web; otomatis pakai snapshot terbaru
+make test
+Run ulang make insight di hari yang sama aman: event diperbarui, yang tergabung dihapus, draf laporan ditimpa (kecuali sudah approved → dibuat draf baru).
+
+6. Pagar yang berlaku di semua tahap
+Credit: snapshot per source/posting (fixtures/instagram_<tgl>.json) → run ulang dan mode offline tidak membayar lagi.
+LLM: 3 key Gemini bergilir, 429 → pindah key; semua habis → heuristic dengan label heuristic-fallback.
+Teks posting diperlakukan sebagai data di semua prompt (anti prompt-injection).
+Yang belum ada (roadmap): checkpointer/resume dan interrupt() persetujuan di graph, MCP enrich saat cluster terbentuk, PDF via cron harian.
+
+
+
+run.py
+berita yang sebelumnya apakaha akan terhapus?
+Tidak. Berita (posting) tidak pernah dihapus — yang bisa berubah hanya pengelompokannya.
+
+Tabel	Saat make pipeline ulang	Saat make insight ulang
+posts + post_analysis (berita & labelnya)	hanya ditambah; yang sudah ada dilewati (idempotent)	tidak disentuh
+events + event_posts (cluster)	tidak disentuh	hanya untuk tanggal yang dijalankan: event dibentuk ulang dari semua posting hari itu; event lama yang tak lagi dihasilkan (karena tergabung) dihapus, postingnya tetap ada dan masuk ke event baru
+reports	tidak disentuh	draf hari itu ditimpa; laporan yang sudah approved tidak diubah — dibuat draf baru
+Jadi make insight --date 2026-10-07 tidak menyentuh event dan laporan 6 Oktober sama sekali; tiap tanggal berdiri sendiri. Dan event bukan data asli — ia turunan yang bisa dibentuk ulang kapan saja dari posts.
+
+Satu-satunya yang menghapus data asli adalah make db-reset (hapus signyal.db), dan itu tidak dipanggil oleh target lain. Snapshot mentah di fixtures/instagram_<tanggal>.json juga tidak dihapus; run di hari yang sama hanya menambah/memperbarui kunci per source.
+
+Tergantung mau lihat apa:
+
+Tidak perlu make pipeline kalau tujuannya cuma mengecek fitur baru (PDF, filter urgency, filter platform, narasi). Data 6 Oktober sudah lengkap di DB: 60 posting, 15 event, laporan draf dengan narasi Gemini. Cukup make web.
+
+Perlu make pipeline kalau mau data hari ini (7 Oktober) dan membuktikan dua hal yang belum pernah terjadi di data nyata: balasan Threads dan komentar IG masuk DB (sekarang replies = 0). Biayanya ±40–85 credit SocialCrawl (IG 10–15, Threads akun + balasan 5–15, tag 2–4, komentar IG 3 posting × 5 = 15), plus panggilan Gemini untuk relevance (±60) dan insight (±16). Cek saldo dulu — kalau sisa credit gratis sudah di bawah 85, turunkan IG_COMMENTS_MAX_POSTS=1 di .env atau beli Starter.
+
+Urutan kalau mau run hari ini:
+
+
+make pipeline                 # collect + relevance (pakai credit)
+make insight                  # cluster → LLM merge → narasi → draf laporan 2026-10-07
+make web                      # lalu cek tab Event / Laporan → Unduh PDF
+Catatan: ada snapshot instagram_2026-10-07.json berisi IG saja (dari run jam 06.01 tadi, tanpa Threads) — make pipeline akan menimpanya dengan data lengkap, tidak masalah.
+
+Kalau cuma mau demo tanpa credit: make demo DATE=2026-10-06.
+
+
+
+run.py
+oke bisa jelaskan peran lang graph dan beberapa pipelinnya gimana alurnya sistemnya dan bagaimana clusternya da bagaimana jalannya
+Berikut peta sistemnya dari ujung ke ujung. Ada dua "mesin" yang berbeda sifatnya: pipeline ingest (loop Python biasa) dan insight graph (LangGraph).
+
+1. Alur besar
+
+make pipeline                                   make insight                         make web
+┌──────────────────────────────────────┐   ┌──────────────────────────────────┐   ┌──────────────┐
+│ INGEST  (pipeline/run.py, loop)      │   │ INSIGHT (graph/insight_graph.py) │   │ API + web    │
+│ collect → clean → dedup → insert     │──▶│ LangGraph serial, 6 node         │──▶│ Event,       │
+│ → analyze (relevance) → komentar IG  │   │ cluster → merge LLM → narasi     │   │ Laporan, PDF │
+└──────────────────────────────────────┘   └──────────────────────────────────┘   └──────────────┘
+          tabel: posts, post_analysis              tabel: events, event_posts, reports
+Keduanya hanya bertemu lewat database. Insight tidak pernah memanggil collector; ia membaca posts yang sudah berlabel relevan.
+
+2. Pipeline ingest — pipeline/run.py
+Loop sederhana per posting, idempotent:
+
+collect(query) — collectors/source_one.py. Untuk tiap seed lokasi, semua source aktif di config/sources.yaml ditarik (di-cache per proses, jadi credit terpakai sekali per run): IG akun + #malang, Threads 5 akun berita + balasan warga (kind=reply, parent_post_id), Threads tag (search lalu disaring topic_tag).
+clean → dedup_key — buang kosong, cek UNIQUE(platform, platform_post_id); posting yang sudah ada dan sudah dianalisis dilewati.
+insert PostRow, balasan dihubungkan ke induknya (parent_post_id).
+analyze(post) — ai/relevance.py: Gemini (3 key bergilir) memberi is_relevant, location, issue_hint; fallback heuristic berlabel jujur.
+enrich_ig_comments — hanya untuk posting IG yang baru dinilai relevan: ambil komentar teratas (5 credit/posting, maks 3), simpan sebagai kind=reply.
+Kenapa ini bukan LangGraph: alurnya linear dan deterministik; graph tidak menambah apa pun di sini (roadmap Fase 1 baru memindahkannya kalau perlu retry/resume/paralel).
+
+3. Insight graph — LangGraph (graph/insight_graph.py)
+Peran LangGraph: memisahkan tahapan menjadi node dengan state bersama, sehingga tiap langkah bisa diganti/diuji sendiri dan nanti bisa diberi checkpoint, retry, dan interrupt() untuk persetujuan operator. Sekarang dipakai dalam bentuk paling sederhana: StateGraph serial, state = InsightState (window_date, posts, drafts, events, report_id, session).
+
+
+fetch_relevant ─▶ cluster_rule ─▶ merge_llm ─▶ analyze_events ─▶ persist ─▶ draft_report
+Node	Yang dilakukan	Sumber
+fetch_relevant	ambil posting relevan di tanggal window + semua balasan/komentar yang induknya relevan (walau balasannya sendiri tak menyebut lokasi); balasan mewarisi lokasi/hint induk	DB
+cluster_rule	clustering tahap 1 (aturan, lihat §4) → EventDraft[]	kode
+merge_llm	clustering tahap 2: Gemini menyatukan kandidat yang satu konteks berita	1 panggilan LLM / ≤25 kandidat
+analyze_events	per event: kelas isu (13 kelas), urgency 1–5, dan narasi laporan (judul, ringkasan, sentimen, level perhatian, potensi, rekomendasi, status); eksposur dihitung dari data	1 panggilan LLM / event
+persist	upsert events + event_posts per key; event lama di window yang tak lagi dihasilkan dihapus (hasil = clustering terbaru, tidak menumpuk)	DB
+draft_report	markdown ala contohlaporan.md, satu bagian per isu, status draft	template
+4. Clustering — dua tahap
+Tahap 1, aturan (cluster_rule + merge_similar):
+
+Satu utas = satu kandidat: posting induk + semua balasan/komentarnya (lewat parent_post_id). Komentar tidak pernah jadi event sendiri.
+Kandidat digabung bila: teks hampir identik (Jaccard ≥ 0,25 — repost berita yang sama), atau lokasi spesifik (nama kecamatan dari locations.yaml) dan kelas isu sama. Dua kecamatan berbeda tidak pernah digabung oleh aturan.
+Saat LLM aktif, aturan teks yang lebih longgar (token langka, lokasi-disebut) dimatikan — itu diserahkan ke tahap 2 supaya tidak salah gabung.
+Tahap 2, LLM (merge_events_llm, prompt ai/prompts/event_merge.txt):
+
+Semua kandidat sehari dikirim sekali (label lokasi, hint, sumber, cuplikan teks). LLM menilai dari isi teks, bukan label: "video konvoi di Suhat" dan "laka Jalan Veteran di Klojen" adalah kejadian yang sama.
+Hanya grup dengan confidence ≥ 0,7 yang diterapkan; LLM juga menetapkan lokasi kanonik. Kemarin: 18 kandidat → 15 event, kecelakaan Veteran jadi 1 event dengan 6 posting lintas IG + Threads.
+Key event = lokasi|hint|tanggal|hash(post_ids) — unik walau dua berita Pemkot punya lokasi + hint sama.
+Kalau LLM tidak tersedia (kuota habis / AI_PROVIDER=heuristic), tahap 2 dilewati dan aturan teks longgar dipakai kembali — hasil lebih kasar tapi demo tetap jalan.
+
+5. Cara menjalankan
+
+make pipeline      # tarik data hari ini + relevance + komentar IG   (pakai credit)
+make insight       # graph: cluster → merge → narasi → draf laporan  (DATE=YYYY-MM-DD untuk hari lain)
+make web           # API (--reload) + web; tab Event, Laporan, Unduh PDF (tanpa Rekomendasi)
+make demo          # tanpa credit: snapshot → insight → web; otomatis pakai snapshot terbaru
+make test
+Run ulang make insight di hari yang sama aman: event diperbarui, yang tergabung dihapus, draf laporan ditimpa (kecuali sudah approved → dibuat draf baru).
+
+6. Pagar yang berlaku di semua tahap
+Credit: snapshot per source/posting (fixtures/instagram_<tgl>.json) → run ulang dan mode offline tidak membayar lagi.
+LLM: 3 key Gemini bergilir, 429 → pindah key; semua habis → heuristic dengan label heuristic-fallback.
+Teks posting diperlakukan sebagai data di semua prompt (anti prompt-injection).
+Yang belum ada (roadmap): checkpointer/resume dan interrupt() persetujuan di graph, MCP enrich saat cluster terbentuk, PDF via cron harian.
+
+
+
+run.py
+berita yang sebelumnya apakaha akan terhapus?
+Tidak. Berita (posting) tidak pernah dihapus — yang bisa berubah hanya pengelompokannya.
+
+Tabel	Saat make pipeline ulang	Saat make insight ulang
+posts + post_analysis (berita & labelnya)	hanya ditambah; yang sudah ada dilewati (idempotent)	tidak disentuh
+events + event_posts (cluster)	tidak disentuh	hanya untuk tanggal yang dijalankan: event dibentuk ulang dari semua posting hari itu; event lama yang tak lagi dihasilkan (karena tergabung) dihapus, postingnya tetap ada dan masuk ke event baru
+reports	tidak disentuh	draf hari itu ditimpa; laporan yang sudah approved tidak diubah — dibuat draf baru
+Jadi make insight --date 2026-10-07 tidak menyentuh event dan laporan 6 Oktober sama sekali; tiap tanggal berdiri sendiri. Dan event bukan data asli — ia turunan yang bisa dibentuk ulang kapan saja dari posts.
+
+bisa kamu buat md unutk dokumentasi di @docs/ 

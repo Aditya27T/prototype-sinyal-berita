@@ -167,6 +167,13 @@ def test_config_sources_have_no_threads_search():
     assert len(accounts) == 5 and all(s["replies"] for s in accounts)
     assert {s["source_value"] for s in tags} == {"malang", "karangploso malang"}
 
+
+def test_config_has_no_instagram_hashtag():
+    """Feed hashtag IG dihapus 6 Okt 2026: 5 credit/halaman, isinya bukan isu publik."""
+    sources = so._load_sources()
+    assert not any(s["platform"] == "instagram" and s["source_type"] == "hashtag" for s in sources)
+    assert len([s for s in sources if s["platform"] == "instagram"]) == 3
+
 def test_all_replies_emitted_when_limit_reached(monkeypatch):
     """Regresi: dulu loop output berhenti begitu jumlah induk ber-balasan mencapai batas → 0 balasan."""
     _reset(monkeypatch)

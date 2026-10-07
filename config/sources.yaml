@@ -2,12 +2,15 @@
 # Instagram & Threads via SocialCrawl API (key di .env: SOCIALCRAWL_API_KEY).
 # source_type:
 #   account  = posting terbaru hari ini dari akun publik
-#   hashtag  = feed #tag terbaru IG, type=recent (5 credit/halaman)
 #   tag      = posting Threads yang topic_tag-nya persis tag ini (1–2 credit/tag).
 #              SocialCrawl tidak punya feed tag: threads/search query=<tag> lalu
 #              disaring klien di _fetch_threads_tag (ext.topic_tag == tag).
 # Threads TIDAK pakai keyword search lagi: noise jual-beli, dan tidak membedakan
 # warga yang benar-benar memakai tag dari sekadar menyebut kata.
+#
+# INSTAGRAM HASHTAG DIHAPUS (6 Okt 2026): feed #malang 5 credit/halaman dan isinya
+# didominasi unggahan=jual-beli/fashion, bukan isu publik. Sumber IG sekarang hanya
+# 3 akun berita resmi + komentar teratas posting yang relevan (lihat pipeline).
 sources:
   - platform: instagram
     source_type: account
@@ -21,11 +24,6 @@ sources:
     source_type: account
     source_value: jawaposradarmalang
     active: true
-  - platform: instagram
-    source_type: hashtag
-    source_value: malang
-    active: true
-
   # Threads: posting hari ini dari akun berita + balasan warga (utas)
   - platform: threads
     source_type: account
